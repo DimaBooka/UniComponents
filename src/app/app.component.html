@@ -1,15 +1,18 @@
-<ul>
-  <li [routerLink]="['login']">login</li>
-  <li [routerLink]="['partners']">partner</li>
-  <li [routerLink]="['partners/partner', 1]">partner/:id</li>
-  <li [routerLink]="['games']">game</li>
-  <li [routerLink]="['games/game', 2]">game/:id</li>
-  <li [routerLink]="['games/partner']">game/partner</li>
-  <li [routerLink]="['games/partner', 3]">game/partner/:id</li>
-  <li [routerLink]="['games/config']">game/config</li>
-  <li [routerLink]="['games/config', 4]">game/config/:id</li>
-  <li [routerLink]="['users']">users</li>
-  <li [routerLink]="['users/user', 5]">users/:id</li>
-</ul>
+<div class="total-wrapper">
+  <ul *ngIf="showSideBar">
+    <li [routerLink]="['login']">login</li>
+    <li [routerLink]="['partners']">partner</li>
+    <li [routerLink]="['partners/partner', 1]">partner/:id</li>
+    <li [routerLink]="['games']">game</li>
+    <li [routerLink]="['games/game', 2]">game/:id</li>
+    <li [routerLink]="['games/partner']">game/partner</li>
+    <li [routerLink]="['games/partner', 3]">game/partner/:id</li>
+    <li [routerLink]="['games/config']">game/config</li>
+    <li [routerLink]="['games/config', 4]">game/config/:id</li>
+    <li [routerLink]="['users']">users</li>
+    <li [routerLink]="['users/user', 5]">users/:id</li>
+    <li (click)="usersService.logout()">logout</li>
+  </ul>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

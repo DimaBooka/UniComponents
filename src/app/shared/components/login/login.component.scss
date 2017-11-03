@@ -1,0 +1,30 @@
+@import "../../styles/form-inputs";
+
+.container {
+  height: 100vh;
+
+  .login-holder {
+    width: 400px;
+    padding: 37px 37px 25px 37px;
+    background-color: $extra-dark-black;
+
+    .btn {
+      width: 150px;
+      margin-top: 8px;
+    }
+
+    .logo-holder {
+      margin-bottom: 25px;
+    }
+
+    .form-holder {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 576px){
+  .container {
+    padding: 0;
+  }
+}

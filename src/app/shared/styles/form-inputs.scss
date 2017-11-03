@@ -1,0 +1,38 @@
+@import "./variables";
+
+.shadow {
+  box-shadow: 0 0 15px $shadows-grey;
+}
+
+
+.form-group {
+  width: 100%;
+
+  .form-control {
+    color: $light-white;
+    background-color: $dark-grey;
+    border: 1px solid $dark-grey;
+    border-radius: 0;
+
+    &:focus {
+      border-color: $light-white;
+    }
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0;
+
+  background: $dark-grey;
+
+  &:hover {
+    background: $deep-red;
+    transition: all .4s ease 0s;
+  }
+
+  &.btn-primary:hover {
+    background: $deep-blue;
+  }
+}
