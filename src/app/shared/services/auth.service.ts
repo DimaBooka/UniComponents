@@ -30,6 +30,6 @@ export class AuthService {
   }
 
   clearUserInfo() {
-    this.localStorage.clear('token');
+    this.localStorage.clear('user');
   }
 }

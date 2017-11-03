@@ -1,0 +1,93 @@
+@import "../../styles/variables";
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  z-index: 100;
+  background-color: $extra-dark-grey;
+
+  .logo {
+    cursor: pointer;
+    outline: none;
+    background-color: $extra-dark-black;
+    height: 200px;
+
+    img {
+      height: 100px;
+      width: auto;
+    }
+  }
+
+  .nav-item {
+    cursor: pointer;
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: $light-white;
+      padding: 10px 0 10px 45px;
+
+      &.active, &:hover {
+        background-color: $extra-dark-black;
+        border-radius: 0;
+      }
+
+      &.active {
+        color: $deep-red;
+      }
+    }
+  }
+}
+
+.toggler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  background-color: $extra-dark-grey;
+  z-index: 110;
+
+  img {
+    height: 36px;
+    margin: 2px;
+  }
+}
+
+@media screen {
+  .sidebar {
+    position: fixed;
+  }
+}
+
+.animate {
+  -webkit-transition: left 0.3s ease-out 0.3s;
+  -moz-transition: left 0.3s ease-out 0.3s;
+  -o-transition: left 0.3s ease-out 0.3s;
+  transition: left 0.3s ease-out 0.3s;
+}
+
+.hide-menu {
+  left: -200px;
+}
+
+.show-menu {
+  left: 0;
+}
+
+.move-right {
+  left: 200px;
+  opacity: 0.8;
+}
+
+.move-left {
+  left: 0;
+}
+
+.space {
+  width: 200px;
+  height: 100%;
+}

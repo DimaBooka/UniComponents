@@ -16,6 +16,7 @@ import { Ng2Webstorage } from 'ngx-webstorage';
 import { UsersService } from './services/users.service';
 import { GamesService } from './services/games.service';
 import { PartnersService } from './services/partners.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -27,11 +28,13 @@ import { PartnersService } from './services/partners.service';
   ],
   declarations: [
     LoginComponent,
-    NoContentComponent
+    NoContentComponent,
+    SidebarComponent
   ],
   exports: [
     LoginComponent,
-    NoContentComponent
+    NoContentComponent,
+    SidebarComponent
   ],
   providers: [
     {

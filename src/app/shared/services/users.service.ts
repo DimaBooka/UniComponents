@@ -50,7 +50,8 @@ export class UsersService {
   getUserDetail() {
     return this.http.get(USER_INFO)
       .map(resp => {
-        this.authService.setUserInfo(resp.json());
+        resp = resp.json();
+        this.authService.setUserInfo(resp);
         this.isLogged.next(true);
         return resp;
       });

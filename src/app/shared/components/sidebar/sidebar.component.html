@@ -1,0 +1,57 @@
+<!--<ul *ngIf="showSideBar">-->
+  <!--<li [routerLink]="['login']">login</li>-->
+  <!--<li [routerLink]="['partners']">partner</li>-->
+  <!--<li [routerLink]="['partners/partner', 1]">partner/:id</li>-->
+  <!--<li [routerLink]="['games']">game</li>-->
+  <!--<li [routerLink]="['games/game', 2]">game/:id</li>-->
+  <!--<li [routerLink]="['games/partner']">game/partner</li>-->
+  <!--<li [routerLink]="['games/partner', 3]">game/partner/:id</li>-->
+  <!--<li [routerLink]="['games/config']">game/config</li>-->
+  <!--<li [routerLink]="['games/config', 4]">game/config/:id</li>-->
+  <!--<li [routerLink]="['users']">users</li>-->
+  <!--<li [routerLink]="['users/user', 5]">users/:id</li>-->
+  <!--<li (click)="usersService.logout()">logout</li>-->
+<!--</ul>-->
+<nav *ngIf="loggedIn" class="d-flex flex-column align-items-between d-xs-block sidebar animate" [ngClass]="{'hide-menu': !showSideBar, 'show-menu': showSideBar }">
+
+  <div>
+    <div class="logo d-flex align-items-center justify-content-center" routerLink="games" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact:true}">
+      <img src="/assets/images/hydra_mini.png" alt="">
+    </div>
+
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="games" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">Partners</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="games/partner" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Games Partners</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="games/config" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Games Config</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="partners" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Partners</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="users" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Users</a>
+      </li>
+      <li class="nav-item" (click)="usersService.logout()">
+        <a class="nav-link">Logout</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+
+<div *ngIf="loggedIn" class="toggler animate d-xs-block d-sm-block d-md-none d-lg-none d-xl-none" (click)="showSideBar = !showSideBar"
+     [ngClass]="{'move-left': !showSideBar, 'move-right': showSideBar }">
+  <img [src]="showSideBar ? '/assets/images/courses_close.svg' : '/assets/images/hydra_mini.png'" alt="">
+</div>
+
+<div *ngIf="loggedIn" class="space d-none d-sm-none d-md-block d-lg-block d-xl-block"></div>
