@@ -1,0 +1,11 @@
+.list-partners-holder.row {
+  margin: 0;
+
+  .list-partner {
+    padding: 20px;
+
+    app-card {
+      cursor: pointer;
+    }
+  }
+}

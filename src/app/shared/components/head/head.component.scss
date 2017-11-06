@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+
+.head {
+  padding: 15px 20px;
+  margin: 20px;
+  margin-bottom: 10px;
+  background: $extra-dark-grey;
+  box-shadow: 0 0 5px 0  $extra-dark-black;
+
+  .head-text {
+    font-weight: 400;
+    font-size: 20px;
+  }
+}

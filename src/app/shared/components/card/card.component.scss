@@ -1,0 +1,10 @@
+@import "../../../shared/styles/variables";
+
+.card-holder {
+  padding: 15px 20px;
+  background-color: $extra-dark-grey;
+  box-shadow: 0 0 5px 0  $extra-dark-black;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

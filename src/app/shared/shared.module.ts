@@ -17,6 +17,8 @@ import { UsersService } from './services/users.service';
 import { GamesService } from './services/games.service';
 import { PartnersService } from './services/partners.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CardComponent } from './components/card/card.component';
+import { HeadComponent } from './components/head/head.component';
 
 @NgModule({
   imports: [
@@ -29,12 +31,16 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   declarations: [
     LoginComponent,
     NoContentComponent,
-    SidebarComponent
+    SidebarComponent,
+    CardComponent,
+    HeadComponent
   ],
   exports: [
     LoginComponent,
     NoContentComponent,
-    SidebarComponent
+    SidebarComponent,
+    CardComponent,
+    HeadComponent
   ],
   providers: [
     {
