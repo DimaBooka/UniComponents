@@ -24,7 +24,8 @@
   padding: 10px 20px;
   border: none;
   border-radius: 0;
-
+  outline: none;
+  box-shadow: none;
   background: $dark-grey;
 
   &:hover {
@@ -34,5 +35,9 @@
 
   &.btn-primary:hover {
     background: $deep-blue;
+  }
+
+  &.small {
+    padding: 5px 10px;
   }
 }

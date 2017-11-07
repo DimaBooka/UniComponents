@@ -1,0 +1,7 @@
+{
+  "email": "test@test.com",
+  "password": "password",
+  "token": "token",
+  "available_currencies": ["USD"],
+  "sites": ["asasas.com", "qwqwqw.com"]
+}

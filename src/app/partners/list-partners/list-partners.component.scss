@@ -1,3 +1,5 @@
+@import "../../shared/styles/form-inputs";
+
 .list-partners-holder.row {
   margin: 0;
 
@@ -6,6 +8,20 @@
 
     app-card {
       cursor: pointer;
+    }
+  }
+}
+
+.create-partner {
+  &.modal-header, &.modal-body {
+    background-color: $extra-dark-grey;
+  }
+
+  &.modal-header {
+    border-bottom: 1px solid $extra-dark-black;
+
+    .modal-title {
+      font-weight: 400;
     }
   }
 }

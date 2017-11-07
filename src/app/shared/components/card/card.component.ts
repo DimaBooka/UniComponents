@@ -8,9 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CardComponent implements OnInit {
 
-  constructor(
-    public router: Router
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }

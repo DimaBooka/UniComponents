@@ -9,17 +9,23 @@ import { ListPartnersComponent } from './list-partners/list-partners.component';
 import { DetailPartnersComponent } from './detail-partners/detail-partners.component';
 
 import { PARTNERS_ROUTES } from './partners.routes';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PartnerInteractionComponent } from './partner-interaction/partner-interaction.component';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(PARTNERS_ROUTES),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
   declarations: [
     PartnersComponent,
     ListPartnersComponent,
-    DetailPartnersComponent
+    DetailPartnersComponent,
+    PartnerInteractionComponent
   ]
 })
 export class PartnersModule { }

@@ -1,5 +1,10 @@
 <div class="head">
-  <span class="head-text">{{ title }}</span>
-  <span *ngIf="subtitle">></span>
-  <span class="head-text" *ngIf="subtitle">{{ subtitle }}</span>
+  <div class="head-titles w-100 d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-start">
+      <span class="head-text">{{ title }}</span>
+      <span *ngIf="subtitle">></span>
+      <span class="head-text" *ngIf="subtitle">{{ subtitle }}</span>
+    </div>
+    <ng-content></ng-content>
+  </div>
 </div>

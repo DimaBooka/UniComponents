@@ -1,0 +1,42 @@
+<form class="form-holder d-flex flex-column align-items-center justify-content-center"
+      (submit)="onSubmitForm()" [formGroup]="partnerForm">
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="text" class="form-control" id="password" name="password" formControlName="password">
+  </div>
+
+  <div class="form-group">
+    <label for="token">Token</label>
+    <input type="text" class="form-control" id="token" name="token" formControlName="token">
+  </div>
+
+  <div class="form-group">
+    <label for="currencies">Available Currencies</label>
+    <select class="form-control" id="currencies" name="available_currencies" multiple formControlName="available_currencies">
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="UAH">UAH</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="sites">Sites</label>
+    <select class="form-control" id="sites" name="sites" multiple formControlName="sites">
+      <option value="asasas.com">asasas.com</option>
+      <option value="qwqwqw.com">qwqwqw.com</option>
+    </select>
+  </div>
+
+  <div class="d-flex align-items-end justify-content-end">
+    <input class="btn btn-primary" type="submit" value="Save">
+    <button class="btn" (click)="onCancelForm()">Cancel</button>
+  </div>
+</form>
+
+
