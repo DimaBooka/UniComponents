@@ -7,7 +7,7 @@ export const USERS = `${API_URL}/users`;
 
 export const PARTNERS = `${API_URL}/partner.json`;
 
-export const GAMES= `${API_URL}/game`;
+export const GAMES= `${API_URL}/game.json`;
 
 export const GAMES_PARTNERS = `${API_URL}/game_partner`;
 

@@ -13,12 +13,17 @@ import { ListCongifGamesComponent } from './list-congif-games/list-congif-games.
 import { DetailConfigGamesComponent } from './detail-config-games/detail-config-games.component';
 
 import { GAMES_ROUTES } from './games.routes';
+import { GameInteractionComponent } from './game-interaction/game-interaction.component';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(GAMES_ROUTES),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
   declarations: [
     GamesComponent,
@@ -27,7 +32,8 @@ import { GAMES_ROUTES } from './games.routes';
     ListPartnerGamesComponent,
     DetailPartnerGamesComponent,
     ListCongifGamesComponent,
-    DetailConfigGamesComponent
+    DetailConfigGamesComponent,
+    GameInteractionComponent
   ]
 })
 export class GamesModule { }

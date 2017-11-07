@@ -1,0 +1,7 @@
+{
+  "title": "game_title",
+  "description": "game_description",
+  "picture_url": "http://example.com/",
+  "game_url": "http://127.0.0.1/",
+  "secret_key": "key"
+}

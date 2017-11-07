@@ -20,6 +20,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CardComponent } from './components/card/card.component';
 import { HeadComponent } from './components/head/head.component';
 import { DetailPartnerResolver } from './resolvers/partner.resolver';
+import { DetailGameResolver } from './resolvers/game.resolver';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { DetailPartnerResolver } from './resolvers/partner.resolver';
     AuthService,
     GamesService,
     PartnersService,
-    DetailPartnerResolver
+    DetailPartnerResolver,
+    DetailGameResolver
   ]
 })
 export class SharedModule { }

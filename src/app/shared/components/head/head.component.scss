@@ -9,6 +9,15 @@
 
   .head-titles {
     min-height: 40px;
+
+    img {
+      height: 20px;
+    }
+
+    .with-pointer {
+      cursor: pointer;
+      outline: none;
+    }
   }
 
   .head-text {

@@ -1,8 +1,9 @@
 <div class="head">
   <div class="head-titles w-100 d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center justify-content-start">
-      <span class="head-text">{{ title }}</span>
-      <span *ngIf="subtitle">></span>
+      <span class="head-text" *ngIf="!link">{{ title }}</span>
+      <span class="head-text with-pointer" *ngIf="link" [routerLink]="[link]">{{ title }}</span>
+      <span *ngIf="subtitle"><img src="/assets/images/arrow.png" alt=""></span>
       <span class="head-text" *ngIf="subtitle">{{ subtitle }}</span>
     </div>
     <ng-content></ng-content>

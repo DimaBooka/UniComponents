@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeadComponent implements OnInit {
 
   @Input() title: string;
+  @Input() link: string;
   @Input() subtitle: string;
   constructor() { }
 
