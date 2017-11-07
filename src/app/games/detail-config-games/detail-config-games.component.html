@@ -1,3 +1,81 @@
-<p>
-  detail-config-games works!
-</p>
+<app-head title="Games Configs" link="/game_configs" [subtitle]="id"></app-head>
+
+<div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="gameConfig">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+    <app-card>
+
+      <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
+        <span class="label">Game</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.game}}</span>
+        </div>
+
+        <span class="label">Currency</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.currency}}</span>
+        </div>
+
+        <span class="label">Lobby URL</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.lobby_url }}</span>
+        </div>
+
+        <span class="label">Min Bet</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.min_bet }}</span>
+        </div>
+
+        <span class="label">Max Bet</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.max_bet }}</span>
+        </div>
+
+        <span class="label">Custom Config</span>
+        <div class="data-value w-100 d-flex align-items-center justify-content-center">
+          <span class="game-config-text">{{ gameConfig.custom_config }}</span>
+        </div>
+
+      </div>
+
+      <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+        <button class="btn btn-primary" (click)="openEditGameConfig(editGameConfig, false)">Edit</button>
+        <button class="btn" (click)="openEditGameConfig(deleteGameConfig, true)">Delete</button>
+      </div>
+
+    </app-card>
+  </div>
+</div>
+
+
+<ng-template #editGameConfig let-c="close" let-d="dismiss">
+  <div class="edit-game-config modal-header">
+    <h4 class="modal-title">Edit</h4>
+  </div>
+  <div class="edit-game-config modal-body">
+
+    <app-config-game-interaction *ngIf="gameConfig" [gameConfig]="gameConfig" (onSubmit)="c($event)" (onCancel)="d()"></app-config-game-interaction>
+
+  </div>
+</ng-template>
+
+<ng-template #deleteGameConfig let-c="close" let-d="dismiss">
+  <div class="delete-game-config modal-header">
+    <h4 class="modal-title">Delete Confirmation</h4>
+  </div>
+  <div class="delete-game-config modal-body d-flex flex-column align-items-start justify-content center">
+    <span class="game-config-text">Are you sure you want to delete config of this game?</span>
+
+    <div class="w-100 d-flex align-items-center justify-content-center">
+      <span class="game-config-text">{{ gameConfig.game }}</span>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <span style="font-weight: bold">Warning!</span> This cannot be undone.
+    </div>
+
+    <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+      <button type="button" class="btn" (click)="c('Close click')">Yes</button>
+      <button type="button" class="btn btn-primary" (click)="d('Cross click')">No</button>
+    </div>
+  </div>
+</ng-template>

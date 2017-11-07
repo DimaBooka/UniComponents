@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { GAMES } from '../constants';
+import { GAMES, GAMES_CONFIGS, GAMES_PARTNERS } from '../constants';
 import { Game } from '../models/game.model';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
+import { PartnerGames } from '../models/partner-games.model';
+import { GameConfig } from '../models/game-config.model';
 
 @Injectable()
 export class GamesService {
@@ -65,37 +67,97 @@ export class GamesService {
   // CRUD for Game entity
 
   getGamePartnersList() {
+    return this.http.get(GAMES_PARTNERS)
+      .map(resp => {
+        const respData: any[] = resp.json();
+        const gamePartners: PartnerGames[] = [];
 
+        if (respData.length > 0) {
+          respData.forEach(gamePartner => {
+            gamePartners.push(PartnerGames.createFromJSON(gamePartner));
+          });
+        }
+
+        return gamePartners;
+      });
   }
 
-  getGamePartnerDetail() {
-
+  getGamePartnerDetail(id: string) {
+    // this.http.get(`${GAMES_PARTNERS}/${id}`)
+    return this.http.get(GAMES_PARTNERS)
+      .map(resp => {
+        const respData: any = resp.json();
+        return PartnerGames.createFromJSON(respData);
+      });
   }
 
-  updateGamePartnerDetail() {
-
+  createGamePartnerDetail(gamePartner: PartnerGames) {
+    return this.http.post(GAMES_PARTNERS, gamePartner)
+      .map(resp => {
+        const respData: any = resp.json();
+        return PartnerGames.createFromJSON(respData);
+      });
   }
 
-  deleteGamePartner() {
+  updateGamePartnerDetail(gamePartner: PartnerGames) {
+    return this.http.patch(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartner)
+      .map(resp => {
+        const respData: any = resp.json();
+        return PartnerGames.createFromJSON(respData);
+      });
+  }
 
+  deleteGamePartner(gamePartner: PartnerGames) {
+    return this.http.delete(`${GAMES_PARTNERS}/${gamePartner.id}`)
+      .map(resp => resp.json());
   }
 
 
   // CRUD for Game entity
 
   getGameConfigsList() {
+    return this.http.get(GAMES_CONFIGS)
+      .map(resp => {
+        const respData: any[] = resp.json();
+        const gameConfigs: GameConfig[] = [];
 
+        if (respData.length > 0) {
+          respData.forEach(gameConfig => {
+            gameConfigs.push(GameConfig.createFromJSON(gameConfig));
+          });
+        }
+
+        return gameConfigs;
+      });
   }
 
-  getGameConfigDetail() {
-
+  getGameConfigDetail(id: string) {
+    // this.http.get(`${GAMES_CONFIGS}/${id}`)
+    return this.http.get(GAMES_CONFIGS)
+      .map(resp => {
+        const respData: any = resp.json();
+        return GameConfig.createFromJSON(respData);
+      });
   }
 
-  updateGameConfigDetail() {
-
+  createGameConfig(gameConfig: GameConfig) {
+    return this.http.post(GAMES_CONFIGS, gameConfig)
+      .map(resp => {
+        const respData: any = resp.json();
+        return GameConfig.createFromJSON(respData);
+      });
   }
 
-  deleteGameConfig() {
+  updateGameConfigDetail(gameConfig: GameConfig) {
+    return this.http.patch(`${GAMES_CONFIGS}/${gameConfig.id}`, gameConfig)
+      .map(resp => {
+        const respData: any = resp.json();
+        return GameConfig.createFromJSON(respData);
+      });
+  }
 
+  deleteGameConfig(gameConfig: GameConfig) {
+    return this.http.delete(`${GAMES_CONFIGS}/${gameConfig.id}`)
+      .map(resp => resp.json());
   }
 }

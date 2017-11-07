@@ -16,6 +16,7 @@ import { GAMES_ROUTES } from './games.routes';
 import { GameInteractionComponent } from './game-interaction/game-interaction.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfigGameInteractionComponent } from './config-game-interaction/config-game-interaction.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DetailPartnerGamesComponent,
     ListCongifGamesComponent,
     DetailConfigGamesComponent,
-    GameInteractionComponent
+    GameInteractionComponent,
+    ConfigGameInteractionComponent
   ]
 })
 export class GamesModule { }

@@ -1,0 +1,12 @@
+{
+  "game": "id",
+  "currency": "USD",
+  "lobby_url": "lobby",
+  "min_bet": 1,
+  "max_bet": 1000,
+  "custom_config": {
+    "color": "red",
+    "width": "400",
+    "jesus": "christ"
+  }
+}

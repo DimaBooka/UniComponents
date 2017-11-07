@@ -19,7 +19,7 @@
   </div>
   <div class="create-game modal-body">
 
-    <app-game-interaction (onSubmit)="c($event)" (onCancel)="d()"></app-game-interaction>
+    <app-game-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-game-interaction>
 
   </div>
 </ng-template>

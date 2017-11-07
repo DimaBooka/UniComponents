@@ -11,4 +11,4 @@ export const GAMES= `${API_URL}/game.json`;
 
 export const GAMES_PARTNERS = `${API_URL}/game_partner`;
 
-export const GAMES_CONFIGS = `${API_URL}/game_config`;
+export const GAMES_CONFIGS = `${API_URL}/game_config.json`;

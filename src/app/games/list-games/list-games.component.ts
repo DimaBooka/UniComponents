@@ -20,12 +20,12 @@ export class ListGamesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.updateListPartners();
+    // this.updateListGames();
   }
 
-  private updateListPartners() {
-    this.gamesService.getGamesList().subscribe((partners: Game[]) => {
-      this.games = partners;
+  private updateListGames() {
+    this.gamesService.getGamesList().subscribe((games: Game[]) => {
+      this.games = games;
     });
   }
 
@@ -39,7 +39,7 @@ export class ListGamesComponent implements OnInit {
 
   private onCreate(newGame: Game) {
     this.gamesService.createGame(newGame).subscribe((respGame: Game) => {
-      this.updateListPartners();
+      this.updateListGames();
     });
   }
 

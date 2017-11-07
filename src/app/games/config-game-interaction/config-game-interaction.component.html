@@ -1,0 +1,40 @@
+<form class="form-holder d-flex flex-column align-items-center justify-content-center"
+      (submit)="onSubmitForm()" [formGroup]="gameConfigForm">
+
+  <div class="form-group">
+    <label for="game">Game</label>
+    <input type="text" class="form-control" id="game" placeholder="Enter game" formControlName="game">
+  </div>
+
+  <div class="form-group">
+    <label for="currency">Currency</label>
+    <input type="text" class="form-control" id="currency" placeholder="Enter currency" formControlName="currency">
+  </div>
+
+  <div class="form-group">
+    <label for="lobby_url">Lobby URL</label>
+    <input type="text" class="form-control" id="lobby_url" placeholder="Enter lobby url" formControlName="lobby_url">
+  </div>
+
+  <div class="form-group">
+    <label for="min_bet">Min Bet</label>
+    <input type="number" class="form-control" id="min_bet" placeholder="Enter min bet" formControlName="min_bet">
+  </div>
+
+  <div class="form-group">
+    <label for="max_bet">Max Bet</label>
+    <input type="number" class="form-control" id="max_bet" placeholder="Enter max bet" formControlName="max_bet">
+  </div>
+
+  <div class="form-group">
+    <label for="custom_config">Custom Config</label>
+    <input type="text" class="form-control" id="custom_config" placeholder="Enter custom config" formControlName="custom_config">
+  </div>
+
+  <div class="d-flex align-items-end justify-content-end">
+    <input class="btn btn-primary" type="submit" [value]="!creation ? 'Save' : 'Create'">
+    <button type="button" class="btn" (click)="onCancelForm()">Cancel</button>
+  </div>
+</form>
+
+

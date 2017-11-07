@@ -19,7 +19,7 @@
   </div>
   <div class="create-partner modal-body">
 
-    <app-partner-interaction (onSubmit)="c($event)" (onCancel)="d()"></app-partner-interaction>
+    <app-partner-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-partner-interaction>
 
   </div>
 </ng-template>

@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class PartnerInteractionComponent implements OnInit {
 
   @Input() partner: Partner = new Partner();
+  @Input() creation: boolean = false;
   @Output() onSubmit: EventEmitter<Partner> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   private partnerForm: FormGroup;

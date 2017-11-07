@@ -1,0 +1,69 @@
+@import "../../shared/styles/form-inputs";
+
+.detail-holder {
+  width: 100%;
+  margin: 0;
+  padding: 20px 5px;
+
+  .data-holder {
+    .label {
+      margin-bottom: .5rem;
+    }
+
+    .data-value {
+      padding: 10px;
+      background-color: #303030;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .buttons-holder {
+    .btn-primary {
+      margin-right: 10px;
+    }
+  }
+}
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.edit-game-config, .delete-game-config {
+  &.modal-header, &.modal-body {
+    background-color: $extra-dark-grey;
+  }
+
+  &.modal-header {
+    border-bottom: 1px solid $extra-dark-black;
+
+    .modal-title {
+      font-weight: 400;
+    }
+  }
+}
+
+.delete-game-config {
+  &.modal-body {
+
+    .game-config-text {
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+
+    .alert-warning {
+      border-color: #b97429;
+      background-color: #CE812E;
+      color: #FFF;
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .buttons-holder {
+
+      .btn-primary {
+        margin-left: 10px;
+      }
+    }
+  }
+}

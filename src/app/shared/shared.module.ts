@@ -21,6 +21,7 @@ import { CardComponent } from './components/card/card.component';
 import { HeadComponent } from './components/head/head.component';
 import { DetailPartnerResolver } from './resolvers/partner.resolver';
 import { DetailGameResolver } from './resolvers/game.resolver';
+import { DetailGameConfigResolver } from './resolvers/game-config.resolver';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { DetailGameResolver } from './resolvers/game.resolver';
     GamesService,
     PartnersService,
     DetailPartnerResolver,
-    DetailGameResolver
+    DetailGameResolver,
+    DetailGameConfigResolver
   ]
 })
 export class SharedModule { }

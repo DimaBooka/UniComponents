@@ -10,6 +10,7 @@ import { Game } from '../../shared/models/game.model';
 export class GameInteractionComponent implements OnInit {
 
   @Input() game: Game = new Game();
+  @Input() creation: boolean = false;
   @Output() onSubmit: EventEmitter<Game> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   private gameForm: FormGroup;
