@@ -13,7 +13,7 @@ export class DetailConfigGamesComponent implements OnInit {
 
   public id: string;
   public gameConfig: GameConfig;
-
+  public customConfigs: any[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -25,6 +25,13 @@ export class DetailConfigGamesComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.route.data.subscribe(trip => {
       this.gameConfig = <GameConfig>trip.detail;
+
+      this.customConfigs = Object.keys(this.gameConfig.custom_config).map(configKey => {
+        const config = {};
+        config['key'] = configKey;
+        config['value'] = this.gameConfig.custom_config[configKey];
+        return config;
+      });
     });
   }
 

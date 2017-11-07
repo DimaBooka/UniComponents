@@ -15,8 +15,9 @@ import { DetailConfigGamesComponent } from './detail-config-games/detail-config-
 import { GAMES_ROUTES } from './games.routes';
 import { GameInteractionComponent } from './game-interaction/game-interaction.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigGameInteractionComponent } from './config-game-interaction/config-game-interaction.component';
+import { CustomConfigGameComponent } from './custom-config-game/custom-config-game.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ConfigGameInteractionComponent } from './config-game-interaction/config
     RouterModule.forChild(GAMES_ROUTES),
     SharedModule,
     ReactiveFormsModule,
+    FormsModule,
     NgbModule
   ],
   declarations: [
@@ -35,7 +37,8 @@ import { ConfigGameInteractionComponent } from './config-game-interaction/config
     ListCongifGamesComponent,
     DetailConfigGamesComponent,
     GameInteractionComponent,
-    ConfigGameInteractionComponent
+    ConfigGameInteractionComponent,
+    CustomConfigGameComponent
   ]
 })
 export class GamesModule { }

@@ -1,0 +1,46 @@
+@import "../../shared/styles/form-inputs";
+
+.key-value-holder {
+  margin-bottom: 5px;
+
+  .form-group {
+    margin-bottom: 0;
+
+    .form-control {
+      margin-bottom: 0;
+      text-align: center;
+      background-color: $extra-dark-black;
+
+      &.custom-label {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+      }
+    }
+  }
+
+  .left {
+    margin-right: 6px;
+  };
+
+
+  .right {
+    margin-left: 6px;
+  };
+
+  &.with-remove {
+    width: calc(100% - 20px);
+    position: relative;
+  }
+
+  .remove-button {
+    position: absolute;
+    top: 7px;
+    right: -20px;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 850px){
+
+}

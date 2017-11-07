@@ -1,0 +1,17 @@
+<div class="key-value-holder d-flex align-items-center justify-content-center" [ngClass]="{'with-remove': showRemove}">
+  <div class="form-group left">
+    <input type="text" class="form-control" name="key" *ngIf="isInput"
+           [(ngModel)]="key" (change)="onChangeData()">
+    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput">{{ key }}</span>
+  </div>
+
+  <div class="form-group right">
+    <input type="text" class="form-control" name="value" *ngIf="isInput"
+           [(ngModel)]="value" (change)="onChangeData()">
+    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput">{{ value }}</span>
+  </div>
+
+  <div class="remove-button" *ngIf="isInput">
+    <span (click)="removeData()"><i class="fa fa-times" aria-hidden="true"></i></span>
+  </div>
+</div>

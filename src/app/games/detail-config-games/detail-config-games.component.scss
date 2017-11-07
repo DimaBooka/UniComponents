@@ -11,9 +11,13 @@
     }
 
     .data-value {
-      padding: 10px;
+      padding: 5px 10px;
       background-color: #303030;
       margin-bottom: 1rem;
+
+      app-custom-config-game {
+        width: 100%;
+      }
     }
   }
 
