@@ -72,12 +72,18 @@ export class ConfigGameInteractionComponent implements OnInit {
   onSubmitForm() {
     const value = this.gameConfigForm.value;
 
+    const customConfig = {};
+
+    this.customConfigs.forEach(config => {
+      customConfig[config['key']] = config['value'];
+    });
+
     this.gameConfig.game  = value.game;
     this.gameConfig.currency  = value.currency;
     this.gameConfig.lobby_url  = value.lobby_url;
     this.gameConfig.min_bet  = value.min_bet;
     this.gameConfig.max_bet  = value.max_bet;
-    this.gameConfig.custom_config  = value.custom_config;
+    this.gameConfig.custom_config  = customConfig;
 
     this.onSubmit.emit(this.gameConfig);
   }
