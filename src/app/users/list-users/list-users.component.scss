@@ -1,0 +1,28 @@
+@import "../../shared/styles/form-inputs";
+
+.list-users-holder.row {
+  margin: 0;
+
+  .list-user {
+    padding: 20px;
+
+    app-card {
+      cursor: pointer;
+      outline: none;
+    }
+  }
+}
+
+.create-user {
+  &.modal-header, &.modal-body {
+    background-color: $extra-dark-grey;
+  }
+
+  &.modal-header {
+    border-bottom: 1px solid $extra-dark-black;
+
+    .modal-title {
+      font-weight: 400;
+    }
+  }
+}

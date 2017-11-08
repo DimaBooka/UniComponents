@@ -1,3 +1,25 @@
-<p>
-  list-users works!
-</p>
+<app-head title="Users">
+  <button class="btn" (click)="openCreateUser(createUser)">Add User</button>
+</app-head>
+
+<div class="list-users-holder row">
+  <div class="list-user col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+       *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+    <app-card [routerLink]="['user', i]">
+      <!--<span class="label">Email:</span>-->
+      <span>megaemail{{ i }}@gmail.com</span>
+    </app-card>
+  </div>
+</div>
+
+
+<ng-template #createUser let-c="close" let-d="dismiss">
+  <div class="create-user modal-header">
+    <h4 class="modal-title">Create Partner</h4>
+  </div>
+  <div class="create-user modal-body">
+
+    <!--<app-user-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-user-interaction>-->
+
+  </div>
+</ng-template>

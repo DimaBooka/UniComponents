@@ -14,6 +14,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     public usersService: UsersService
   ) {
+    this.usersService.checkUserAndToken();
+    this.loggedIn = this.showSideBar = this.usersService.isLogged.getValue();
     this.usersService.isLogged.subscribe((isLoggedIn: boolean) => {
       this.loggedIn = isLoggedIn;
       this.showSideBar = isLoggedIn;

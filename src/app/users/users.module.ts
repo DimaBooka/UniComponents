@@ -9,6 +9,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { DetailUsersComponent } from './detail-users/detail-users.component';
 
 import { USERS_ROUTES } from './users.routes';
+import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { USERS_ROUTES } from './users.routes';
   declarations: [
     UsersComponent,
     ListUsersComponent,
-    DetailUsersComponent
+    DetailUsersComponent,
+    UserInteractionComponent
   ]
 })
 export class UsersModule { }

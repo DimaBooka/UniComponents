@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(
     public usersService: UsersService
   ) {
-    this.usersService.checkUserAndToken();
+    this.sideBarIsShows = this.usersService.isLogged.getValue();
     this.usersService.isLogged.subscribe((isLoggedIn: boolean) => {
       this.sideBarIsShows = isLoggedIn;
     });

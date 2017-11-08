@@ -53,7 +53,7 @@ export class ConfigGameInteractionComponent implements OnInit {
   }
 
   onChangeConfig(event) {
-    if (event['index'] && event['key'] && event['value'] && this.customConfigs[event['index']]) {
+    if (event['key'] && event['value'] && this.customConfigs[event['index']]) {
       this.customConfigs[event['index']]['key'] = event['key'];
       this.customConfigs[event['index']]['value'] = event['value'];
     }

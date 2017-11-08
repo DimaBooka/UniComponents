@@ -34,8 +34,8 @@ export class GamesService {
   }
 
   getGameDetail(id: string) {
-    // this.http.get(`${GAMES}/${id}`)
-    return this.http.get(GAMES)
+    return this.http.get(`${GAMES}/${id}`)
+    // return this.http.get(GAMES)
       .map(resp => {
         const respData: any = resp.json();
         return Game.createFromJSON(respData);
@@ -83,8 +83,8 @@ export class GamesService {
   }
 
   getGamePartnerDetail(id: string) {
-    // this.http.get(`${GAMES_PARTNERS}/${id}`)
-    return this.http.get(GAMES_PARTNERS)
+    return this.http.get(`${GAMES_PARTNERS}/${id}`)
+    // return this.http.get(GAMES_PARTNERS)
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);
@@ -132,8 +132,8 @@ export class GamesService {
   }
 
   getGameConfigDetail(id: string) {
-    // this.http.get(`${GAMES_CONFIGS}/${id}`)
-    return this.http.get(GAMES_CONFIGS)
+    return this.http.get(`${GAMES_CONFIGS}/${id}`)
+    // return this.http.get(GAMES_CONFIGS)
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);

@@ -15,9 +15,9 @@ export class TokenHttp extends Http {
     const token = this.authService.getToken();
     if (token) {
       if (options) {
-        options.headers.set('Authorization', 'Token ' + token);
+        options.headers.set('X-SESSION-TOKEN', token);
       } else {
-        (<Request> url).headers.set('Authorization', 'Token ' + token);
+        (<Request> url).headers.set('X-SESSION-TOKEN', token);
       }
     }
     return super.request(url, options);

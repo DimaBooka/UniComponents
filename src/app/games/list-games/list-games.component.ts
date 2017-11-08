@@ -20,13 +20,14 @@ export class ListGamesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.updateListGames();
+    this.updateListGames();
   }
 
   private updateListGames() {
     this.gamesService.getGamesList().subscribe((games: Game[]) => {
       this.games = games;
     });
+    debugger;
   }
 
   public openCreateGame(createModal) {

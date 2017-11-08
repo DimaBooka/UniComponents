@@ -20,7 +20,7 @@ export class ListPartnersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.updateListPartners();
+    this.updateListPartners();
   }
 
   private updateListPartners() {

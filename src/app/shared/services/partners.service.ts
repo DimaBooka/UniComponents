@@ -29,8 +29,8 @@ export class PartnersService {
   }
 
   getPartnerDetail(id: string) {
-    // this.http.get(`${PARTNERS}/${id}`)
-    return this.http.get(PARTNERS)
+    return this.http.get(`${PARTNERS}/${id}`)
+    // return this.http.get(PARTNERS)
       .map(resp => {
         const respData: any = resp.json();
         return Partner.createFromJSON(respData);
