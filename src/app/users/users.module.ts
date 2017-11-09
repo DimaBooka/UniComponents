@@ -10,12 +10,14 @@ import { DetailUsersComponent } from './detail-users/detail-users.component';
 
 import { USERS_ROUTES } from './users.routes';
 import { UserInteractionComponent } from './user-interaction/user-interaction.component';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(USERS_ROUTES),
-    SharedModule
+    SharedModule,
+    ToasterModule
   ],
   declarations: [
     UsersComponent,

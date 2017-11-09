@@ -27,20 +27,20 @@ export class ListGamesComponent implements OnInit {
     this.gamesService.getGamesList().subscribe((games: Game[]) => {
       this.games = games;
     });
-    debugger;
   }
 
   public openCreateGame(createModal) {
-    this.modalService.open(createModal).result.then((result: Game) => {
-      this.onCreate(result);
+    this.modalService.open(createModal).result.then(result => {
+      this.gamesService.showSuccessMessage('Game was successfully added');
     }, (reason) => {
       this.onCancel();
     });
   }
 
-  private onCreate(newGame: Game) {
-    this.gamesService.createGame(newGame).subscribe((respGame: Game) => {
+  private onCreate(newGame: Game, closeModal: Function) {
+    this.gamesService.createGame(newGame).subscribe(respGame => {
       this.updateListGames();
+      closeModal();
     });
   }
 

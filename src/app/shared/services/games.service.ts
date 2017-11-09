@@ -5,14 +5,21 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { PartnerGames } from '../models/partner-games.model';
 import { GameConfig } from '../models/game-config.model';
+import { ShowErrorHandler } from '../handlers/error.handler';
+import { ToasterService } from 'angular2-toaster';
 
 @Injectable()
 export class GamesService {
   constructor(
     private http: Http,
-    private router: Router
+    private router: Router,
+    private toasterService: ToasterService
   ) {
   }
+
+  showSuccessMessage(message: string) {
+    this.toasterService.pop('success', message);
+  };
 
 
   // CRUD for Game entity
@@ -22,15 +29,15 @@ export class GamesService {
       .map(resp => {
         const respData: any[] = resp.json();
         const games: Game[] = [];
-
-        if (respData.length > 0) {
-          respData.forEach(game => {
+        if (respData['games'] && respData['games'].length > 0) {
+          respData['games'].forEach(game => {
             games.push(Game.createFromJSON(game));
           });
         }
 
         return games;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   getGameDetail(id: string) {
@@ -38,29 +45,32 @@ export class GamesService {
     // return this.http.get(GAMES)
       .map(resp => {
         const respData: any = resp.json();
-        return Game.createFromJSON(respData);
-      });
+        return Game.createFromJSON(respData['game']);
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   createGame(game: Game) {
     return this.http.post(GAMES, game)
       .map(resp => {
-        const respData: any = resp.json();
-        return Game.createFromJSON(respData);
-      });
+        return resp.json();
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   updateGameDetail(game: Game) {
     return this.http.patch(`${GAMES}/${game.id}`, game)
       .map(resp => {
         const respData: any = resp.json();
-        return Game.createFromJSON(respData);
-      });
+        return Game.createFromJSON(respData['game']);
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   deleteGame(game: Game) {
     return this.http.delete(`${GAMES}/${game.id}`)
-      .map(resp => resp.json());
+      .map(resp => resp.json())
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
 
@@ -79,7 +89,8 @@ export class GamesService {
         }
 
         return gamePartners;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   getGamePartnerDetail(id: string) {
@@ -88,7 +99,8 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   createGamePartnerDetail(gamePartner: PartnerGames) {
@@ -96,7 +108,8 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   updateGamePartnerDetail(gamePartner: PartnerGames) {
@@ -104,12 +117,14 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   deleteGamePartner(gamePartner: PartnerGames) {
     return this.http.delete(`${GAMES_PARTNERS}/${gamePartner.id}`)
-      .map(resp => resp.json());
+      .map(resp => resp.json())
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
 
@@ -128,7 +143,8 @@ export class GamesService {
         }
 
         return gameConfigs;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   getGameConfigDetail(id: string) {
@@ -137,7 +153,8 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   createGameConfig(gameConfig: GameConfig) {
@@ -145,7 +162,8 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   updateGameConfigDetail(gameConfig: GameConfig) {
@@ -153,11 +171,13 @@ export class GamesService {
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   deleteGameConfig(gameConfig: GameConfig) {
     return this.http.delete(`${GAMES_CONFIGS}/${gameConfig.id}`)
-      .map(resp => resp.json());
+      .map(resp => resp.json())
+      .catch(ShowErrorHandler(this.toasterService));
   }
 }

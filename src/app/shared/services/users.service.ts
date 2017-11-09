@@ -6,9 +6,10 @@ import { LOGIN_ENDPOINT, USER_INFO, USERS } from '../constants';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ShowErrorHandler } from '../handlers/error.handler';
+import { ToasterService } from "angular2-toaster/src/toaster.service";
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,8 @@ export class UsersService {
   constructor(
     private http: Http,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toasterService: ToasterService
   ) { }
 
   login(loginData: any) {
@@ -26,7 +28,6 @@ export class UsersService {
     // return this.http.get(LOGIN_ENDPOINT)
       .map(resp => {
         resp = resp.json();
-        debugger;
         this.authService.setToken(resp['X-SESSION-TOKEN']);
 
         this.authService.setUserInfo({ 'email': loginData['email']});
@@ -35,7 +36,8 @@ export class UsersService {
         // this.getUserDetail().subscribe();
 
         return resp;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   logout() {
@@ -77,7 +79,8 @@ export class UsersService {
         this.authService.setUserInfo(resp);
         this.isLogged.next(true);
         return resp;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   createUser(user: any) {
@@ -86,7 +89,8 @@ export class UsersService {
         const respData: any = resp.json();
         // TODO: add user model and create instance here
         return respData;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   updateUserDetail(user: any) {
@@ -95,11 +99,13 @@ export class UsersService {
         const respData: any = resp.json();
         // TODO: add user model and create instance here
         return respData;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService));
   }
 
   deleteUser(user: any) {
     return this.http.delete(`${USERS}/${user.id}`)
-      .map(resp => resp.json());
+      .map(resp => resp.json())
+      .catch(ShowErrorHandler(this.toasterService));
   }
 }

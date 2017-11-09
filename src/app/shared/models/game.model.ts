@@ -8,6 +8,7 @@ export class Game {
     game.picture_url = json['picture_url'] || "";
     game.game_url = json['game_url'] || "";
     game.secret_key = json['secret_key'] || "";
+    game.default_custom_config = json['default_custom_config'] || {};
     return game;
   }
 
@@ -18,5 +19,6 @@ export class Game {
     public picture_url: string = "",
     public game_url: string = "",
     public secret_key: string = "",
+    public default_custom_config: any = {},
   ) {}
 }

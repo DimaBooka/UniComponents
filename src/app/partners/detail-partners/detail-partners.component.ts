@@ -28,28 +28,33 @@ export class DetailPartnersComponent implements OnInit {
     });
   }
 
-  public openEditPartner(editOrDeleteModal, isDelete) {
-    this.modalService.open(editOrDeleteModal).result.then((result: Partner) => {
+  public openEditPartner(editOrDeleteModal) {
+    this.modalService.open(editOrDeleteModal).result.then(isDelete => {
       if (!isDelete) {
-        this.onEdit(result);
+        this.partnersService.showSuccessMessage('Partner was successfully updated');
       } else {
-        this.onDelete();
+        this.partnersService.showSuccessMessage('Partner was successfully deleted');
       }
     }, (reason) => {
       this.onCancel();
     });
   }
 
-  onEdit(partner: Partner) {
+  onEdit(partner: Partner, closeModal: Function) {
     debugger;
 
     this.partnersService.updatePartnerDetail(partner).subscribe((respPartner: Partner) => {
       this.partner = respPartner;
+      closeModal(false);
     });
   }
 
-  onDelete() {
-    debugger;
+  onDelete(closeModal: Function) {
+    this.partnersService.deletePartner(this.partner).subscribe(resp => {
+      closeModal(true);
+      this.router.navigate(['/partners']);
+    });
+
   }
 
   onCancel() {

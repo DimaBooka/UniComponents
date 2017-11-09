@@ -12,6 +12,7 @@ import { PARTNERS_ROUTES } from './partners.routes';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PartnerInteractionComponent } from './partner-interaction/partner-interaction.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     RouterModule.forChild(PARTNERS_ROUTES),
     SharedModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    ToasterModule
   ],
   declarations: [
     PartnersComponent,

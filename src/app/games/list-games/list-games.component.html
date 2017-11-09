@@ -4,10 +4,10 @@
 
 <div class="list-games-holder row">
   <div class="list-game col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
-    <app-card [routerLink]="['game', i]">
+       *ngFor="let game of games">
+    <app-card [routerLink]="['game', game.id]">
       <!--<span class="label">Email:</span>-->
-      <span>super_title_game{{ i }}</span>
+      <span appTextEllipsis>{{ game.title }}</span>
     </app-card>
   </div>
 </div>
@@ -19,7 +19,7 @@
   </div>
   <div class="create-game modal-body">
 
-    <app-game-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-game-interaction>
+    <app-game-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-game-interaction>
 
   </div>
 </ng-template>

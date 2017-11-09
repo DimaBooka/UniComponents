@@ -4,10 +4,10 @@
 
 <div class="list-partners-holder row">
   <div class="list-partner col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
-    <app-card [routerLink]="['partner', i]">
+       *ngFor="let partner of partners">
+    <app-card [routerLink]="['partner', partner.id]">
       <!--<span class="label">Email:</span>-->
-      <span>megaemail{{ i }}@gmail.com</span>
+      <span appTextEllipsis>{{ partner.email }}</span>
     </app-card>
   </div>
 </div>
@@ -19,7 +19,7 @@
   </div>
   <div class="create-partner modal-body">
 
-    <app-partner-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-partner-interaction>
+    <app-partner-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-partner-interaction>
 
   </div>
 </ng-template>

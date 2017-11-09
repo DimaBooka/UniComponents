@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UsersService } from './shared/services/users.service';
+import { ToasterConfig } from 'angular2-toaster';
+import { toastConfig } from './shared/toast.config';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,7 @@ import { UsersService } from './shared/services/users.service';
 })
 export class AppComponent {
   public sideBarIsShows: boolean = false;
+  public toasterconfig : ToasterConfig = new ToasterConfig(toastConfig);
 
   constructor(
     public usersService: UsersService

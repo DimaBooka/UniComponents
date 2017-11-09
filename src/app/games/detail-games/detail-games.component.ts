@@ -11,10 +11,9 @@ import { GamesService } from '../../shared/services/games.service';
 })
 export class DetailGamesComponent implements OnInit {
 
-
   public id: string;
   public game: Game;
-
+  public customConfigs: any[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -26,31 +25,42 @@ export class DetailGamesComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.route.data.subscribe(trip => {
       this.game = <Game>trip.detail;
+
+      this.customConfigs = Object.keys(this.game.default_custom_config).map(configKey => {
+        const config = {};
+        config['key'] = configKey;
+        config['value'] = this.game.default_custom_config[configKey];
+        return config;
+      });
     });
   }
 
-  public openEditGame(editOrDeleteModal, isDelete) {
-    this.modalService.open(editOrDeleteModal).result.then((result: Game) => {
+  public openEditGame(editOrDeleteModal) {
+    this.modalService.open(editOrDeleteModal).result.then(isDelete => {
       if (!isDelete) {
-        this.onEdit(result);
+        this.gamesService.showSuccessMessage('Game was successfully updated');
       } else {
-        this.onDelete();
+        this.gamesService.showSuccessMessage('Game was successfully deleted');
       }
     }, (reason) => {
       this.onCancel();
     });
   }
 
-  onEdit(game: Game) {
+  onEdit(game: Game, closeModal: Function) {
     debugger;
 
     this.gamesService.updateGameDetail(game).subscribe((respGame: Game) => {
       this.game = respGame;
+      closeModal(false);
     });
   }
 
-  onDelete() {
-    debugger;
+  onDelete(closeModal: Function) {
+    this.gamesService.deleteGame(this.game).subscribe(respDelete => {
+      closeModal(true);
+      this.router.navigate(['/games']);
+    });
   }
 
   onCancel() {

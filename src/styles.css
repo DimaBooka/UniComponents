@@ -5,3 +5,8 @@
   font-weight: 400;
   font-size: 16px;
 }
+
+#toast-container > div {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}

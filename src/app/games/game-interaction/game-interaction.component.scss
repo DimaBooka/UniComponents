@@ -4,4 +4,24 @@
   .btn-primary {
     margin-right: 10px;
   }
+
+  .data-value {
+    padding: 5px 10px;
+    background-color: #303030;
+    margin-bottom: 1rem;
+
+    app-custom-config {
+      width: 100%;
+    }
+
+    .add-custom-config {
+      margin-right: 19px;
+      border-radius: 41px;
+      padding: 6px 9px 6px 7px;
+      line-height: 0;
+      height: 29px;
+      width: 28px;
+      cursor: pointer;
+    }
+  }
 }

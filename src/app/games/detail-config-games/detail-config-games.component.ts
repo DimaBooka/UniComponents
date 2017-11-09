@@ -35,28 +35,33 @@ export class DetailConfigGamesComponent implements OnInit {
     });
   }
 
-  public openEditGameConfig(editOrDeleteModal, isDelete) {
-    this.modalService.open(editOrDeleteModal).result.then((result: GameConfig) => {
+  public openEditGameConfig(editOrDeleteModal) {
+    this.modalService.open(editOrDeleteModal).result.then(isDelete => {
       if (!isDelete) {
-        this.onEdit(result);
+        this.gamesService.showSuccessMessage('Game Config was successfully updated');
       } else {
-        this.onDelete();
+        this.gamesService.showSuccessMessage('Game Config was successfully deleted');
       }
     }, (reason) => {
       this.onCancel();
     });
   }
 
-  onEdit(gameConfig: GameConfig) {
+  onEdit(gameConfig: GameConfig, closeModal: Function) {
     debugger;
 
     this.gamesService.updateGameConfigDetail(gameConfig).subscribe((respGameConfig: GameConfig) => {
       this.gameConfig = respGameConfig;
+      closeModal(false);
     });
   }
 
-  onDelete() {
+  onDelete(closeModal: Function) {
     debugger;
+    this.gamesService.updateGameConfigDetail(this.gameConfig).subscribe(respDelete => {
+      closeModal(true);
+      this.router.navigate(['/games/config']);
+    });
   }
 
   onCancel() {

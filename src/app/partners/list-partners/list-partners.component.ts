@@ -30,16 +30,17 @@ export class ListPartnersComponent implements OnInit {
   }
 
   public openCreatePartner(createModal) {
-    this.modalService.open(createModal).result.then((result: Partner) => {
-      this.onCreate(result);
+    this.modalService.open(createModal).result.then(result => {
+      this.partnersService.showSuccessMessage('Partner was successfully added');
     }, (reason) => {
       this.onCancel();
     });
   }
 
-  private onCreate(newPartner: Partner) {
+  public onCreate(newPartner: Partner, closeModal: Function) {
     this.partnersService.createPartner(newPartner).subscribe((respPartner: Partner) => {
       this.updateListPartners();
+      closeModal();
     });
   }
 

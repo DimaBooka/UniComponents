@@ -27,6 +27,27 @@
     <input type="text" class="form-control" id="secret_key" placeholder="Enter secret key" formControlName="secret_key">
   </div>
 
+  <div class="form-group">
+    <label>Custom Config</label>
+    <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <app-custom-config [index]="i" [key]="'key'" [value]="'value'"
+                           [showRemove]="true" [isLabel]="true"></app-custom-config>
+      </div>
+
+      <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+        <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"
+                           [showRemove]="true" [isInput]="true" (onChange)="onChangeConfig($event)" (onRemove)="onRemoveConfig($event)"></app-custom-config>
+      </div>
+
+      <span class="add-custom-config" (click)="addCustomConfig()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </span>
+
+    </div>
+  </div>
+
   <div class="d-flex align-items-end justify-content-end">
     <input class="btn btn-primary" type="submit" [value]="!creation ? 'Save' : 'Create'">
     <button type="button" class="btn" (click)="onCancelForm()">Cancel</button>

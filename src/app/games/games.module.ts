@@ -17,7 +17,7 @@ import { GameInteractionComponent } from './game-interaction/game-interaction.co
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigGameInteractionComponent } from './config-game-interaction/config-game-interaction.component';
-import { CustomConfigGameComponent } from './custom-config-game/custom-config-game.component';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   imports: [
@@ -26,7 +26,8 @@ import { CustomConfigGameComponent } from './custom-config-game/custom-config-ga
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ToasterModule
   ],
   declarations: [
     GamesComponent,
@@ -37,8 +38,7 @@ import { CustomConfigGameComponent } from './custom-config-game/custom-config-ga
     ListCongifGamesComponent,
     DetailConfigGamesComponent,
     GameInteractionComponent,
-    ConfigGameInteractionComponent,
-    CustomConfigGameComponent
+    ConfigGameInteractionComponent
   ]
 })
 export class GamesModule { }

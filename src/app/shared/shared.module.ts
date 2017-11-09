@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './components/login/login.component';
 import { NoContentComponent } from './components/no-content/no-content.component';
@@ -19,9 +19,16 @@ import { PartnersService } from './services/partners.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CardComponent } from './components/card/card.component';
 import { HeadComponent } from './components/head/head.component';
+
 import { DetailPartnerResolver } from './resolvers/partner.resolver';
 import { DetailGameResolver } from './resolvers/game.resolver';
 import { DetailGameConfigResolver } from './resolvers/game-config.resolver';
+
+import { TextEllipsisDirective } from './directives/text-ellipsis.directive';
+import { CustomConfigComponent } from './components/custom-config/custom-config.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NoAuthGuard } from './guards/not-auth.guard';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   imports: [
@@ -29,21 +36,27 @@ import { DetailGameConfigResolver } from './resolvers/game-config.resolver';
     HttpModule,
     RouterModule,
     ReactiveFormsModule,
-    Ng2Webstorage
+    FormsModule,
+    Ng2Webstorage,
+    ToasterModule
   ],
   declarations: [
     LoginComponent,
     NoContentComponent,
     SidebarComponent,
     CardComponent,
-    HeadComponent
+    HeadComponent,
+    TextEllipsisDirective,
+    CustomConfigComponent
   ],
   exports: [
     LoginComponent,
     NoContentComponent,
     SidebarComponent,
     CardComponent,
-    HeadComponent
+    HeadComponent,
+    TextEllipsisDirective,
+    CustomConfigComponent
   ],
   providers: [
     {
@@ -57,7 +70,9 @@ import { DetailGameConfigResolver } from './resolvers/game-config.resolver';
     PartnersService,
     DetailPartnerResolver,
     DetailGameResolver,
-    DetailGameConfigResolver
+    DetailGameConfigResolver,
+    AuthGuard,
+    NoAuthGuard
   ]
 })
 export class SharedModule { }

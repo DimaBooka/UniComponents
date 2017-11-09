@@ -7,33 +7,47 @@
       <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
         <span class="label">Title</span>
         <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-text">{{ game.title }}</span>
+          <span class="game-text" appTextEllipsis>{{ game.title }}</span>
         </div>
 
         <span class="label">Description</span>
         <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-text">{{ game.description }}</span>
+          <span class="game-text" appTextEllipsis>{{ game.description }}</span>
         </div>
 
         <span class="label">Picture URL</span>
         <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-text">{{ game.picture_url }}</span>
+          <span class="game-text" appTextEllipsis>{{ game.picture_url }}</span>
         </div>
 
         <span class="label">Game URL</span>
         <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-text">{{ game.game_url }}</span>
+          <span class="game-text" appTextEllipsis>{{ game.game_url }}</span>
         </div>
 
         <span class="label">Secret Key</span>
         <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-text">{{ game.secret_key }}</span>
+          <span class="game-text" appTextEllipsis>{{ game.secret_key }}</span>
         </div>
+
+        <span class="label">Custom Config</span>
+        <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+
+          <div class="w-100 d-flex align-items-center justify-content-center">
+            <app-custom-config [key]="'key'" [value]="'value'" [isLabel]="true"></app-custom-config>
+          </div>
+
+          <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+            <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"></app-custom-config>
+          </div>
+
+        </div>
+
       </div>
 
       <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
-        <button class="btn btn-primary" (click)="openEditGame(editGame, false)">Edit</button>
-        <button class="btn" (click)="openEditGame(deleteGame, true)">Delete</button>
+        <button class="btn btn-primary" (click)="openEditGame(editGame)">Edit</button>
+        <button class="btn" (click)="openEditGame(deleteGame)">Delete</button>
       </div>
 
     </app-card>
@@ -47,7 +61,7 @@
   </div>
   <div class="edit-game modal-body">
 
-    <app-game-interaction *ngIf="game" [game]="game" (onSubmit)="c($event)" (onCancel)="d()"></app-game-interaction>
+    <app-game-interaction *ngIf="game" [game]="game" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-game-interaction>
 
   </div>
 </ng-template>
@@ -68,7 +82,7 @@
     </div>
 
     <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
-      <button type="button" class="btn" (click)="c('Close click')">Yes</button>
+      <button type="button" class="btn" (click)="onDelete(c)">Yes</button>
       <button type="button" class="btn btn-primary" (click)="d('Cross click')">No</button>
     </div>
   </div>

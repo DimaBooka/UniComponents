@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usersService: UsersService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toasterService: ToasterService
+  ) {
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -27,6 +30,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.usersService.login(this.loginForm.value).subscribe(resp => {
       this.router.navigate(['games']);
+    }, error => {
+      if (error['error'])
+        this.toasterService.pop('error', error['error']);
     });
   }
 }

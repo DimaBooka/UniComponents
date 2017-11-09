@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-custom-config-game',
-  templateUrl: './custom-config-game.component.html',
-  styleUrls: ['./custom-config-game.component.scss']
+  selector: 'app-custom-config',
+  templateUrl: './custom-config.component.html',
+  styleUrls: ['./custom-config.component.scss']
 })
-export class CustomConfigGameComponent implements OnInit {
+export class CustomConfigComponent implements OnInit {
 
   @Input() index: number = 0;
   @Input() key: string = "";
