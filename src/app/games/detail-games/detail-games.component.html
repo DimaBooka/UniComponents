@@ -30,8 +30,8 @@
           <span class="game-text" appTextEllipsis>{{ game.secret_key }}</span>
         </div>
 
-        <span class="label">Custom Config</span>
-        <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+        <span class="label" *ngIf="customConfigs.length > 0">Custom Config</span>
+        <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="customConfigs.length > 0">
 
           <div class="w-100 d-flex align-items-center justify-content-center">
             <app-custom-config [key]="'key'" [value]="'value'" [isLabel]="true"></app-custom-config>
