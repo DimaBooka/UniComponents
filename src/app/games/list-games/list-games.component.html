@@ -1,9 +1,11 @@
 <app-head title="Games">
-  <button class="btn" (click)="openCreateGame(createGame)">Add Game</button>
+
+  <app-form-button [value]="'Add Game'" (onClick)="openCreateGame(createGame)"></app-form-button>
+
 </app-head>
 
-<div class="list-games-holder row">
-  <div class="list-game col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+<div class="list-entities-holder row">
+  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let game of games">
     <app-card [routerLink]="['game', game.id]">
       <!--<span class="label">Email:</span>-->
@@ -14,10 +16,10 @@
 
 
 <ng-template #createGame let-c="close" let-d="dismiss">
-  <div class="create-game modal-header">
+  <div class="create-modal modal-header">
     <h4 class="modal-title">Create Game</h4>
   </div>
-  <div class="create-game modal-body">
+  <div class="create-modal modal-body">
 
     <app-game-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-game-interaction>
 

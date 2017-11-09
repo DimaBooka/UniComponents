@@ -1,31 +1,20 @@
 <form class="form-holder d-flex flex-column align-items-center justify-content-center"
       (submit)="onSubmitForm()" [formGroup]="gameForm">
 
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">
-  </div>
+  <app-form-field [control]="gameForm.get('title')" [input]="true"
+                  [placeholder]="'Enter title'" [label]="'Title'"></app-form-field>
 
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea class="form-control" id="description" placeholder="Enter description"
-              formControlName="description" rows="10"></textarea>
-  </div>
+  <app-form-field [control]="gameForm.get('description')" [textarea]="true"
+                  [placeholder]="'Enter description'" [label]="'Description'"></app-form-field>
 
-  <div class="form-group">
-    <label for="picture_url">Picture URL</label>
-    <input type="text" class="form-control" id="picture_url" placeholder="Enter picture url" formControlName="picture_url">
-  </div>
+  <app-form-field [control]="gameForm.get('picture_url')" [input]="true"
+                  [placeholder]="'Enter picture url'" [label]="'Picture URL'"></app-form-field>
 
-  <div class="form-group">
-    <label for="game_url">Game URL</label>
-    <input type="text" class="form-control" id="game_url" placeholder="Enter game url" formControlName="game_url">
-  </div>
+  <app-form-field [control]="gameForm.get('game_url')" [input]="true"
+                  [placeholder]="'Enter game url'" [label]="'Game URL'"></app-form-field>
 
-  <div class="form-group">
-    <label for="secret_key">Secret Key</label>
-    <input type="text" class="form-control" id="secret_key" placeholder="Enter secret key" formControlName="secret_key">
-  </div>
+  <app-form-field [control]="gameForm.get('secret_key')" [input]="true"
+                  [placeholder]="'Enter secret key'" [label]="'Secret Key'"></app-form-field>
 
   <div class="form-group">
     <label>Custom Config</label>
@@ -49,9 +38,7 @@
   </div>
 
   <div class="d-flex align-items-end justify-content-end">
-    <input class="btn btn-primary" type="submit" [value]="!creation ? 'Save' : 'Create'">
-    <button type="button" class="btn" (click)="onCancelForm()">Cancel</button>
+    <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
+    <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>
   </div>
 </form>
-
-

@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background: $dark-grey;
+
+  &:hover {
+    background: $deep-red;
+    transition: all .4s ease 0s;
+  }
+
+  &.btn-primary:hover {
+    background: $deep-blue;
+  }
+
+  &.small {
+    padding: 5px 10px;
+  }
+}

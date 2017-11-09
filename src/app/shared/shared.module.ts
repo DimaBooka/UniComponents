@@ -29,6 +29,9 @@ import { CustomConfigComponent } from './components/custom-config/custom-config.
 import { AuthGuard } from './guards/auth.guard';
 import { NoAuthGuard } from './guards/not-auth.guard';
 import { ToasterModule } from 'angular2-toaster';
+import { FormFieldComponent } from './components/form-field/form-field.component';
+import { FormButtonComponent } from './components/form-button/form-button.component';
+import { DisplayValueComponent } from './components/display-value/display-value.component';
 
 @NgModule({
   imports: [
@@ -47,7 +50,10 @@ import { ToasterModule } from 'angular2-toaster';
     CardComponent,
     HeadComponent,
     TextEllipsisDirective,
-    CustomConfigComponent
+    CustomConfigComponent,
+    FormFieldComponent,
+    FormButtonComponent,
+    DisplayValueComponent
   ],
   exports: [
     LoginComponent,
@@ -56,7 +62,10 @@ import { ToasterModule } from 'angular2-toaster';
     CardComponent,
     HeadComponent,
     TextEllipsisDirective,
-    CustomConfigComponent
+    CustomConfigComponent,
+    FormFieldComponent,
+    FormButtonComponent,
+    DisplayValueComponent
   ],
   providers: [
     {

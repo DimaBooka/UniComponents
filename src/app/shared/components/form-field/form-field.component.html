@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label [for]="label" *ngIf="label">{{ label }}</label>
+
+  <input  class="form-control" *ngIf="input"
+          [id]="label || 'field_id'" [placeholder]="placeholder" [type]="type" [formControl]="control">
+
+  <textarea class="form-control" rows="10" *ngIf="textarea"
+            [id]="label || 'field_id'" [placeholder]="placeholder" [formControl]="control"></textarea>
+
+  <select class="form-control" *ngIf="select"
+          [id]="label || 'field_id'" [multiple]="multiple" [formControl]="control">
+    <option value="" selected disabled *ngIf="!multiple">{{ placeholder }}</option>
+    <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+  </select>
+
+</div>

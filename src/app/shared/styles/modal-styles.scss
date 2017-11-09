@@ -1,0 +1,92 @@
+@import "./variables";
+
+
+.detail-holder {
+  width: 100%;
+  margin: 0;
+  padding: 20px 5px;
+
+  .data-holder {
+    .label {
+      margin-bottom: .5rem;
+    }
+
+    app-display-value {
+      width: 100%;
+    }
+
+    .data-value {
+      padding: 5px 10px;
+      background-color: $dark-grey;
+      margin-bottom: 1rem;
+
+      app-custom-config {
+        width: 100%;
+      }
+    }
+  }
+
+  .buttons-holder {
+    app-form-button:first-of-type {
+      margin-right: 10px;
+    }
+  }
+}
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.create-modal {
+  &.modal-header, &.modal-body {
+    background-color: $extra-dark-grey;
+  }
+
+  &.modal-header {
+    border-bottom: 1px solid $extra-dark-black;
+
+    .modal-title {
+      font-weight: 400;
+    }
+  }
+}
+
+.edit-modal, .delete-modal {
+  &.modal-header, &.modal-body {
+    background-color: $extra-dark-grey;
+  }
+
+  &.modal-header {
+    border-bottom: 1px solid $extra-dark-black;
+
+    .modal-title {
+      font-weight: 400;
+    }
+  }
+}
+
+.delete-modal {
+  &.modal-body {
+
+    .game-text {
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+
+    .alert-warning {
+      border-color: #b97429;
+      background-color: #CE812E;
+      color: #FFF;
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .buttons-holder {
+
+      app-form-button:first-of-type {
+        margin-right: 10px;
+      }
+    }
+  }
+}

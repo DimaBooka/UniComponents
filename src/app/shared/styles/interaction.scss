@@ -1,0 +1,26 @@
+@import "./variables";
+
+.form-holder {
+  app-form-button:first-of-type {
+    margin-right: 10px;
+  }
+
+  app-form-field {
+    width: 100%;
+  }
+
+  .data-value {
+    padding: 5px 10px;
+    background-color: $dark-grey;
+    margin-bottom: 1rem;
+
+    app-custom-config {
+      width: 100%;
+    }
+
+    .add-custom-config {
+      margin-right: 19px;
+      cursor: pointer;
+    }
+  }
+}

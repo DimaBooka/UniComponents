@@ -1,0 +1,16 @@
+@import "../../styles/variables";
+
+.form-group {
+  width: 100%;
+
+  .form-control {
+    color: $light-white;
+    background-color: $dark-grey;
+    border: 1px solid $dark-grey;
+    border-radius: 0;
+
+    &:focus {
+      border-color: $light-white;
+    }
+  }
+}

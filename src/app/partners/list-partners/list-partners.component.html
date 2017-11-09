@@ -1,9 +1,11 @@
 <app-head title="Partners">
-  <button class="btn" (click)="openCreatePartner(createPartner)">Add Partner</button>
+
+  <app-form-button [value]="'Add Partner'" (onClick)="openCreatePartner(createPartner)"></app-form-button>
+
 </app-head>
 
-<div class="list-partners-holder row">
-  <div class="list-partner col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+<div class="list-entities-holder row">
+  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let partner of partners">
     <app-card [routerLink]="['partner', partner.id]">
       <!--<span class="label">Email:</span>-->
@@ -14,10 +16,10 @@
 
 
 <ng-template #createPartner let-c="close" let-d="dismiss">
-  <div class="create-partner modal-header">
-    <h4 class="modal-title">Create User</h4>
+  <div class="create-modal modal-header">
+    <h4 class="modal-title">Create Partner</h4>
   </div>
-  <div class="create-partner modal-body">
+  <div class="create-modal modal-body">
 
     <app-partner-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-partner-interaction>
 

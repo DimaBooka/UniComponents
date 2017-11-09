@@ -13,10 +13,24 @@ export class PartnerInteractionComponent implements OnInit {
   @Input() creation: boolean = false;
   @Output() onSubmit: EventEmitter<Partner> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
-  private partnerForm: FormGroup;
+  public partnerForm: FormGroup;
+  public optionsCurrencies: any[] = [];
+  public optionsSites: any[] = [];
   constructor(
     private fb: FormBuilder
-  ) { }
+  ) {
+    this.optionsCurrencies = [
+      {value: 'USD', name:'USD'},
+      {value: 'EUR', name:'EUR'},
+      {value: 'UAH', name:'UAH'}
+    ];
+
+    this.optionsSites = [
+      {value: 'asasas.com', name: 'asasas.com'},
+      {value: 'qwqwqw.com', name: 'qwqwqw.com'},
+      {value: 'example.com', name: 'example.com'},
+    ];
+  }
 
   ngOnInit() {
     this.partnerForm = this.fb.group({

@@ -1,43 +1,23 @@
 <form class="form-holder d-flex flex-column align-items-center justify-content-center"
       (submit)="onSubmitForm()" [formGroup]="partnerForm">
 
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" class="form-control" id="email" placeholder="Enter email" formControlName="email">
-  </div>
+  <app-form-field [control]="partnerForm.get('email')" [input]="true"
+                  [placeholder]="'Enter email'" [label]="'Email'"></app-form-field>
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="text" class="form-control" id="password" placeholder="Enter password" formControlName="password">
-  </div>
+  <app-form-field [control]="partnerForm.get('password')" [input]="true"
+                  [placeholder]="'Enter password'" [label]="'Password'"></app-form-field>
 
-  <div class="form-group">
-    <label for="token">Token</label>
-    <input type="text" class="form-control" id="token" placeholder="Enter token" formControlName="token">
-  </div>
+  <app-form-field [control]="partnerForm.get('token')" [input]="true"
+                  [placeholder]="'Enter token'" [label]="'Token'"></app-form-field>
 
-  <div class="form-group">
-    <label for="currencies">Available Currencies</label>
-    <select class="form-control" id="currencies" name="available_currencies" multiple formControlName="available_currencies">
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="UAH">UAH</option>
-    </select>
-  </div>
+  <app-form-field [control]="partnerForm.get('available_currencies')" [placeholder]="'Select available currencies'"
+                  [multiple]="true" [select]="true" [label]="'Available Currencies'" [options]="optionsCurrencies"></app-form-field>
 
-  <div class="form-group">
-    <label for="sites">Sites</label>
-    <select class="form-control" id="sites" name="sites" multiple formControlName="sites">
-      <option value="asasas.com">asasas.com</option>
-      <option value="qwqwqw.com">qwqwqw.com</option>
-      <option value="example.com">example.com</option>
-    </select>
-  </div>
+  <app-form-field [control]="partnerForm.get('sites')" [placeholder]="'Select sites'"
+                  [multiple]="true" [select]="true" [label]="'Sites'" [options]="optionsSites"></app-form-field>
 
   <div class="d-flex align-items-end justify-content-end">
-    <input class="btn btn-primary" type="submit" [value]="!creation ? 'Save' : 'Create'">
-    <button type="button" class="btn" (click)="onCancelForm()">Cancel</button>
+    <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
+    <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>
   </div>
 </form>
-
-

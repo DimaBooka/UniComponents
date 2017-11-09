@@ -2,13 +2,13 @@
   <div class="form-group left">
     <input type="text" class="form-control" name="key" *ngIf="isInput"
            [(ngModel)]="key" (change)="onChangeData()">
-    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput">{{ key }}</span>
+    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput" appTextEllipsis>{{ key }}</span>
   </div>
 
   <div class="form-group right">
     <input type="text" class="form-control" name="value" *ngIf="isInput"
            [(ngModel)]="value" (change)="onChangeData()">
-    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput">{{ value }}</span>
+    <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput" appTextEllipsis>{{ value }}</span>
   </div>
 
   <div class="remove-button" *ngIf="isInput">

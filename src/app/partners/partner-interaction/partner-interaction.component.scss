@@ -1,7 +1,9 @@
-@import "../../shared/styles/form-inputs";
-
 .form-holder {
-  .btn-primary {
+  app-form-field {
+    width: 100%;
+  }
+
+  app-form-button:first-of-type {
     margin-right: 10px;
   }
 }

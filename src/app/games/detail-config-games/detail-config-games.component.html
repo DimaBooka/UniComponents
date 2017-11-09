@@ -5,30 +5,16 @@
     <app-card>
 
       <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
-        <span class="label">Game</span>
-        <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-config-text" appTextEllipsis>{{ gameConfig.game}}</span>
-        </div>
 
-        <span class="label">Currency</span>
-        <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-config-text" appTextEllipsis>{{ gameConfig.currency}}</span>
-        </div>
+        <app-display-value [label]="'Game'" [value]="gameConfig.game"></app-display-value>
 
-        <span class="label">Lobby URL</span>
-        <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-config-text" appTextEllipsis>{{ gameConfig.lobby_url }}</span>
-        </div>
+        <app-display-value [label]="'Currency'" [value]="gameConfig.currency"></app-display-value>
 
-        <span class="label">Min Bet</span>
-        <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-config-text" appTextEllipsis>{{ gameConfig.min_bet }}</span>
-        </div>
+        <app-display-value [label]="'Lobby URL'" [value]="gameConfig.lobby_url"></app-display-value>
 
-        <span class="label">Max Bet</span>
-        <div class="data-value w-100 d-flex align-items-center justify-content-center">
-          <span class="game-config-text" appTextEllipsis>{{ gameConfig.max_bet }}</span>
-        </div>
+        <app-display-value [label]="'Min Bet'" [value]="gameConfig.min_bet"></app-display-value>
+
+        <app-display-value [label]="'Max Bet'" [value]="gameConfig.max_bet"></app-display-value>
 
         <span class="label" *ngIf="customConfigs.length > 0">Custom Config</span>
         <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="customConfigs.length > 0">
@@ -46,8 +32,8 @@
       </div>
 
       <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
-        <button class="btn btn-primary" (click)="openEditGameConfig(editGameConfig)">Edit</button>
-        <button class="btn" (click)="openEditGameConfig(deleteGameConfig)">Delete</button>
+        <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditGameConfig(editGameConfig)"></app-form-button>
+        <app-form-button [value]="'Delete'" (onClick)="openEditGameConfig(deleteGameConfig)"></app-form-button>
       </div>
 
     </app-card>
@@ -56,10 +42,10 @@
 
 
 <ng-template #editGameConfig let-c="close" let-d="dismiss">
-  <div class="edit-game-config modal-header">
+  <div class="edit-modal modal-header">
     <h4 class="modal-title">Edit</h4>
   </div>
-  <div class="edit-game-config modal-body">
+  <div class="edit-modal modal-body">
 
     <app-config-game-interaction *ngIf="gameConfig" [gameConfig]="gameConfig" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-config-game-interaction>
 
@@ -67,10 +53,10 @@
 </ng-template>
 
 <ng-template #deleteGameConfig let-c="close" let-d="dismiss">
-  <div class="delete-game-config modal-header">
+  <div class="delete-modal modal-header">
     <h4 class="modal-title">Delete Confirmation</h4>
   </div>
-  <div class="delete-game-config modal-body d-flex flex-column align-items-start justify-content center">
+  <div class="delete-modal modal-body d-flex flex-column align-items-start justify-content center">
     <span class="game-config-text">Are you sure you want to delete config of this game?</span>
 
     <div class="w-100 d-flex align-items-center justify-content-center">
@@ -82,8 +68,8 @@
     </div>
 
     <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
-      <button type="button" class="btn" (click)="onDelete(c)">Yes</button>
-      <button type="button" class="btn btn-primary" (click)="d('Cross click')">No</button>
+      <app-form-button [value]="'Yes'" (onClick)="onDelete(c)"></app-form-button>
+      <app-form-button [primary]="true" [value]="'No'" (onClick)="d('Cross click')"></app-form-button>
     </div>
   </div>
 </ng-template>
