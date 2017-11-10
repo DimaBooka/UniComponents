@@ -1,23 +1,26 @@
-<form class="form-holder d-flex flex-column align-items-center justify-content-center"
-      (submit)="onSubmitForm()" [formGroup]="partnerForm">
+<!--<form class="form-holder d-flex flex-column align-items-center justify-content-center"-->
+      <!--(submit)="onSubmitForm()" [formGroup]="partnerForm">-->
 
-  <app-form-field [control]="partnerForm.get('email')" [input]="true"
-                  [placeholder]="'Enter email'" [label]="'Email'"></app-form-field>
+  <!--<app-form-field [control]="partnerForm.get('email')" [input]="true"-->
+                  <!--[placeholder]="'Enter email'" [label]="'Email'"></app-form-field>-->
 
-  <app-form-field [control]="partnerForm.get('password')" [input]="true"
-                  [placeholder]="'Enter password'" [label]="'Password'"></app-form-field>
+  <!--<app-form-field [control]="partnerForm.get('password')" [input]="true"-->
+                  <!--[placeholder]="'Enter password'" [label]="'Password'"></app-form-field>-->
 
-  <app-form-field [control]="partnerForm.get('token')" [input]="true"
-                  [placeholder]="'Enter token'" [label]="'Token'"></app-form-field>
+  <!--<app-form-field [control]="partnerForm.get('token')" [input]="true"-->
+                  <!--[placeholder]="'Enter token'" [label]="'Token'"></app-form-field>-->
 
-  <app-form-field [control]="partnerForm.get('available_currencies')" [placeholder]="'Select available currencies'"
-                  [multiple]="true" [select]="true" [label]="'Available Currencies'" [options]="optionsCurrencies"></app-form-field>
+  <!--<app-form-field [control]="partnerForm.get('available_currencies')" [placeholder]="'Select available currencies'"-->
+                  <!--[multiple]="true" [select]="true" [label]="'Available Currencies'" [options]="optionsCurrencies"></app-form-field>-->
 
-  <app-form-field [control]="partnerForm.get('sites')" [placeholder]="'Select sites'"
-                  [multiple]="true" [select]="true" [label]="'Sites'" [options]="optionsSites"></app-form-field>
+  <!--<app-form-field [control]="partnerForm.get('sites')" [placeholder]="'Select sites'"-->
+                  <!--[multiple]="true" [select]="true" [label]="'Sites'" [options]="optionsSites"></app-form-field>-->
 
-  <div class="d-flex align-items-end justify-content-end">
-    <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
-    <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>
-  </div>
-</form>
+  <!--<div class="d-flex align-items-end justify-content-end">-->
+    <!--<app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>-->
+    <!--<app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>-->
+  <!--</div>-->
+<!--</form>-->
+
+<app-dynamic-form [formEntity]="partnerForm" [fieldsOptions]="fieldsOptions"
+                  (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>

@@ -1,46 +1,49 @@
-<form class="form-holder d-flex flex-column align-items-center justify-content-center"
-      (submit)="onSubmitForm()" [formGroup]="gameConfigForm">
+<!--<form class="form-holder d-flex flex-column align-items-center justify-content-center"-->
+      <!--(submit)="onSubmitForm()" [formGroup]="gameConfigForm">-->
 
-  <app-form-field [control]="gameConfigForm.get('game')" [input]="true"
-                  [placeholder]="'Enter game'" [label]="'Game'"></app-form-field>
+  <!--<app-form-field [control]="gameConfigForm.get('game')" [input]="true"-->
+                  <!--[placeholder]="'Enter game'" [label]="'Game'"></app-form-field>-->
 
-  <app-form-field [control]="gameConfigForm.get('currency')" [input]="true"
-                  [placeholder]="'Enter currency'" [label]="'Currency'"></app-form-field>
+  <!--<app-form-field [control]="gameConfigForm.get('currency')" [input]="true"-->
+                  <!--[placeholder]="'Enter currency'" [label]="'Currency'"></app-form-field>-->
 
-  <app-form-field [control]="gameConfigForm.get('lobby_url')" [input]="true"
-                  [placeholder]="'Enter lobby url'" [label]="'Lobby URL'"></app-form-field>
+  <!--<app-form-field [control]="gameConfigForm.get('lobby_url')" [input]="true"-->
+                  <!--[placeholder]="'Enter lobby url'" [label]="'Lobby URL'"></app-form-field>-->
 
-  <app-form-field [control]="gameConfigForm.get('min_bet')" [input]="true" [type]="'number'"
-                  [placeholder]="'Enter min bet'" [label]="'Min Bet'"></app-form-field>
+  <!--<app-form-field [control]="gameConfigForm.get('min_bet')" [input]="true" [type]="'number'"-->
+                  <!--[placeholder]="'Enter min bet'" [label]="'Min Bet'"></app-form-field>-->
 
-  <app-form-field [control]="gameConfigForm.get('max_bet')" [input]="true" [type]="'number'"
-                  [placeholder]="'Enter max bet'" [label]="'Max Bet'"></app-form-field>
+  <!--<app-form-field [control]="gameConfigForm.get('max_bet')" [input]="true" [type]="'number'"-->
+                  <!--[placeholder]="'Enter max bet'" [label]="'Max Bet'"></app-form-field>-->
 
-  <div class="form-group">
-    <label>Custom Config</label>
-    <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+  <!--<div class="form-group">-->
+    <!--<label>Custom Config</label>-->
+    <!--<div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">-->
 
-      <div class="w-100 d-flex align-items-center justify-content-center">
-        <app-custom-config [index]="i" [key]="'key'" [value]="'value'"
-                           [showRemove]="true" [isLabel]="true"></app-custom-config>
-      </div>
+      <!--<div class="w-100 d-flex align-items-center justify-content-center">-->
+        <!--<app-custom-config [index]="i" [key]="'key'" [value]="'value'"-->
+                           <!--[showRemove]="true" [isLabel]="true"></app-custom-config>-->
+      <!--</div>-->
 
-      <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
-        <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"
-                           [showRemove]="true" [isInput]="true" (onChange)="onChangeConfig($event)" (onRemove)="onRemoveConfig($event)"></app-custom-config>
-      </div>
+      <!--<div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">-->
+        <!--<app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"-->
+                           <!--[showRemove]="true" [isInput]="true" (onChange)="onChangeConfig($event)" (onRemove)="onRemoveConfig($event)"></app-custom-config>-->
+      <!--</div>-->
 
-      <span class="add-custom-config" (click)="addCustomConfig()">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </span>
+      <!--<span class="add-custom-config" (click)="addCustomConfig()">-->
+        <!--<i class="fa fa-plus" aria-hidden="true"></i>-->
+      <!--</span>-->
 
-    </div>
-  </div>
+    <!--</div>-->
+  <!--</div>-->
 
-  <div class="d-flex align-items-end justify-content-end">
-    <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
-    <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>
-  </div>
-</form>
+  <!--<div class="d-flex align-items-end justify-content-end">-->
+    <!--<app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>-->
+    <!--<app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>-->
+  <!--</div>-->
+<!--</form>-->
 
 
+
+<app-dynamic-form [formEntity]="gameConfigForm" [fieldsOptions]="fieldsOptions"
+                  (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>

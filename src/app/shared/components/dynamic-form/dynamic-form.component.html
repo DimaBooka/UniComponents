@@ -1,0 +1,36 @@
+<form class="form-holder d-flex flex-column align-items-center justify-content-center"
+      (submit)="onSubmitForm()" [formGroup]="formEntity">
+
+  <app-form-field *ngFor="let field of fields"
+                  [control]="formEntity.get(field)"
+                  [input]="fieldsOptions[field]['input']" [type]="fieldsOptions[field]['type']"
+                  [multiple]="!!fieldsOptions[field]['multiple']" [textarea]="fieldsOptions[field]['textarea']"
+                  [select]="!!fieldsOptions[field]['select']" [options]="fieldsOptions[field]['options']"
+                  [label]="fieldsOptions[field]['label']" [placeholder]="fieldsOptions[field]['placeholder']"></app-form-field>
+
+  <div class="form-group" *ngIf="customConfigField">
+    <label>Custom Config</label>
+    <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <app-custom-config [index]="i" [key]="'key'" [value]="'value'"
+                           [showRemove]="true" [isLabel]="true"></app-custom-config>
+      </div>
+
+      <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+        <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"
+                           [showRemove]="true" [isInput]="true" (onChange)="onChangeConfig($event)" (onRemove)="onRemoveConfig($event)"></app-custom-config>
+      </div>
+
+      <span class="add-custom-config" (click)="addCustomConfig()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </span>
+
+    </div>
+  </div>
+
+  <div class="d-flex align-items-end justify-content-end">
+    <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
+    <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>
+  </div>
+</form>

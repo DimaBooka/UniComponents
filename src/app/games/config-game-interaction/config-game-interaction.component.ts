@@ -16,6 +16,7 @@ export class ConfigGameInteractionComponent implements OnInit {
   public gameConfigForm: FormGroup;
 
   public customConfigs: any[] = [];
+  public fieldsOptions: any = {};
   constructor(
     private fb: FormBuilder
   ) { }
@@ -36,32 +37,14 @@ export class ConfigGameInteractionComponent implements OnInit {
       config['value'] = this.gameConfig.custom_config[configKey];
       return config;
     });
-  }
 
-  addCustomConfig() {
-    let canAdd: boolean = true;
-    for (let config in this.customConfigs) {
-      if (this.customConfigs[config]['key'].length === 0 && this.customConfigs[config]['value'].length === 0) {
-        canAdd = false;
-        break;
-      }
-    }
-
-    if (canAdd) {
-      this.customConfigs.push({ key: "", value: "" });
-    }
-  }
-
-  onChangeConfig(event) {
-    if (event['key'] && event['value'] && this.customConfigs[event['index']]) {
-      this.customConfigs[event['index']]['key'] = event['key'];
-      this.customConfigs[event['index']]['value'] = event['value'];
-    }
-  }
-
-  onRemoveConfig(index) {
-    if (this.customConfigs[index]) {
-      this.customConfigs.splice(index, 1);
+    this.fieldsOptions = {
+      game: {input: true, label: 'Game', placeholder: 'Enter game'},
+      currency: {input: true, label: 'Currency', placeholder: 'Enter currency'},
+      lobby_url: {input: true, label: 'Lobby URL', placeholder: 'Enter lobby url'},
+      min_bet: {input: true, type: 'number', label: 'Min Bet', placeholder: 'Enter min bet'},
+      max_bet: {input: true, type: 'number', label: 'Max Bet', placeholder: 'Enter max bet'},
+      custom_config: {values: this.customConfigs}
     }
   }
 
@@ -69,8 +52,8 @@ export class ConfigGameInteractionComponent implements OnInit {
     this.onCancel.emit();
   }
 
-  onSubmitForm() {
-    const value = this.gameConfigForm.value;
+  onSubmitForm(form?: FormGroup) {
+    const value = form ? form.value : this.gameConfigForm.value;
 
     const customConfig = {};
 

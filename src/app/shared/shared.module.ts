@@ -32,6 +32,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { FormButtonComponent } from './components/form-button/form-button.component';
 import { DisplayValueComponent } from './components/display-value/display-value.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { DisplayValueComponent } from './components/display-value/display-value.
     CustomConfigComponent,
     FormFieldComponent,
     FormButtonComponent,
-    DisplayValueComponent
+    DisplayValueComponent,
+    DynamicFormComponent
   ],
   exports: [
     LoginComponent,
@@ -65,7 +67,8 @@ import { DisplayValueComponent } from './components/display-value/display-value.
     CustomConfigComponent,
     FormFieldComponent,
     FormButtonComponent,
-    DisplayValueComponent
+    DisplayValueComponent,
+    DynamicFormComponent
   ],
   providers: [
     {

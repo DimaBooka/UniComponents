@@ -22,4 +22,9 @@ export class FormFieldComponent implements OnInit {
   ngOnInit() {
   }
 
+  getSelected() {
+
+    return true;
+  }
+
 }

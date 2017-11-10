@@ -14,7 +14,7 @@ export class GameInteractionComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Game> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public gameForm: FormGroup;
-
+  public fieldsOptions: any = {};
   public customConfigs: any[] = [];
   constructor(
     private fb: FormBuilder
@@ -26,7 +26,8 @@ export class GameInteractionComponent implements OnInit {
       description: [this.game.description , []],
       picture_url: [this.game.picture_url , []],
       game_url: [this.game.game_url , []],
-      secret_key: [this.game.secret_key , []]
+      secret_key: [this.game.secret_key , []],
+      default_custom_config: [this.game.default_custom_config , []]
     });
 
     this.customConfigs = Object.keys(this.game.default_custom_config).map(configKey => {
@@ -35,32 +36,14 @@ export class GameInteractionComponent implements OnInit {
       config['value'] = this.game.default_custom_config[configKey];
       return config;
     });
-  }
 
-  addCustomConfig() {
-    let canAdd: boolean = true;
-    for (let config in this.customConfigs) {
-      if (this.customConfigs[config]['key'].length === 0 && this.customConfigs[config]['value'].length === 0) {
-        canAdd = false;
-        break;
-      }
-    }
-
-    if (canAdd) {
-      this.customConfigs.push({ key: "", value: "" });
-    }
-  }
-
-  onChangeConfig(event) {
-    if (event['key'] && event['value'] && this.customConfigs[event['index']]) {
-      this.customConfigs[event['index']]['key'] = event['key'];
-      this.customConfigs[event['index']]['value'] = event['value'];
-    }
-  }
-
-  onRemoveConfig(index) {
-    if (this.customConfigs[index]) {
-      this.customConfigs.splice(index, 1);
+    this.fieldsOptions = {
+      title: {input: true, label: 'Title', placeholder: 'Enter title'},
+      description: {textarea: true, label: 'Description', placeholder: 'Enter description'},
+      picture_url: {input: true, label: 'Picture URL', placeholder: 'Enter picture url'},
+      game_url: {input: true, label: 'Game URL', placeholder: 'Enter game url'},
+      secret_key: {input: true, label: 'Secret Key', placeholder: 'Enter secret key'},
+      default_custom_config: {values: this.customConfigs},
     }
   }
 
@@ -68,8 +51,8 @@ export class GameInteractionComponent implements OnInit {
     this.onCancel.emit();
   }
 
-  onSubmitForm() {
-    const value = this.gameForm.value;
+  onSubmitForm(form?: FormGroup) {
+    const value = form ? form.value : this.gameForm.value;
 
     const customConfig = {};
 

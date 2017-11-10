@@ -10,7 +10,7 @@
   <select class="form-control" *ngIf="select"
           [id]="label || 'field_id'" [multiple]="multiple" [formControl]="control">
     <option value="" selected disabled *ngIf="!multiple">{{ placeholder }}</option>
-    <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+    <option [value]="option.value" *ngFor="let option of options" [selected]="getSelected(option.name)">{{ option.name }}</option>
   </select>
 
 </div>

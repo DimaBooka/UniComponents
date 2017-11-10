@@ -16,6 +16,7 @@ export class PartnerInteractionComponent implements OnInit {
   public partnerForm: FormGroup;
   public optionsCurrencies: any[] = [];
   public optionsSites: any[] = [];
+  public fieldsOptions: any = {};
   constructor(
     private fb: FormBuilder
   ) {
@@ -40,14 +41,22 @@ export class PartnerInteractionComponent implements OnInit {
       available_currencies: [this.partner.available_currencies , []],
       sites: [this.partner.sites , []]
     });
+
+    this.fieldsOptions = {
+      email: {input: true, label: 'Email', placeholder: 'Enter email'},
+      password: {input: true, label: 'Password', placeholder: 'Enter password'},
+      token: {input: true, label: 'Token', placeholder: 'Enter token'},
+      available_currencies: {select: true, options: this.optionsCurrencies, multiple: true, label: 'Available Currencies', placeholder: 'Enter available currencies'},
+      sites: {select: true, options: this.optionsSites, multiple: true, label: 'Sites', placeholder: 'Enter sites'},
+    };
   }
 
   onCancelForm() {
     this.onCancel.emit();
   }
 
-  onSubmitForm() {
-    const value = this.partnerForm.value;
+  onSubmitForm(form?: FormGroup) {
+    const value = form? form.value : this.partnerForm.value;
 
     this.partner.email = value.email;
     this.partner.password = value.password;
