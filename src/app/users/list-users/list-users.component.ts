@@ -27,22 +27,4 @@ export class ListUsersComponent implements OnInit {
       this.users = users;
     });
   }
-
-  public openCreateUser(createModal) {
-    this.modalService.open(createModal).result.then((result: any) => {
-      this.onCreate(result);
-    }, (reason) => {
-      this.onCancel();
-    });
-  }
-
-  private onCreate(newUser: any) {
-    this.usersService.createUser(newUser).subscribe((respUser: any) => {
-      this.updateListUsers();
-    });
-  }
-
-  private onCancel() {
-
-  }
 }

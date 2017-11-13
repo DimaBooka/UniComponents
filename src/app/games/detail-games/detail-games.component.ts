@@ -25,13 +25,16 @@ export class DetailGamesComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.route.data.subscribe(trip => {
       this.game = <Game>trip.detail;
+      this.checkCustomConfigs();
+    });
+  }
 
-      this.customConfigs = Object.keys(this.game.default_custom_config).map(configKey => {
-        const config = {};
-        config['key'] = configKey;
-        config['value'] = this.game.default_custom_config[configKey];
-        return config;
-      });
+  private checkCustomConfigs() {
+    this.customConfigs = Object.keys(this.game.default_custom_config).map(configKey => {
+      const config = {};
+      config['key'] = configKey;
+      config['value'] = this.game.default_custom_config[configKey];
+      return config;
     });
   }
 
@@ -48,10 +51,10 @@ export class DetailGamesComponent implements OnInit {
   }
 
   onEdit(game: Game, closeModal: Function) {
-    debugger;
 
-    this.gamesService.updateGameDetail(game).subscribe((respGame: Game) => {
-      this.game = respGame;
+    this.gamesService.updateGameDetail(game).subscribe(respGameId => {
+      this.game = game;
+      this.checkCustomConfigs();
       closeModal(false);
     });
   }

@@ -8,8 +8,6 @@
 
         <app-display-value [label]="'Email'" [value]="partner.email"></app-display-value>
 
-        <app-display-value [label]="'Password'" [value]="partner.password"></app-display-value>
-
         <app-display-value [label]="'Token'" [value]="partner.token"></app-display-value>
 
         <app-display-value [label]="'Available currencies'" [value]="partner.available_currencies" [multiple]="true"></app-display-value>
@@ -47,7 +45,7 @@
     <span class="partner-text">Are you sure you want to delete this partner?</span>
 
     <div class="w-100 d-flex align-items-center justify-content-center">
-      <span class="partner-text">{{ partner.email }}</span>
+      <span class="partner-text-email">{{ partner.email }}</span>
     </div>
 
     <div class="alert alert-warning" role="alert">

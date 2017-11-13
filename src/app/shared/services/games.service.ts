@@ -59,10 +59,9 @@ export class GamesService {
   }
 
   updateGameDetail(game: Game) {
-    return this.http.patch(`${GAMES}/${game.id}`, game)
+    return this.http.put(`${GAMES}/${game.id}`, game)
       .map(resp => {
-        const respData: any = resp.json();
-        return Game.createFromJSON(respData['game']);
+        return resp.json();
       })
       .catch(ShowErrorHandler(this.toasterService));
   }
@@ -113,7 +112,7 @@ export class GamesService {
   }
 
   updateGamePartnerDetail(gamePartner: PartnerGames) {
-    return this.http.patch(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartner)
+    return this.http.put(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartner)
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);
@@ -167,7 +166,7 @@ export class GamesService {
   }
 
   updateGameConfigDetail(gameConfig: GameConfig) {
-    return this.http.patch(`${GAMES_CONFIGS}/${gameConfig.id}`, gameConfig)
+    return this.http.put(`${GAMES_CONFIGS}/${gameConfig.id}`, gameConfig)
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);

@@ -30,9 +30,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.usersService.login(this.loginForm.value).subscribe(resp => {
       this.router.navigate(['games']);
-    }, error => {
-      if (error['error'])
-        this.toasterService.pop('error', error['error']);
     });
   }
 }

@@ -9,7 +9,7 @@ export function HandleError (error) {
     try {
 
       let body = error.json() || '';
-      err['error'] = body.error || '';
+      err['error'] = body.error || body.error_message || '';
 
       if (body.details && Object.keys(body.details).length > 0) {
         const details = [];

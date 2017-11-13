@@ -13,6 +13,7 @@ export class GameInteractionComponent implements OnInit {
   @Input() creation: boolean = false;
   @Output() onSubmit: EventEmitter<Game> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
+  public gameData: Game;
   public gameForm: FormGroup;
   public fieldsOptions: any = {};
   public customConfigs: any[] = [];
@@ -21,6 +22,7 @@ export class GameInteractionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.gameData = Game.createFromJSON(this.game);
     this.gameForm = this.fb.group({
       title: [this.game.title , []],
       description: [this.game.description , []],
@@ -60,13 +62,13 @@ export class GameInteractionComponent implements OnInit {
       customConfig[config['key']] = config['value'];
     });
 
-    this.game.title = value.title;
-    this.game.description = value.description;
-    this.game.picture_url = value.picture_url;
-    this.game.game_url = value.game_url;
-    this.game.secret_key = value.secret_key;
-    this.game.default_custom_config = customConfig;
+    this.gameData.title = value.title;
+    this.gameData.description = value.description;
+    this.gameData.picture_url = value.picture_url;
+    this.gameData.game_url = value.game_url;
+    this.gameData.secret_key = value.secret_key;
+    this.gameData.default_custom_config = customConfig;
 
-    this.onSubmit.emit(this.game);
+    this.onSubmit.emit(this.gameData);
   }
 }

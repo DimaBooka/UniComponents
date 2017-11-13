@@ -34,6 +34,8 @@ import { FormButtonComponent } from './components/form-button/form-button.compon
 import { DisplayValueComponent } from './components/display-value/display-value.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
     ReactiveFormsModule,
     FormsModule,
     Ng2Webstorage,
-    ToasterModule
+    ToasterModule,
+    MultiselectDropdownModule
   ],
   declarations: [
     LoginComponent,

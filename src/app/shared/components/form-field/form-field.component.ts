@@ -17,14 +17,12 @@ export class FormFieldComponent implements OnInit {
   @Input() textarea: boolean = false;
   @Input() multiple: boolean = false;
   @Input() options: any[] = [];
+  public settings = {
+    buttonClasses: 'form-control form-control-multiselect',
+    containerClasses: 'form-group form-group-multiselect w-100'
+  };
   constructor() { }
 
   ngOnInit() {
   }
-
-  getSelected() {
-
-    return true;
-  }
-
 }

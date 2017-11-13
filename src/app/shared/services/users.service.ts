@@ -94,7 +94,7 @@ export class UsersService {
   }
 
   updateUserDetail(user: any) {
-    return this.http.post(`${USERS}/${user.id}`, user)
+    return this.http.put(`${USERS}/${user.id}`, user)
       .map(resp => {
         const respData: any = resp.json();
         // TODO: add user model and create instance here

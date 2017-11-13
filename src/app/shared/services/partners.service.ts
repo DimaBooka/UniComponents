@@ -55,10 +55,12 @@ export class PartnersService {
   }
 
   updatePartnerDetail(partner: Partner) {
-    return this.http.patch(`${PARTNERS}/${partner.id}`, partner)
+    const partnerUpdate = {...partner};
+    delete partnerUpdate['id'];
+    partnerUpdate['group'] = 'Partner';
+    return this.http.put(`${PARTNERS}/${partner.id}`, partnerUpdate)
       .map(resp => {
-        const respData: any = resp.json();
-        return Partner.createFromJSON(respData);
+        return resp.json();
       })
       .catch(ShowErrorHandler(this.toasterService));
   }

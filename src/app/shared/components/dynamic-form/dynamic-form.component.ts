@@ -10,7 +10,7 @@ export class DynamicFormComponent implements OnInit {
 
   @Input() formEntity: FormGroup;
   @Input() fieldsOptions: any = {};
-  @Input() readonly: boolean = false;
+  @Input() creation: boolean = false;
   @Output() changedForm: EventEmitter<FormGroup> = new EventEmitter();
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
   public fields: any[] = [];

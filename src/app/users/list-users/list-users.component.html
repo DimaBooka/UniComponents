@@ -1,27 +1,12 @@
 <app-head title="Users">
-
-  <app-form-button [value]="'Add User'" (onClick)="openCreateUser(createUser)"></app-form-button>
-
 </app-head>
 
 <div class="list-entities-holder row">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let i of users">
-    <app-card [routerLink]="['user', i]">
+    <app-card>
       <!--<span class="label">Email:</span>-->
-      <span>users.email</span>
+      <span appTextEllipsis>{{ users.email }}</span>
     </app-card>
   </div>
 </div>
-
-
-<ng-template #createUser let-c="close" let-d="dismiss">
-  <div class="create-modal modal-header">
-    <h4 class="modal-title">Create User</h4>
-  </div>
-  <div class="create-modal modal-body">
-
-    <!--<app-user-interaction [creation]="true" (onSubmit)="c($event)" (onCancel)="d()"></app-user-interaction>-->
-
-  </div>
-</ng-template>

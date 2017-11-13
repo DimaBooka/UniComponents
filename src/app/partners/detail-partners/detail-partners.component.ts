@@ -28,6 +28,12 @@ export class DetailPartnersComponent implements OnInit {
     });
   }
 
+  getPartner() {
+    this.partnersService.getPartnerDetail(this.partner.id).subscribe((partner: Partner )=> {
+      this.partner = partner;
+    });
+  }
+
   public openEditPartner(editOrDeleteModal) {
     this.modalService.open(editOrDeleteModal).result.then(isDelete => {
       if (!isDelete) {
@@ -41,10 +47,8 @@ export class DetailPartnersComponent implements OnInit {
   }
 
   onEdit(partner: Partner, closeModal: Function) {
-    debugger;
-
-    this.partnersService.updatePartnerDetail(partner).subscribe((respPartner: Partner) => {
-      this.partner = respPartner;
+    this.partnersService.updatePartnerDetail(partner).subscribe(respPartnerId => {
+      this.getPartner();
       closeModal(false);
     });
   }

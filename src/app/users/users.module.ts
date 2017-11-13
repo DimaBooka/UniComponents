@@ -6,10 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { UsersComponent } from './users.component';
 import { ListUsersComponent } from './list-users/list-users.component';
-import { DetailUsersComponent } from './detail-users/detail-users.component';
 
 import { USERS_ROUTES } from './users.routes';
-import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
@@ -21,9 +19,7 @@ import { ToasterModule } from 'angular2-toaster';
   ],
   declarations: [
     UsersComponent,
-    ListUsersComponent,
-    DetailUsersComponent,
-    UserInteractionComponent
+    ListUsersComponent
   ]
 })
 export class UsersModule { }

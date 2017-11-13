@@ -14,6 +14,7 @@ export class PartnerInteractionComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Partner> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public partnerForm: FormGroup;
+  public partnerData: Partner;
   public optionsCurrencies: any[] = [];
   public optionsSites: any[] = [];
   public fieldsOptions: any = {};
@@ -21,30 +22,31 @@ export class PartnerInteractionComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.optionsCurrencies = [
-      {value: 'USD', name:'USD'},
-      {value: 'EUR', name:'EUR'},
-      {value: 'UAH', name:'UAH'}
+      {id: 'USD', name:'USD'},
+      {id: 'EUR', name:'EUR'},
+      {id: 'UAH', name:'UAH'}
     ];
 
     this.optionsSites = [
-      {value: 'asasas.com', name: 'asasas.com'},
-      {value: 'qwqwqw.com', name: 'qwqwqw.com'},
-      {value: 'example.com', name: 'example.com'},
+      {id: 'asasas.com', name: 'asasas.com'},
+      {id: 'qwqwqw.com', name: 'qwqwqw.com'},
+      {id: 'example.com', name: 'example.com'},
     ];
   }
 
   ngOnInit() {
+    this.partnerData = Partner.createFromJSON(this.partner);
     this.partnerForm = this.fb.group({
       email: [this.partner.email , []],
-      password: [this.partner.password , []],
+      password: ['' , []],
       token: [this.partner.token , []],
-      available_currencies: [this.partner.available_currencies , []],
-      sites: [this.partner.sites , []]
+      available_currencies: [[...this.partner.available_currencies] , []],
+      sites: [[...this.partner.sites] , []]
     });
 
     this.fieldsOptions = {
       email: {input: true, label: 'Email', placeholder: 'Enter email'},
-      password: {input: true, label: 'Password', placeholder: 'Enter password'},
+      password: {input: true, type: 'password', label: this.creation ? 'Password' : 'Change Password', placeholder: this.creation ? 'Enter password' : 'Enter new password'},
       token: {input: true, label: 'Token', placeholder: 'Enter token'},
       available_currencies: {select: true, options: this.optionsCurrencies, multiple: true, label: 'Available Currencies', placeholder: 'Enter available currencies'},
       sites: {select: true, options: this.optionsSites, multiple: true, label: 'Sites', placeholder: 'Enter sites'},
@@ -58,13 +60,13 @@ export class PartnerInteractionComponent implements OnInit {
   onSubmitForm(form?: FormGroup) {
     const value = form? form.value : this.partnerForm.value;
 
-    this.partner.email = value.email;
-    this.partner.password = value.password;
-    this.partner.token = value.token;
-    this.partner.available_currencies = value.available_currencies;
-    this.partner.sites = value.sites;
+    this.partnerData.email = value.email;
+    this.partnerData.password = value.password;
+    this.partnerData.token = value.token;
+    this.partnerData.available_currencies = value.available_currencies;
+    this.partnerData.sites = value.sites;
 
-    this.onSubmit.emit(this.partner);
+    this.onSubmit.emit(this.partnerData);
   }
 
 }

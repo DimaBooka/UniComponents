@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./app/shared/styles/variables.scss";
+
+*, button, input, textarea, form * {
+  font-family: 'Heebo', sans-serif;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+#toast-container > div {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.form-control-multiselect {
+  color: $light-white;
+  background-color: $dark-grey;
+  border: 1px solid $dark-grey;
+  border-radius: 0;
+
+  &:focus {
+    border-color: $light-white;
+    color: $light-white;
+    background-color: $dark-grey;
+  }
+}
+
+.form-group-multiselect .dropdown-menu {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  width: 100%;
+  background-color: $dark-grey;
+
+  li a {
+    display: flex;
+    align-items: center;
+
+    span {
+      padding-left: 12px;
+    }
+  }
+
+  li:hover {
+    background-color: $extra-dark-grey;
+  }
+}

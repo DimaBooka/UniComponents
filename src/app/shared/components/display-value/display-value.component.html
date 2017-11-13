@@ -1,6 +1,7 @@
 <span class="label">{{ label }}</span>
 <div class="data-value w-100 d-flex align-items-center justify-content-center" *ngIf="!multiple">
-  <span class="partner-text" appTextEllipsis>{{ value }}</span>
+  <span class="partner-text" *ngIf="value" appTextEllipsis>{{ value }}</span>
+  <span class="partner-text" *ngIf="!value" appTextEllipsis>No value</span>
 </div>
 
 <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="multiple">
