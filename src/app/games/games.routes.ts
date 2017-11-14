@@ -11,10 +11,10 @@ import { DetailGameConfigResolver } from '../shared/resolvers/game-config.resolv
 
 export const GAMES_ROUTES: Routes = [
   { path: '', component: GamesComponent, children: [
-    { path: 'partner', component: ListPartnerGamesComponent },
-    { path: 'partner/:id', component: DetailPartnerGamesComponent },
-    { path: 'config', component: ListCongifGamesComponent },
-    { path: 'config/:id', component: DetailConfigGamesComponent,
+    { path: 'partners', component: ListPartnerGamesComponent },
+    { path: 'partners/:id', component: DetailPartnerGamesComponent },
+    { path: 'configs', component: ListCongifGamesComponent },
+    { path: 'configs/:id', component: DetailConfigGamesComponent,
       resolve: {
         detail: DetailGameConfigResolver
       }

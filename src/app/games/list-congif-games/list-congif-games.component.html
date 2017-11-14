@@ -7,7 +7,7 @@
 <div class="list-entities-holder row">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let gameConfig of gameConfigs">
-    <app-card [routerLink]="['/games/config', gameConfig.id]">
+    <app-card [routerLink]="[gameConfig.id]">
       <!--<span class="label">Email:</span>-->
       <span appTextEllipsis>{{ gameConfig.game }}</span>
     </app-card>

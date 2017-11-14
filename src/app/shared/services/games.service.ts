@@ -110,7 +110,7 @@ export class GamesService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  createGamePartnerDetail(gamePartner: PartnerGames) {
+  createGamePartner(gamePartner: PartnerGames) {
     return this.http.post(GAMES_PARTNERS, gamePartner)
       .map(resp => {
         const respData: any = resp.json();

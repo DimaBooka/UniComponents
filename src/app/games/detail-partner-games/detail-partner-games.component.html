@@ -1,3 +1,31 @@
-<p>
-  detail-partner-games works!
-</p>
+<app-head title="Games" link="/games" [subtitle]="id"></app-head>
+
+<div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerGame">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+    <app-card>
+
+      <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
+
+        <app-display-value [label]="'Title'" [value]="partnerGame.games" [multiple]="true"></app-display-value>
+
+      </div>
+
+      <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+        <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditPartnerGame(editPartnerGame)"></app-form-button>
+      </div>
+
+    </app-card>
+  </div>
+</div>
+
+
+<ng-template #editPartnerGame let-c="close" let-d="dismiss">
+  <div class="edit-modal modal-header">
+    <h4 class="modal-title">Edit</h4>
+  </div>
+  <div class="edit-modal modal-body">
+
+    <!--<app-partner-game-interaction *ngIf="game" [partnerGame]="partnerGame" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-partner-game-interaction>-->
+
+  </div>
+</ng-template>

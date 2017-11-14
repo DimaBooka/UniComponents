@@ -37,7 +37,7 @@ export class ListGamesComponent implements OnInit {
     });
   }
 
-  private onCreate(newGame: Game, closeModal: Function) {
+  public onCreate(newGame: Game, closeModal: Function) {
     this.gamesService.createGame(newGame).subscribe(respGame => {
       this.updateListGames();
       closeModal();
