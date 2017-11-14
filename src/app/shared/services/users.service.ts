@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Http } from '@angular/http';
-import { LOGIN_ENDPOINT, USER_INFO, USERS } from '../constants';
+import { LOGIN_ENDPOINT, USER_INFO, USERS, PERMISSION } from '../constants';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,11 +10,13 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ShowErrorHandler } from '../handlers/error.handler';
 import { ToasterService } from "angular2-toaster/src/toaster.service";
+import { User } from '../models/user.model';
 
 @Injectable()
 export class UsersService {
 
   public isLogged = new BehaviorSubject(false);
+  public permission: any = null;
 
   constructor(
     private http: Http,
@@ -44,41 +46,54 @@ export class UsersService {
     this.isLogged.next(false);
     this.authService.clearToken();
     this.router.navigate(['login']);
+    this.permission = null;
   }
 
   checkUserAndToken() {
-    // if will be needed to fetch user info at the refresh page
     const token = this.authService.getToken();
     if (token) {
       this.isLogged.next(true);
     }
-    // if (token)
-    //   this.getUserDetail().subscribe();
+  }
+
+  getPermissions() {
+    return this.http.get(PERMISSION)
+      .map(resp => {
+        const response = resp.json()['permission'];
+        this.permission = response;
+        return response;
+      })
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   getUsersList() {
     return this.http.get(USERS)
       .map(resp => {
-        const respData: any[] = resp.json();
+        const respData: any = resp.json();
         const users: any[] = [];
-
-        if (respData.length > 0) {
-          respData.forEach(user => {
-            users.push(user);
+        if (respData && respData['users'].length > 0) {
+          respData['users'].forEach(user => {
+            users.push(User.createFromJSON(user));
           });
         }
 
         return users;
-      });
+      })
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   getUserDetail(id: string) {
     return this.http.get(`${USERS}/${id}`)
       .map(resp => {
-        resp = resp.json();
-        this.authService.setUserInfo(resp);
-        this.isLogged.next(true);
-        return resp;
+        const respData: any = resp.json();
+        const users: any[] = [];
+        if (respData && respData['users'].length > 0) {
+          respData['users'].forEach(user => {
+            users.push(User.createFromJSON(user));
+          });
+        }
+
+        return users;
       })
       .catch(ShowErrorHandler(this.toasterService, this));
   }

@@ -9,4 +9,12 @@
       <span appTextEllipsis>{{ partner.email }}</span>
     </app-card>
   </div>
+
+  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+       *ngFor="let partner of partnersGame">
+    <app-card [routerLink]="[partner.partner]">
+      <!--<span class="label">Email:</span>-->
+      <span appTextEllipsis>{{ partner.partner }}</span>
+    </app-card>
+  </div>
 </div>

@@ -9,6 +9,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 
 import { USERS_ROUTES } from './users.routes';
 import { ToasterModule } from 'angular2-toaster';
+import { DetailUsersComponent } from './detail-users/detail-users.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ToasterModule } from 'angular2-toaster';
   ],
   declarations: [
     UsersComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    DetailUsersComponent
   ]
 })
 export class UsersModule { }

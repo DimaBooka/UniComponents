@@ -13,3 +13,5 @@ export const GAMES= `${API_URL}/game`;
 export const GAMES_PARTNERS = `${API_URL}/partner_games`;
 
 export const GAMES_CONFIGS = `${API_URL}/game_config`;
+
+export const PERMISSION = `${API_URL}/permission`;

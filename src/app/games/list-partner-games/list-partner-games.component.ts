@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GamesService } from '../../shared/services/games.service';
 import { Partner } from '../../shared/models/partner.model';
 import { PartnersService } from '../../shared/services/partners.service';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-list-partner-games',
@@ -14,12 +15,21 @@ import { PartnersService } from '../../shared/services/partners.service';
 export class ListPartnerGamesComponent implements OnInit {
 
   public partners: Partner[] = [];
+  public partnersGame: PartnerGames[] = [];
   constructor(
-    private partnersService: PartnersService
+    private partnersService: PartnersService,
+    private gamesService: GamesService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
-    this.updateListPartners();
+    this.usersService.permission ? this.init() :
+      this.usersService.getPermissions().subscribe(permission => { this.init(); });
+  }
+
+  init() {
+   this.usersService.permission !== 'Admin' ?
+      this.updateGamePartners() : this.updateListPartners();
   }
 
   private updateListPartners() {
@@ -28,4 +38,9 @@ export class ListPartnerGamesComponent implements OnInit {
     });
   }
 
+  private updateGamePartners() {
+    this.gamesService.getGamePartnersList().subscribe(resp => {
+      this.partnersGame = resp;
+    });
+  }
 }

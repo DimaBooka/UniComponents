@@ -1,0 +1,15 @@
+<app-head title="Users" link="/users" [subtitle]="id"></app-head>
+
+<div class="list-entities-holder row">
+  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
+       *ngFor="let user of users">
+    <app-card class="no-pointer">
+      <app-display-value [label]="'ID'" [value]="user.id"></app-display-value>
+      <app-display-value [label]="'expire_at'" [value]="user.expire_at"></app-display-value>
+      <app-display-value [label]="'P Token'" [value]="user.p_token"></app-display-value>
+      <app-display-value [label]="'Partner ID'" [value]="user.partner_id"></app-display-value>
+      <app-display-value [label]="'Session ID'" [value]="user.session_id"></app-display-value>
+      <app-display-value [label]="'User ID'" [value]="user.user_id"></app-display-value>
+    </app-card>
+  </div>
+</div>

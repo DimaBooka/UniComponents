@@ -40,7 +40,7 @@ export class DetailPartnerGamesComponent implements OnInit {
   }
 
   onEdit(partnerGame: PartnerGames, closeModal: Function) {
-    this.gamesService.updateGamePartnerDetail(partnerGame).subscribe(respGameId => {
+    this.gamesService.updateGamePartnerDetail(partnerGame, this.id).subscribe(respGameId => {
       this.partnerGame = partnerGame;
       closeModal(false);
     });

@@ -41,6 +41,10 @@
     app-card {
       cursor: pointer;
       outline: none;
+
+      &.no-pointer {
+        cursor: auto;
+      }
     }
   }
 }

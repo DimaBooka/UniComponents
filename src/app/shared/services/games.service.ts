@@ -87,13 +87,9 @@ export class GamesService {
       .map(resp => {
         const respData: any[] = resp.json();
         const gamePartners: PartnerGames[] = [];
-
-        if (respData.length > 0) {
-          respData.forEach(gamePartner => {
-            gamePartners.push(PartnerGames.createFromJSON(gamePartner));
-          });
+        if (respData['partner_games'].length > 0) {
+          gamePartners.push(PartnerGames.createFromJSON(respData['partner_games']));
         }
-
         return gamePartners;
       })
       .catch(this.errorService.showErrorHandler());
@@ -118,11 +114,11 @@ export class GamesService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  updateGamePartnerDetail(gamePartner: PartnerGames) {
+  updateGamePartnerDetail(gamePartner: PartnerGames, id: string) {
     const gamePartnerData = {...gamePartner};
     gamePartnerData['game_ids'] = gamePartner['games'];
     delete gamePartnerData['games'];
-    return this.http.put(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartnerData)
+    return this.http.put(`${GAMES_PARTNERS}/${id}`, gamePartnerData)
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);

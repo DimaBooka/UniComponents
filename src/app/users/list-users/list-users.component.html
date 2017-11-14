@@ -3,10 +3,10 @@
 
 <div class="list-entities-holder row">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let i of users">
-    <app-card>
+       *ngFor="let user of users">
+    <app-card [routerLink]="['user', user.partner_id]">
       <!--<span class="label">Email:</span>-->
-      <span appTextEllipsis>{{ users.email }}</span>
+      <span appTextEllipsis>{{ user.id }}</span>
     </app-card>
   </div>
 </div>

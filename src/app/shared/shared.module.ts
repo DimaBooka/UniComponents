@@ -37,6 +37,7 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ErrorService } from './services/error.service';
 import { DetailPartnerGameResolver } from './resolvers/partner-games.resolver';
+import { DetailUserResolver } from './resolvers/user.resolver';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import { DetailPartnerGameResolver } from './resolvers/partner-games.resolver';
     DetailGameResolver,
     DetailGameConfigResolver,
     DetailPartnerGameResolver,
+    DetailUserResolver,
     AuthGuard,
     NoAuthGuard
   ]

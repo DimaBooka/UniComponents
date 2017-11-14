@@ -30,7 +30,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.usersService.login(this.loginForm.value).subscribe(resp => {
-      this.router.navigate(['games']);
+      this.usersService.getPermissions().subscribe(permissions => {
+        if (permissions === 'Admin') {
+          this.router.navigate(['games']);
+        } else {
+          this.router.navigate(['games/partners']);
+        }
+      });
     });
   }
 }
