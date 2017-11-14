@@ -8,11 +8,16 @@ import { ListCongifGamesComponent } from './list-congif-games/list-congif-games.
 import { DetailConfigGamesComponent } from "./detail-config-games/detail-config-games.component";
 import { DetailGameResolver } from '../shared/resolvers/game.resolver';
 import { DetailGameConfigResolver } from '../shared/resolvers/game-config.resolver';
+import { DetailPartnerGameResolver } from '../shared/resolvers/partner-games.resolver';
 
 export const GAMES_ROUTES: Routes = [
   { path: '', component: GamesComponent, children: [
     { path: 'partners', component: ListPartnerGamesComponent },
-    { path: 'partners/:id', component: DetailPartnerGamesComponent },
+    { path: 'partners/:id', component: DetailPartnerGamesComponent,
+      resolve: {
+        detail: DetailPartnerGameResolver
+      }
+    },
     { path: 'configs', component: ListCongifGamesComponent },
     { path: 'configs/:id', component: DetailConfigGamesComponent,
       resolve: {

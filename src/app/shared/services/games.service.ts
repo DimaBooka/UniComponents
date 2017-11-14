@@ -66,7 +66,6 @@ export class GamesService {
   updateGameDetail(game: Game) {
     const gameData = {...game};
     delete gameData.id;
-    debugger;
     return this.http.put(`${GAMES}/${game.id}`, gameData)
       .map(resp => {
         return resp.json();
@@ -105,7 +104,7 @@ export class GamesService {
     // return this.http.get(GAMES_PARTNERS)
       .map(resp => {
         const respData: any = resp.json();
-        return PartnerGames.createFromJSON(respData);
+        return PartnerGames.createFromJSON(respData['partner_games']);
       })
       .catch(this.errorService.showErrorHandler());
   }
@@ -120,7 +119,10 @@ export class GamesService {
   }
 
   updateGamePartnerDetail(gamePartner: PartnerGames) {
-    return this.http.put(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartner)
+    const gamePartnerData = {...gamePartner};
+    gamePartnerData['game_ids'] = gamePartner['games'];
+    delete gamePartnerData['games'];
+    return this.http.put(`${GAMES_PARTNERS}/${gamePartner.id}`, gamePartnerData)
       .map(resp => {
         const respData: any = resp.json();
         return PartnerGames.createFromJSON(respData);

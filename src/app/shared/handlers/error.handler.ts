@@ -5,7 +5,6 @@ import 'rxjs/add/observable/throw';
 export function HandleError (error, userService) {
   let err: any = {};
   if (error.status === 401) {
-    debugger;
     userService.logout();
   }
 

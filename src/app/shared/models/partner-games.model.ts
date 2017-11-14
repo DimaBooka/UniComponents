@@ -4,11 +4,13 @@ export class PartnerGames {
     const gamePartner = new PartnerGames();
     gamePartner.id = json['id'] || "";
     gamePartner.games = json['games'] || [];
+    gamePartner.partner = json['partner'] || [];
     return gamePartner
   }
 
   constructor(
     public id: string = "",
+    public partner: string = "",
     public games: string[] = []
   ) {}
 }

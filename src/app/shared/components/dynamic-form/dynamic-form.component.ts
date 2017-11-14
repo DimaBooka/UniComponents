@@ -19,8 +19,6 @@ export class DynamicFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    debugger;
-
     const formData = {};
     this.fieldsOptions.forEach(field => {
       formData[field.fieldName] = [ field.value, field.validators ]
@@ -34,8 +32,6 @@ export class DynamicFormComponent implements OnInit {
       this.customConfigs = this.customConfigField.value;
       this.fieldsOptions.splice(this.fieldsOptions.indexOf(this.customConfigField), 1);
     }
-
-    debugger;
   }
 
   addCustomConfig() {
