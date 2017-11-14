@@ -5,13 +5,16 @@ import { PARTNERS } from '../constants';
 import { Partner } from '../models/partner.model';
 import { ShowErrorHandler } from "../handlers/error.handler";
 import { ToasterService } from 'angular2-toaster';
+import { UsersService } from './users.service';
+import { ErrorService } from './error.service';
 
 @Injectable()
 export class PartnersService {
   constructor(
     private http: Http,
     private router: Router,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private errorService: ErrorService
   ) {
   }
 
@@ -33,7 +36,7 @@ export class PartnersService {
 
         return partners;
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(this.errorService.showErrorHandler());
   }
 
   getPartnerDetail(id: string) {
@@ -43,31 +46,33 @@ export class PartnersService {
         const respData: any = resp.json();
         return Partner.createFromJSON(respData['partner']);
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(this.errorService.showErrorHandler());
   }
 
   createPartner(partner: Partner) {
-    return this.http.post(PARTNERS, partner)
+    const partnerData = {...partner};
+    delete partnerData.id;
+    partnerData['group'] = 'Partner';
+    return this.http.post(PARTNERS, partnerData)
       .map(resp => {
         return resp.json();
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(this.errorService.showErrorHandler());
   }
 
   updatePartnerDetail(partner: Partner) {
     const partnerUpdate = {...partner};
-    delete partnerUpdate['id'];
     partnerUpdate['group'] = 'Partner';
     return this.http.put(`${PARTNERS}/${partner.id}`, partnerUpdate)
       .map(resp => {
         return resp.json();
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(this.errorService.showErrorHandler());
   }
 
   deletePartner(partner: Partner) {
     return this.http.delete(`${PARTNERS}/${partner.id}`)
       .map(resp => resp.json())
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(this.errorService.showErrorHandler());
   }
 }

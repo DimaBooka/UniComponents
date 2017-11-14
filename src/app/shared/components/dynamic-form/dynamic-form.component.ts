@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormField } from "../../models/form-field.model";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -8,25 +9,33 @@ import { FormGroup } from '@angular/forms';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() formEntity: FormGroup;
-  @Input() fieldsOptions: any = {};
+  @Input() fieldsOptions: FormField[] = [];
   @Input() creation: boolean = false;
   @Output() changedForm: EventEmitter<FormGroup> = new EventEmitter();
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
-  public fields: any[] = [];
-  public customConfigField: string = null;
+  public formEntity: FormGroup;
+  public customConfigField: FormField;
   public customConfigs: any[] = [];
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.fields = Object.keys(this.fieldsOptions);
-    this.customConfigField = this.fields.indexOf('default_custom_config') > -1 ?
-      'default_custom_config' : this.fields.indexOf('custom_config') > -1 ? 'custom_config' : null;
+    debugger;
 
-    if (this.customConfigField) {
-      this.customConfigs = this.fieldsOptions[this.customConfigField]['values'];
-      this.fields.splice(this.fields.indexOf(this.customConfigField), 1);
+    const formData = {};
+    this.fieldsOptions.forEach(field => {
+      formData[field.fieldName] = [ field.value, field.validators ]
+    });
+    this.formEntity = this.fb.group(formData);
+
+    const customField: FormField[] = this.fieldsOptions
+      .filter(field => ['default_custom_config', 'custom_config'].indexOf(field.fieldName) > -1);
+    if (customField.length === 1) {
+      this.customConfigField = customField[0];
+      this.customConfigs = this.customConfigField.value;
+      this.fieldsOptions.splice(this.fieldsOptions.indexOf(this.customConfigField), 1);
     }
+
+    debugger;
   }
 
   addCustomConfig() {
@@ -69,11 +78,11 @@ export class DynamicFormComponent implements OnInit {
         customConfig[config['key']] = config['value'];
       });
 
-      this.formEntity.get(this.customConfigField).setValue(customConfig);
+      this.formEntity.get(this.customConfigField.fieldName).setValue(customConfig);
       this.formEntity.updateValueAndValidity();
     }
 
-    this.changedForm.emit(this.formEntity);
+    this.changedForm.emit(this.formEntity.value);
   }
 
 }

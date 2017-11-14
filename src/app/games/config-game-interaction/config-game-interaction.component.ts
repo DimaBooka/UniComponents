@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GameConfig } from '../../shared/models/game-config.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormField } from '../../shared/models/form-field.model';
 
 @Component({
   selector: 'app-config-game-interaction',
@@ -13,23 +14,11 @@ export class ConfigGameInteractionComponent implements OnInit {
   @Input() creation: boolean = false;
   @Output() onSubmit: EventEmitter<GameConfig> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
-  public gameConfigForm: FormGroup;
-
   public customConfigs: any[] = [];
   public fieldsOptions: any = {};
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.gameConfigForm = this.fb.group({
-      game: [this.gameConfig.game, []],
-      currency: [this.gameConfig.currency, []],
-      lobby_url: [this.gameConfig.lobby_url, []],
-      min_bet: [this.gameConfig.min_bet, []],
-      max_bet: [this.gameConfig.max_bet, []],
-      custom_config: [this.gameConfig.custom_config, []]
-    });
 
     this.customConfigs = Object.keys(this.gameConfig.custom_config).map(configKey => {
       const config = {};
@@ -38,23 +27,44 @@ export class ConfigGameInteractionComponent implements OnInit {
       return config;
     });
 
-    this.fieldsOptions = {
-      game: {input: true, label: 'Game', placeholder: 'Enter game'},
-      currency: {input: true, label: 'Currency', placeholder: 'Enter currency'},
-      lobby_url: {input: true, label: 'Lobby URL', placeholder: 'Enter lobby url'},
-      min_bet: {input: true, type: 'number', label: 'Min Bet', placeholder: 'Enter min bet'},
-      max_bet: {input: true, type: 'number', label: 'Max Bet', placeholder: 'Enter max bet'},
-      custom_config: {values: this.customConfigs}
-    }
+    this.fieldsOptions = [
+      FormField.createFromObject({
+        fieldName: 'game_id',
+        value: this.gameConfig.game, validators: [],
+        input: true, label: 'Game ID', placeholder: 'Enter game id'
+      }),
+      FormField.createFromObject({
+        fieldName: 'currency',
+        value: this.gameConfig.currency, validators: [],
+        input: true, label: 'Currency', placeholder: 'Enter currency'
+      }),
+      FormField.createFromObject({
+        fieldName: 'lobby_url',
+        value: this.gameConfig.lobby_url, validators: [],
+        input: true, label: 'Lobby URL', placeholder: 'Enter lobby url'
+      }),
+      FormField.createFromObject({
+        fieldName: 'min_bet',
+        value: this.gameConfig.min_bet, validators: [],
+        input: true, type: 'number', label: 'Min Bet', placeholder: 'Enter min bet'
+      }),
+      FormField.createFromObject({
+        fieldName: 'max_bet',
+        value: this.gameConfig.max_bet, validators: [],
+        input: true, type: 'number', label: 'Max Bet', placeholder: 'Enter max bet'
+      }),
+      FormField.createFromObject({
+        fieldName: 'custom_config',
+        value: this.customConfigs, validators: [], label: 'Custom Config'
+      })
+    ];
   }
 
   onCancelForm() {
     this.onCancel.emit();
   }
 
-  onSubmitForm(form?: FormGroup) {
-    const value = form ? form.value : this.gameConfigForm.value;
-
+  onSubmitForm(value: any) {
     const customConfig = {};
 
     this.customConfigs.forEach(config => {

@@ -35,6 +35,7 @@ import { DisplayValueComponent } from './components/display-value/display-value.
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { ErrorService } from './services/error.service';
 
 @NgModule({
   imports: [
@@ -83,6 +84,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
     AuthService,
     GamesService,
     PartnersService,
+    ErrorService,
     DetailPartnerResolver,
     DetailGameResolver,
     DetailGameConfigResolver,

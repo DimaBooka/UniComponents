@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Game } from '../../shared/models/game.model';
+import { FormField } from '../../shared/models/form-field.model';
 
 @Component({
   selector: 'app-game-interaction',
@@ -14,23 +15,12 @@ export class GameInteractionComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Game> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public gameData: Game;
-  public gameForm: FormGroup;
-  public fieldsOptions: any = {};
+  public fieldsOptions: FormField[] = [];
   public customConfigs: any[] = [];
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     this.gameData = Game.createFromJSON(this.game);
-    this.gameForm = this.fb.group({
-      title: [this.game.title , []],
-      description: [this.game.description , []],
-      picture_url: [this.game.picture_url , []],
-      game_url: [this.game.game_url , []],
-      secret_key: [this.game.secret_key , []],
-      default_custom_config: [this.game.default_custom_config , []]
-    });
 
     this.customConfigs = Object.keys(this.game.default_custom_config).map(configKey => {
       const config = {};
@@ -39,25 +29,46 @@ export class GameInteractionComponent implements OnInit {
       return config;
     });
 
-    this.fieldsOptions = {
-      title: {input: true, label: 'Title', placeholder: 'Enter title'},
-      description: {textarea: true, label: 'Description', placeholder: 'Enter description'},
-      picture_url: {input: true, label: 'Picture URL', placeholder: 'Enter picture url'},
-      game_url: {input: true, label: 'Game URL', placeholder: 'Enter game url'},
-      secret_key: {input: true, label: 'Secret Key', placeholder: 'Enter secret key'},
-      default_custom_config: {values: this.customConfigs},
-    }
+    this.fieldsOptions = [
+      FormField.createFromObject({
+        fieldName: 'title',
+        value: this.game.title, validators: [],
+        input: true, label: 'Title', placeholder: 'Enter title'
+      }),
+      FormField.createFromObject({
+        fieldName: 'description',
+        value: this.game.description, validators: [],
+        textarea: true, label: 'Description', placeholder: 'Enter description'
+      }),
+      FormField.createFromObject({
+        fieldName: 'picture_url',
+        value: this.game.picture_url, validators: [],
+        input: true, label: 'Picture URL', placeholder: 'Enter picture url'
+      }),
+      FormField.createFromObject({
+        fieldName: 'game_url',
+        value: this.game.game_url, validators: [],
+        input: true, label: 'Game URL', placeholder: 'Enter game url'
+      }),
+      FormField.createFromObject({
+        fieldName: 'secret_key',
+        value: this.game.secret_key, validators: [],
+        input: true, label: 'Secret Key', placeholder: 'Enter secret key'
+      }),
+      FormField.createFromObject({
+        fieldName: 'default_custom_config',
+        value: this.customConfigs, validators: [], label: 'Default Custom Config'
+      })
+    ];
   }
 
   onCancelForm() {
     this.onCancel.emit();
   }
 
-  onSubmitForm(form?: FormGroup) {
-    const value = form ? form.value : this.gameForm.value;
+  onSubmitForm(value: any) {
 
     const customConfig = {};
-
     this.customConfigs.forEach(config => {
       customConfig[config['key']] = config['value'];
     });

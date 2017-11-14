@@ -37,12 +37,12 @@ export class UsersService {
 
         return resp;
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   logout() {
-    this.authService.clearToken();
     this.isLogged.next(false);
+    this.authService.clearToken();
     this.router.navigate(['login']);
   }
 
@@ -80,7 +80,7 @@ export class UsersService {
         this.isLogged.next(true);
         return resp;
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   createUser(user: any) {
@@ -90,7 +90,7 @@ export class UsersService {
         // TODO: add user model and create instance here
         return respData;
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   updateUserDetail(user: any) {
@@ -100,12 +100,12 @@ export class UsersService {
         // TODO: add user model and create instance here
         return respData;
       })
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 
   deleteUser(user: any) {
     return this.http.delete(`${USERS}/${user.id}`)
       .map(resp => resp.json())
-      .catch(ShowErrorHandler(this.toasterService));
+      .catch(ShowErrorHandler(this.toasterService, this));
   }
 }

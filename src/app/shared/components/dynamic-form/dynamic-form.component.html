@@ -1,15 +1,15 @@
 <form class="form-holder d-flex flex-column align-items-center justify-content-center"
       (submit)="onSubmitForm()" [formGroup]="formEntity">
 
-  <app-form-field *ngFor="let field of fields"
-                  [control]="formEntity.get(field)"
-                  [input]="fieldsOptions[field]['input']" [type]="fieldsOptions[field]['type']"
-                  [multiple]="!!fieldsOptions[field]['multiple']" [textarea]="fieldsOptions[field]['textarea']"
-                  [select]="!!fieldsOptions[field]['select']" [options]="fieldsOptions[field]['options']"
-                  [label]="fieldsOptions[field]['label']" [placeholder]="fieldsOptions[field]['placeholder']"></app-form-field>
+  <app-form-field *ngFor="let field of fieldsOptions"
+                  [control]="formEntity.get(field.fieldName)"
+                  [input]="field.input" [type]="field.type"
+                  [multiple]="field.multiple" [textarea]="field.textarea"
+                  [select]="field.select" [options]="field.options"
+                  [label]="field.label" [placeholder]="field.placeholder"></app-form-field>
 
   <div class="form-group" *ngIf="customConfigField">
-    <label>Custom Config</label>
+    <label>{{ customConfigField.label }}</label>
     <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
 
       <div class="w-100 d-flex align-items-center justify-content-center">

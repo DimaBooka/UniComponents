@@ -2,8 +2,13 @@ import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
 import 'rxjs/add/observable/throw';
 
-export function HandleError (error) {
+export function HandleError (error, userService) {
   let err: any = {};
+  if (error.status === 401) {
+    debugger;
+    userService.logout();
+  }
+
   if (error instanceof Response) {
 
     try {
@@ -32,9 +37,9 @@ export function HandleError (error) {
   // return Observable.throw(err.json().data || 'Server error');
 }
 
-export function ShowErrorHandler(toasterService) {
+export function ShowErrorHandler(toasterService, userService) {
   return function (errorData) {
-    const errorFormat = HandleError(errorData);
+    const errorFormat = HandleError(errorData, userService);
     const error = errorFormat['error'];
 
     if (error && error['error'] && !error['details'])
