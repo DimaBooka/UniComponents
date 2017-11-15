@@ -67,6 +67,7 @@ export class DynamicFormComponent implements OnInit {
 
   onSubmitForm() {
 
+    debugger;
     if (this.customConfigField) {
       const customConfig = {};
 

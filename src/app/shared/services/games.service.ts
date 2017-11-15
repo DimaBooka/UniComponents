@@ -3,11 +3,9 @@ import { GAMES, GAMES_CONFIGS, GAMES_PARTNERS } from '../constants';
 import { Game } from '../models/game.model';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { PartnerGames } from '../models/partner-games.model';
+import { PartnerGame } from '../models/partner-games.model';
 import { GameConfig } from '../models/game-config.model';
-import { ShowErrorHandler } from '../handlers/error.handler';
 import { ToasterService } from 'angular2-toaster';
-import { UsersService } from './users.service';
 import { ErrorService } from './error.service';
 
 @Injectable()
@@ -86,51 +84,58 @@ export class GamesService {
     return this.http.get(GAMES_PARTNERS)
       .map(resp => {
         const respData: any[] = resp.json();
-        const gamePartners: PartnerGames[] = [];
-        if (respData['partner_games'].length > 0) {
-          gamePartners.push(PartnerGames.createFromJSON(respData['partner_games']));
+        const games: PartnerGame[] = [];
+        if (respData['partner_games'] && respData['partner_games'].length > 0) {
+          respData['partner_games'].forEach(game => {
+            games.push(PartnerGame.createFromJSON(game));
+          });
         }
-        return gamePartners;
+
+        return games;
       })
       .catch(this.errorService.showErrorHandler());
   }
 
   getGamePartnerDetail(id: string) {
     return this.http.get(`${GAMES_PARTNERS}/${id}`)
-    // return this.http.get(GAMES_PARTNERS)
       .map(resp => {
         const respData: any = resp.json();
-        return PartnerGames.createFromJSON(respData['partner_games']);
+        const games: PartnerGame[] = [];
+        if (respData['partner_games'] && respData['partner_games'].length > 0) {
+          respData['partner_games'].forEach(game => {
+            games.push(PartnerGame.createFromJSON(game));
+          });
+        }
+
+        return games;
       })
       .catch(this.errorService.showErrorHandler());
   }
 
-  createGamePartner(gamePartner: PartnerGames) {
-    return this.http.post(GAMES_PARTNERS, gamePartner)
-      .map(resp => {
-        const respData: any = resp.json();
-        return PartnerGames.createFromJSON(respData);
-      })
-      .catch(this.errorService.showErrorHandler());
-  }
+  // createGamePartner(gamePartner: PartnerGame) {
+  //   return this.http.post(GAMES_PARTNERS, gamePartner)
+  //     .map(resp => {
+  //       const respData: any = resp.json();
+  //       return PartnerGame.createFromJSON(respData);
+  //     })
+  //     .catch(this.errorService.showErrorHandler());
+  // }
 
-  updateGamePartnerDetail(gamePartner: PartnerGames, id: string) {
-    const gamePartnerData = {...gamePartner};
-    gamePartnerData['game_ids'] = gamePartner['games'];
-    delete gamePartnerData['games'];
+  updateGamePartnerDetail(newGameIds: string[], id: string) {
+    const gamePartnerData = {};
+    gamePartnerData['game_ids'] = newGameIds;
     return this.http.put(`${GAMES_PARTNERS}/${id}`, gamePartnerData)
       .map(resp => {
-        const respData: any = resp.json();
-        return PartnerGames.createFromJSON(respData);
+        return resp.json();
       })
       .catch(this.errorService.showErrorHandler());
   }
-
-  deleteGamePartner(gamePartner: PartnerGames) {
-    return this.http.delete(`${GAMES_PARTNERS}/${gamePartner.id}`)
-      .map(resp => resp.json())
-      .catch(this.errorService.showErrorHandler());
-  }
+  //
+  // deleteGamePartner(gamePartner: PartnerGame) {
+  //   return this.http.delete(`${GAMES_PARTNERS}/${gamePartner.game_id}`)
+  //     .map(resp => resp.json())
+  //     .catch(this.errorService.showErrorHandler());
+  // }
 
 
   // CRUD for Game entity

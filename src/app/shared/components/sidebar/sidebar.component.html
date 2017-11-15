@@ -41,6 +41,14 @@
         <a class="nav-link" routerLink="users" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}">Users</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="wallets" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Wallets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="wallets/partners" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Partner Wallets</a>
+      </li>
       <li class="nav-item" (click)="usersService.logout()">
         <a class="nav-link">Logout</a>
       </li>

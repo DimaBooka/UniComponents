@@ -1,0 +1,27 @@
+<app-head title="Wallets">
+
+  <app-form-button [value]="'Add Wallet'" (onClick)="openCreateWallet(createWallet)"></app-form-button>
+
+</app-head>
+
+<div class="list-entities-holder row">
+  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+       *ngFor="let wallet of wallets">
+    <app-card [routerLink]="['wallet', wallet.id]">
+      <!--<span class="label">Email:</span>-->
+      <span appTextEllipsis>{{ wallet.id }}</span>
+    </app-card>
+  </div>
+</div>
+
+
+<ng-template #createWallet let-c="close" let-d="dismiss">
+  <div class="create-modal modal-header">
+    <h4 class="modal-title">Create Wallet</h4>
+  </div>
+  <div class="create-modal modal-body">
+
+    <!--<app-wallet-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-wallet-interaction>-->
+
+  </div>
+</ng-template>

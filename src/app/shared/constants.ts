@@ -15,3 +15,7 @@ export const GAMES_PARTNERS = `${API_URL}/partner_games`;
 export const GAMES_CONFIGS = `${API_URL}/game_config`;
 
 export const PERMISSION = `${API_URL}/permission`;
+
+export const WALLETS = `${API_URL}/wallet`;
+
+export const PARTNER_WALLETS = `${API_URL}/partner_wallets`;

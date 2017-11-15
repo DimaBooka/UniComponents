@@ -11,12 +11,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ShowErrorHandler } from '../handlers/error.handler';
 import { ToasterService } from "angular2-toaster/src/toaster.service";
 import { User } from '../models/user.model';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from "rxjs";
 
 @Injectable()
 export class UsersService {
 
   public isLogged = new BehaviorSubject(false);
-  public permission: any = null;
+  public permission = new BehaviorSubject(null);
 
   constructor(
     private http: Http,
@@ -27,15 +29,14 @@ export class UsersService {
 
   login(loginData: any) {
     return this.http.post(LOGIN_ENDPOINT, loginData)
-    // return this.http.get(LOGIN_ENDPOINT)
       .map(resp => {
         resp = resp.json();
         this.authService.setToken(resp['X-SESSION-TOKEN']);
 
         this.authService.setUserInfo({ 'email': loginData['email']});
-        this.isLogged.next(true);
-        // if will be needed to fetch user info
-        // this.getUserDetail().subscribe();
+        this.getPermissions().subscribe(resp => {
+          this.isLogged.next(true)
+        });
 
         return resp;
       })
@@ -46,13 +47,15 @@ export class UsersService {
     this.isLogged.next(false);
     this.authService.clearToken();
     this.router.navigate(['login']);
-    this.permission = null;
+    this.permission.next(null);
   }
 
   checkUserAndToken() {
     const token = this.authService.getToken();
     if (token) {
-      this.isLogged.next(true);
+      this.getPermissions().subscribe(reps => {
+        this.isLogged.next(true);
+      });
     }
   }
 
@@ -60,7 +63,7 @@ export class UsersService {
     return this.http.get(PERMISSION)
       .map(resp => {
         const response = resp.json()['permission'];
-        this.permission = response;
+        this.permission.next(response);
         return response;
       })
       .catch(ShowErrorHandler(this.toasterService, this));

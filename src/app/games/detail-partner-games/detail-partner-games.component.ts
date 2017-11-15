@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PartnerGames } from '../../shared/models/partner-games.model';
+import { PartnerGame } from '../../shared/models/partner-games.model';
 import { GamesService } from '../../shared/services/games.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Game } from '../../shared/models/game.model';
 
 @Component({
   selector: 'app-detail-partner-games',
@@ -12,7 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DetailPartnerGamesComponent implements OnInit {
 
   public id: string;
-  public partnerGame: PartnerGames;
+  public partnerGames: PartnerGame[];
+  public partnerGamesTitle: string[];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -23,7 +25,15 @@ export class DetailPartnerGamesComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.route.data.subscribe(trip => {
-      this.partnerGame = <PartnerGames>trip.detail;
+      this.partnerGames = <PartnerGame[]>trip.detail;
+      this.partnerGamesTitle = this.partnerGames.map(game => game.title);
+    });
+  }
+
+  updatepartnerGamesList() {
+    this.gamesService.getGamePartnerDetail(this.id).subscribe(games => {
+      this.partnerGames = games;
+      this.partnerGamesTitle = this.partnerGames.map(game => game.title);
     });
   }
 
@@ -39,9 +49,9 @@ export class DetailPartnerGamesComponent implements OnInit {
     });
   }
 
-  onEdit(partnerGame: PartnerGames, closeModal: Function) {
-    this.gamesService.updateGamePartnerDetail(partnerGame, this.id).subscribe(respGameId => {
-      this.partnerGame = partnerGame;
+  onEdit(newPartnerGames: string[], closeModal: Function) {
+    this.gamesService.updateGamePartnerDetail(newPartnerGames, this.id).subscribe(respGameId => {
+      this.updatepartnerGamesList();
       closeModal(false);
     });
   }

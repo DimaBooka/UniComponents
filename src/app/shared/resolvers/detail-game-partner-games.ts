@@ -5,12 +5,11 @@ import { GamesService } from '../services/games.service';
 import { PartnerGame } from '../models/partner-games.model';
 
 @Injectable()
-export class DetailPartnerGameResolver implements Resolve<PartnerGame> {
+export class DetailGamePartnerGamesResolver implements Resolve<PartnerGame> {
 
   constructor(private gameService: GamesService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any  {
-    let id = route.params.id;
-    return this.gameService.getGamePartnerDetail(id);
+    return this.gameService.getGamePartnersList();
   }
 }

@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigGameInteractionComponent } from './config-game-interaction/config-game-interaction.component';
 import { ToasterModule } from 'angular2-toaster';
 import { PartnerGameInteractionComponent } from './partner-game-interaction/partner-game-interaction.component';
+import { DetailGamePartnerGamesComponent } from './detail-game-partner-games/detail-game-partner-games.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { PartnerGameInteractionComponent } from './partner-game-interaction/part
     DetailConfigGamesComponent,
     GameInteractionComponent,
     ConfigGameInteractionComponent,
-    PartnerGameInteractionComponent
+    PartnerGameInteractionComponent,
+    DetailGamePartnerGamesComponent
   ]
 })
 export class GamesModule { }

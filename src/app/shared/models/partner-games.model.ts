@@ -1,16 +1,23 @@
-export class PartnerGames {
+export class PartnerGame {
 
   static createFromJSON(json: any) {
-    const gamePartner = new PartnerGames();
-    gamePartner.id = json['id'] || "";
-    gamePartner.games = json['games'] || [];
-    gamePartner.partner = json['partner'] || [];
-    return gamePartner
+    const partnerGame = new PartnerGame();
+    partnerGame.game_id = json['game_id'] || "";
+    partnerGame.title = json['title'] || "";
+    partnerGame.description = json['description'] || "";
+    partnerGame.picture_url = json['picture_url'] || "";
+    partnerGame.game_url = json['game_url'] || "";
+    partnerGame.config = json['default_custom_config'] || {};
+    return partnerGame;
   }
 
   constructor(
-    public id: string = "",
-    public partner: string = "",
-    public games: string[] = []
+    public game_id: string = "",
+    public title: string = "",
+    public description: string = "",
+    public picture_url: string = "",
+    public game_url: string = "",
+    public secret_key: string = "",
+    public config: any = {},
   ) {}
 }

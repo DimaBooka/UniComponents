@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartnerGames } from '../../shared/models/partner-games.model';
+import { PartnerGame } from '../../shared/models/partner-games.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GamesService } from '../../shared/services/games.service';
@@ -15,7 +15,7 @@ import { UsersService } from '../../shared/services/users.service';
 export class ListPartnerGamesComponent implements OnInit {
 
   public partners: Partner[] = [];
-  public partnersGame: PartnerGames[] = [];
+  public partnersGame: PartnerGame[] = [];
   constructor(
     private partnersService: PartnersService,
     private gamesService: GamesService,
@@ -23,12 +23,19 @@ export class ListPartnerGamesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.permission ? this.init() :
-      this.usersService.getPermissions().subscribe(permission => { this.init(); });
+    if (this.usersService.permission.value) {
+      this.init();
+    } else {
+      this.usersService.getPermissions().subscribe((permission: string) => {
+        if (permission) {
+          this.init();
+        }
+      });
+    }
   }
 
   init() {
-   this.usersService.permission !== 'Admin' ?
+    this.usersService.permission.value !== 'Admin' ?
       this.updateGamePartners() : this.updateListPartners();
   }
 

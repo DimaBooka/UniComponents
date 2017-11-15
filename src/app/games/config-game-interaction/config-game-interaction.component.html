@@ -45,5 +45,5 @@
 
 
 
-<app-dynamic-form [fieldsOptions]="fieldsOptions"
+<app-dynamic-form [fieldsOptions]="fieldsOptions" *ngIf="fieldsOptions"
                   (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>

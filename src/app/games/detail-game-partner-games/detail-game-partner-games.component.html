@@ -1,0 +1,36 @@
+<app-head title="Partner Game" link="/games/partners" [subtitle]="id"></app-head>
+
+<div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="game">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+    <app-card>
+
+      <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
+
+        <app-display-value [label]="'Game ID'" [value]="game.game_id"></app-display-value>
+
+        <app-display-value [label]="'Title'" [value]="game.title"></app-display-value>
+
+        <app-display-value [label]="'Description'" [value]="game.description"></app-display-value>
+
+        <app-display-value [label]="'Picture URL'" [value]="game.picture_url"></app-display-value>
+
+        <app-display-value [label]="'Game URL'" [value]="game.game_url"></app-display-value>
+
+        <span class="label" *ngIf="customConfigs.length > 0">Custom Config</span>
+        <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="customConfigs.length > 0">
+
+          <div class="w-100 d-flex align-items-center justify-content-center">
+            <app-custom-config [key]="'key'" [value]="'value'" [isLabel]="true"></app-custom-config>
+          </div>
+
+          <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+            <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"></app-custom-config>
+          </div>
+
+        </div>
+
+      </div>
+
+    </app-card>
+  </div>
+</div>

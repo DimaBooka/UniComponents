@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PartnerGames } from '../../shared/models/partner-games.model';
+import { PartnerGame } from '../../shared/models/partner-games.model';
 import { FormField } from '../../shared/models/form-field.model';
 import { Game } from '../../shared/models/game.model';
 import { GamesService } from '../../shared/services/games.service';
@@ -11,31 +11,36 @@ import { GamesService } from '../../shared/services/games.service';
 })
 export class PartnerGameInteractionComponent implements OnInit {
 
-  @Input() partnerGame: PartnerGames = new PartnerGames();
+  @Input() partnerGames: PartnerGame[] = [];
   @Input() creation: boolean = false;
-  @Output() onSubmit: EventEmitter<PartnerGames> = new EventEmitter();
+  @Output() onSubmit: EventEmitter<PartnerGame> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
-  public partnerGamesData: PartnerGames;
+  public partnerGamesData: PartnerGame;
   public fieldsOptions: FormField[];
   public gamesOptions: any[] = [];
   constructor(private gamesService: GamesService) { }
 
   ngOnInit() {
-    this.partnerGamesData = PartnerGames.createFromJSON(this.partnerGame);
+    this.partnerGamesData = PartnerGame.createFromJSON(this.partnerGames);
     this.getListGames();
   }
 
   private getListGames() {
     this.gamesService.getGamesList().subscribe((games: Game[]) => {
-      this.gamesOptions = games.map(game => {
-        return { id: game.id, name: game.title }
+      let selectedGames = this.partnerGames.map(game => game.game_id);
+
+      this.gamesOptions = [];
+      games.forEach(game => {
+        if (selectedGames.indexOf(game.id) < 0) {
+          this.gamesOptions.push({ id: game.id, name: game.title });
+        }
       });
 
       this.fieldsOptions = [
         FormField.createFromObject({
           fieldName: 'games',
-          value: this.partnerGame.games, validators: [],
-          select: true, multiple: true, options: this.gamesOptions, label: 'Games'
+          value: [], validators: [],
+          select: true, multiple: true, options: this.gamesOptions, label: 'Add Games'
         })
       ];
     });
@@ -47,8 +52,6 @@ export class PartnerGameInteractionComponent implements OnInit {
 
   onSubmitForm(value: any) {
 
-    this.partnerGamesData.games = value.games;
-
-    this.onSubmit.emit(this.partnerGamesData);
+    this.onSubmit.emit(value.games);
   }
 }

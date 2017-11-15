@@ -38,6 +38,10 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ErrorService } from './services/error.service';
 import { DetailPartnerGameResolver } from './resolvers/partner-games.resolver';
 import { DetailUserResolver } from './resolvers/user.resolver';
+import { DetailGamePartnerGamesResolver } from './resolvers/detail-game-partner-games';
+import { DetailPartnerWalletResolver } from './resolvers/partner-wallet.resolver';
+import { DetailWalletResolver } from './resolvers/wallet.resolver';
+import { WalletsService } from './services/wallets.service';
 
 @NgModule({
   imports: [
@@ -87,11 +91,15 @@ import { DetailUserResolver } from './resolvers/user.resolver';
     GamesService,
     PartnersService,
     ErrorService,
+    WalletsService,
     DetailPartnerResolver,
     DetailGameResolver,
     DetailGameConfigResolver,
     DetailPartnerGameResolver,
     DetailUserResolver,
+    DetailGamePartnerGamesResolver,
+    DetailWalletResolver,
+    DetailPartnerWalletResolver,
     AuthGuard,
     NoAuthGuard
   ]

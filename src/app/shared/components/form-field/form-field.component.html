@@ -10,7 +10,7 @@
   <select class="form-control" *ngIf="select && !multiple"
           [id]="label || 'field_id'" [formControl]="control">
     <option value="" selected disabled>{{ placeholder }}</option>
-    <option [value]="option.value" *ngFor="let option of options">{{ option.name }}</option>
+    <option [value]="option.id" *ngFor="let option of options">{{ option.name }}</option>
   </select>
 
   <ss-multiselect-dropdown [options]="options" [settings]="settings" *ngIf="select && multiple"
