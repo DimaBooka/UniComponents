@@ -26,7 +26,7 @@ export class DynamicFormComponent implements OnInit {
     this.formEntity = this.fb.group(formData);
 
     const customField: FormField[] = this.fieldsOptions
-      .filter(field => ['default_custom_config', 'custom_config'].indexOf(field.fieldName) > -1);
+      .filter(field => ['default_custom_config', 'custom_config', 'config', 'wallet_specials'].indexOf(field.fieldName) > -1);
     if (customField.length === 1) {
       this.customConfigField = customField[0];
       this.customConfigs = this.customConfigField.value;
@@ -67,7 +67,6 @@ export class DynamicFormComponent implements OnInit {
 
   onSubmitForm() {
 
-    debugger;
     if (this.customConfigField) {
       const customConfig = {};
 

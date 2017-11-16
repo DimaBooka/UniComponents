@@ -35,8 +35,8 @@ export class WalletsService {
       .map(resp => {
         const respData: any[] = resp.json();
         const wallets: Wallet[] = [];
-        if (respData['games'] && respData['games'].length > 0) {
-          respData['games'].forEach(wallet => {
+        if (respData['wallets'] && respData['wallets'].length > 0) {
+          respData['wallets'].forEach(wallet => {
             wallets.push(Wallet.createFromJSON(wallet));
           });
         }
@@ -50,7 +50,7 @@ export class WalletsService {
     return this.http.get(`${WALLETS}/${id}`)
       .map(resp => {
         const respData: any = resp.json();
-        return Wallet.createFromJSON(respData['game']);
+        return Wallet.createFromJSON(respData['wallet']);
       })
       .catch(this.errorService.showErrorHandler());
   }

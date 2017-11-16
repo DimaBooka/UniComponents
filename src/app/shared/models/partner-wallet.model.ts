@@ -3,14 +3,16 @@ export class PartnerWallet {
   static createFromJSON(json: any) {
     const partnerWallet = new PartnerWallet();
     partnerWallet.id = json['id'] || '';
-    partnerWallet.USD = json['USD'] || '';
-    partnerWallet.EUR = json['EUR'] || '';
+    partnerWallet.available_wallets = json['available_wallets'] || [];
+    partnerWallet.partner_id = json['partner_id'] || '';
+    partnerWallet.wallets = json['wallets'] || {};
     return partnerWallet;
   }
 
   constructor(
     public id: string = '',
-    public USD: string = '',
-    public EUR: string = ''
+    public available_wallets: string[] = [],
+    public partner_id: string = '',
+    public wallets: any = {}
   ) {}
 }

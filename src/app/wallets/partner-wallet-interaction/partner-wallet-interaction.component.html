@@ -1,3 +1,3 @@
-<p>
-  partner-wallet-interaction works!
-</p>
+
+<app-dynamic-form [fieldsOptions]="fieldsOptions" *ngIf="fieldsOptions"
+                  (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>

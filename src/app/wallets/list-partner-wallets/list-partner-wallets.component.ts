@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListPartnerWalletsComponent implements OnInit {
 
-  public partnerWallet: PartnerWallet[] = [];
+  public partnerWallets: PartnerWallet[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -25,26 +25,26 @@ export class ListPartnerWalletsComponent implements OnInit {
 
   private updateListWallets() {
     this.walletsService.getPartnerWalletsList().subscribe((wallets: PartnerWallet[]) => {
-      this.partnerWallet = wallets;
+      this.partnerWallets = wallets;
     });
   }
 
-  public openCreateWallet(createModal) {
-    this.modalService.open(createModal).result.then(result => {
-      this.walletsService.showSuccessMessage('Wallet was successfully added');
-    }, (reason) => {
-      this.onCancel();
-    });
-  }
-
-  public onCreate(newPartnerWallet: PartnerWallet, closeModal: Function) {
-    this.walletsService.createPartnerWallet(newPartnerWallet).subscribe((respPartner: PartnerWallet) => {
-      this.updateListWallets();
-      closeModal();
-    });
-  }
-
-  private onCancel() {
-
-  }
+  // public openCreatePartnerWallet(createModal) {
+  //   this.modalService.open(createModal).result.then(result => {
+  //     this.walletsService.showSuccessMessage('Wallet was successfully added');
+  //   }, (reason) => {
+  //     this.onCancel();
+  //   });
+  // }
+  //
+  // public onCreate(newPartnerWallet: PartnerWallet, closeModal: Function) {
+  //   this.walletsService.createPartnerWallet(newPartnerWallet).subscribe((respPartner: PartnerWallet) => {
+  //     this.updateListWallets();
+  //     closeModal();
+  //   });
+  // }
+  //
+  // private onCancel() {
+  //
+  // }
 }

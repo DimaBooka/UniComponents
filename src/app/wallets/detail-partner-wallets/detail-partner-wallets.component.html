@@ -1,3 +1,69 @@
-<p>
-  detail-partner-wallets works!
-</p>
+<app-head title="Partners" link="/partners" [subtitle]="id"></app-head>
+
+<div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerWallet">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+    <app-card>
+
+      <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
+
+        <app-display-value [label]="'Partner ID'" [value]="partnerWallet.partner_id"></app-display-value>
+
+        <app-display-value [label]="'Wallet Type'" [value]="partnerWallet.available_wallets" [multiple]="true"></app-display-value>
+
+        <span class="label" *ngIf="customConfigs.length > 0">Wallets</span>
+        <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="customConfigs.length > 0">
+
+          <div class="w-100 d-flex align-items-center justify-content-center">
+            <app-custom-config [key]="'key'" [value]="'value'" [isLabel]="true"></app-custom-config>
+          </div>
+
+          <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+            <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"></app-custom-config>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+        <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditPartnerWallet(editParnterWallet)"></app-form-button>
+        <!--<app-form-button [value]="'Delete'" (onClick)="openEditWallet(deleteWallet)"></app-form-button>-->
+      </div>
+
+    </app-card>
+  </div>
+</div>
+
+
+<ng-template #editParnterWallet let-c="close" let-d="dismiss">
+  <div class="edit-modal modal-header">
+    <h4 class="modal-title">Edit</h4>
+  </div>
+  <div class="edit-modal modal-body">
+
+    <!--<app-partner-wallet-interaction *ngIf="partnerWallet" [partnerWallet]="partnerWallet" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-partner-wallet-interaction>-->
+
+  </div>
+</ng-template>
+
+<!--<ng-template #deleteWallet let-c="close" let-d="dismiss">-->
+  <!--<div class="delete-modal modal-header">-->
+    <!--<h4 class="modal-title">Delete Confirmation</h4>-->
+  <!--</div>-->
+  <!--<div class="delete-modal modal-body d-flex flex-column align-items-start justify-content center">-->
+    <!--<span class="partner-text">Are you sure you want to delete this wallet?</span>-->
+
+    <!--<div class="w-100 d-flex align-items-center justify-content-center">-->
+      <!--<span class="wallet-text">{{ wallet.id }}</span>-->
+    <!--</div>-->
+
+    <!--<div class="alert alert-warning" role="alert">-->
+      <!--<span style="font-weight: bold">Warning!</span> This cannot be undone.-->
+    <!--</div>-->
+
+    <!--<div class="buttons-holder w-100 d-flex align-items-center justify-content-center">-->
+      <!--<app-form-button [value]="'Yes'" (onClick)="onDelete(c)"></app-form-button>-->
+      <!--<app-form-button [primary]="true" [value]="'No'" (onClick)="d('Cross click')"></app-form-button>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</ng-template>-->

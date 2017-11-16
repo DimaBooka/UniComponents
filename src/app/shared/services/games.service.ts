@@ -146,8 +146,8 @@ export class GamesService {
         const respData: any[] = resp.json();
         const gameConfigs: GameConfig[] = [];
 
-        if (respData.length > 0) {
-          respData.forEach(gameConfig => {
+        if (respData['game_configs'].length > 0) {
+          respData['game_configs'].forEach(gameConfig => {
             gameConfigs.push(GameConfig.createFromJSON(gameConfig));
           });
         }
@@ -159,18 +159,17 @@ export class GamesService {
 
   getGameConfigDetail(id: string) {
     return this.http.get(`${GAMES_CONFIGS}/${id}`)
-    // return this.http.get(GAMES_CONFIGS)
       .map(resp => {
         const respData: any = resp.json();
-        return GameConfig.createFromJSON(respData);
+        return GameConfig.createFromJSON(respData['game_config']);
       })
       .catch(this.errorService.showErrorHandler());
   }
 
   createGameConfig(gameConfig: GameConfig) {
-    const gameConfigData = {...gameConfig};
-    delete gameConfigData.id;
-    gameConfigData['game_id'] = gameConfigData.game;
+    const gameConfigData = {config: {...gameConfig}};
+    delete gameConfigData['config'].id;
+    gameConfigData['game_id'] = gameConfig['game'];
     return this.http.put(GAMES_CONFIGS, gameConfigData)
       .map(resp => {
         const respData: any = resp.json();
@@ -180,8 +179,8 @@ export class GamesService {
   }
 
   updateGameConfigDetail(gameConfig: GameConfig) {
-    const gameConfigData = {...gameConfig};
-    delete gameConfigData.id;
+    const gameConfigData = {config: {...gameConfig}};
+
     return this.http.put(`${GAMES_CONFIGS}/${gameConfig.id}`, gameConfigData)
       .map(resp => {
         const respData: any = resp.json();

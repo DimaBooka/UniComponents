@@ -26,12 +26,16 @@ export class DetailConfigGamesComponent implements OnInit {
     this.route.data.subscribe(trip => {
       this.gameConfig = <GameConfig>trip.detail;
 
-      this.customConfigs = Object.keys(this.gameConfig.custom_config).map(configKey => {
-        const config = {};
-        config['key'] = configKey;
-        config['value'] = this.gameConfig.custom_config[configKey];
-        return config;
-      });
+      this.checkConfigs();
+    });
+  }
+
+  checkConfigs() {
+    this.customConfigs = Object.keys(this.gameConfig.custom_config).map(configKey => {
+      const config = {};
+      config['key'] = configKey;
+      config['value'] = this.gameConfig.custom_config[configKey];
+      return config;
     });
   }
 
@@ -48,17 +52,15 @@ export class DetailConfigGamesComponent implements OnInit {
   }
 
   onEdit(gameConfig: GameConfig, closeModal: Function) {
-    debugger;
-
     this.gamesService.updateGameConfigDetail(gameConfig).subscribe((respGameConfig: GameConfig) => {
-      this.gameConfig = respGameConfig;
+      this.gameConfig = gameConfig;
+      this.checkConfigs();
       closeModal(false);
     });
   }
 
   onDelete(closeModal: Function) {
-    debugger;
-    this.gamesService.updateGameConfigDetail(this.gameConfig).subscribe(respDelete => {
+    this.gamesService.deleteGameConfig(this.gameConfig).subscribe(respDelete => {
       closeModal(true);
       this.router.navigate(['/games/config']);
     });

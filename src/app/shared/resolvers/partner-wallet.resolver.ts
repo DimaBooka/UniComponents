@@ -10,6 +10,7 @@ export class DetailPartnerWalletResolver implements Resolve<PartnerWallet> {
   constructor(private walletService: WalletsService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any  {
-    return this.walletService.getPartnerWalletsList();
+    const id = route.params['id'];
+    return this.walletService.getPartnerWalletDetail(id);
   }
 }

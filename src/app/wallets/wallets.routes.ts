@@ -16,7 +16,7 @@ export const WALLETS_ROUTES: Routes = [
       }
     },
     { path: 'partners', component: ListPartnerWalletsComponent },
-    { path: 'partners/:id', component: DetailPartnerWalletsComponent,
+    { path: 'partners/wallet/:id', component: DetailPartnerWalletsComponent,
       resolve: {
         detail: DetailPartnerWalletResolver
       }

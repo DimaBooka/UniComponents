@@ -1,13 +1,13 @@
 <app-head title="Partner Wallets">
 
-  <app-form-button [value]="'Add Partner Wallets'" (onClick)="openCreatePartnerWallets(createPartnerWallets)"></app-form-button>
+  <!--<app-form-button [value]="'Add Partner Wallets'" (onClick)="openCreatePartnerWallet(createPartnerWallets)"></app-form-button>-->
 
 </app-head>
 
 <div class="list-entities-holder row">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let wallet of wallets">
-    <app-card [routerLink]="['wallet', wallet.id]">
+       *ngFor="let wallet of partnerWallets">
+    <app-card [routerLink]="['wallet', wallet.partner_id]">
       <!--<span class="label">Email:</span>-->
       <span appTextEllipsis>{{ wallet.id }}</span>
     </app-card>
@@ -15,13 +15,13 @@
 </div>
 
 
-<ng-template #createPartnerWallets let-c="close" let-d="dismiss">
-  <div class="create-modal modal-header">
-    <h4 class="modal-title">Create Partner Wallets</h4>
-  </div>
-  <div class="create-modal modal-body">
+<!--<ng-template #createPartnerWallets let-c="close" let-d="dismiss">-->
+  <!--<div class="create-modal modal-header">-->
+    <!--<h4 class="modal-title">Create Partner Wallets</h4>-->
+  <!--</div>-->
+  <!--<div class="create-modal modal-body">-->
 
     <!--<app-partner-wallet-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-wallet-interaction>-->
 
-  </div>
-</ng-template>
+  <!--</div>-->
+<!--</ng-template>-->
