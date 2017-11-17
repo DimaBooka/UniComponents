@@ -29,6 +29,8 @@
     </div>
   </div>
 
+  <ng-content></ng-content>
+
   <div class="d-flex align-items-end justify-content-end">
     <app-form-button [primary]="true" [type]="'submit'" [value]="!creation ? 'Save' : 'Create'"></app-form-button>
     <app-form-button [type]="'button'" [value]="'Cancel'" (onClick)="onCancelForm()"></app-form-button>

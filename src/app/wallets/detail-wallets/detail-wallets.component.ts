@@ -53,6 +53,7 @@ export class DetailWalletsComponent implements OnInit {
   onEdit(wallet: Wallet, closeModal: Function) {
     this.walletsService.updateWalletDetail(wallet).subscribe(respWalletId => {
       this.wallet = wallet;
+      this.checkConfigs();
       closeModal(false);
     });
   }
@@ -60,7 +61,7 @@ export class DetailWalletsComponent implements OnInit {
   onDelete(closeModal: Function) {
     this.walletsService.deleteWallet(this.wallet).subscribe(resp => {
       closeModal(true);
-      this.router.navigate(['/wallets/partners']);
+      this.router.navigate(['/wallets']);
     });
   }
 

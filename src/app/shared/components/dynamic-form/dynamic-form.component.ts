@@ -13,6 +13,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() creation: boolean = false;
   @Output() changedForm: EventEmitter<FormGroup> = new EventEmitter();
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
   public formEntity: FormGroup;
   public customConfigField: FormField;
   public customConfigs: any[] = [];
@@ -24,6 +25,10 @@ export class DynamicFormComponent implements OnInit {
       formData[field.fieldName] = [ field.value, field.validators ]
     });
     this.formEntity = this.fb.group(formData);
+
+    this.formEntity.valueChanges.subscribe((values) => {
+      this.onChange.emit(values);
+    });
 
     const customField: FormField[] = this.fieldsOptions
       .filter(field => ['default_custom_config', 'custom_config', 'config', 'wallet_specials'].indexOf(field.fieldName) > -1);

@@ -12,6 +12,8 @@ import { WalletInteractionComponent } from './wallet-interaction/wallet-interact
 import { PartnerWalletInteractionComponent } from './partner-wallet-interaction/partner-wallet-interaction.component';
 import { WalletsComponent } from "./wallets.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PartnerWalletsWalletComponent } from './partner-wallets-wallet/partner-wallets-wallet.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule.forChild(WALLETS_ROUTES),
     SharedModule,
     NgbModule,
-    ToasterModule
+    ToasterModule,
+    FormsModule
   ],
   declarations: [
     WalletsComponent,
@@ -28,7 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ListPartnerWalletsComponent,
     DetailPartnerWalletsComponent,
     WalletInteractionComponent,
-    PartnerWalletInteractionComponent
+    PartnerWalletInteractionComponent,
+    PartnerWalletsWalletComponent
   ]
 })
 export class WalletsModule { }

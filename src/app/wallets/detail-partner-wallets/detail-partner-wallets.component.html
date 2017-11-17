@@ -1,4 +1,4 @@
-<app-head title="Partners" link="/partners" [subtitle]="id"></app-head>
+<app-head title="Partner Wallets" link="/wallets/partners" [subtitle]="id"></app-head>
 
 <div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerWallet">
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
@@ -41,7 +41,7 @@
   </div>
   <div class="edit-modal modal-body">
 
-    <!--<app-partner-wallet-interaction *ngIf="partnerWallet" [partnerWallet]="partnerWallet" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-partner-wallet-interaction>-->
+    <app-partner-wallet-interaction *ngIf="partnerWallet" [partnerWallet]="partnerWallet" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-partner-wallet-interaction>
 
   </div>
 </ng-template>

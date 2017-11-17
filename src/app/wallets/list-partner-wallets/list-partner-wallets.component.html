@@ -1,19 +1,19 @@
-<app-head title="Partner Wallets">
+<app-head title="Partner Wallets" *ngIf="!partnerWallet">
 
   <!--<app-form-button [value]="'Add Partner Wallets'" (onClick)="openCreatePartnerWallet(createPartnerWallets)"></app-form-button>-->
 
 </app-head>
 
-<div class="list-entities-holder row">
+<div class="list-entities-holder row" *ngIf="!partnerWallet">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let wallet of partnerWallets">
-    <app-card [routerLink]="['wallet', wallet.partner_id]">
-      <!--<span class="label">Email:</span>-->
-      <span appTextEllipsis>{{ wallet.id }}</span>
+       *ngFor="let partner of partners">
+    <app-card [routerLink]="['wallet', partner.id]">
+      <span appTextEllipsis>{{ partner.email }}</span>
     </app-card>
   </div>
 </div>
 
+<app-partner-wallets-wallet *ngIf="partnerWallet" [partnerWallet]="partnerWallet"></app-partner-wallets-wallet>
 
 <!--<ng-template #createPartnerWallets let-c="close" let-d="dismiss">-->
   <!--<div class="create-modal modal-header">-->

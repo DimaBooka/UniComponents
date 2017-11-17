@@ -13,6 +13,7 @@ export class CustomConfigComponent implements OnInit {
   @Input() isLabel: boolean = false;
   @Input() showRemove: boolean = false;
   @Input() isInput: boolean = false;
+  @Input() showButton: boolean = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Output() onRemove: EventEmitter<any> = new EventEmitter();
   constructor() { }

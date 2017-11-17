@@ -1,3 +1,46 @@
 
 <app-dynamic-form [fieldsOptions]="fieldsOptions" *ngIf="fieldsOptions"
-                  (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>
+                  (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()" (onChange)="onSelectAvailable($event)">
+
+  <div class="form-group">
+    <label>Specials</label>
+    <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+
+      <div class="w-100 d-flex align-items-center justify-content-center">
+        <app-custom-config [index]="i" [key]="'Currency'" [value]="'Wallet'"
+                           [showRemove]="true" [isLabel]="true"></app-custom-config>
+      </div>
+
+      <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of customConfigs; let i = index">
+        <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"
+                           [showRemove]="true" [showButton]="true" (onRemove)="onRemoveConfig($event)"></app-custom-config>
+      </div>
+
+      <div class="w-100 d-flex align-items-center justify-content-start">
+
+        <div class="key-value-holder with-remove d-flex align-items-center justify-content-center">
+          <div class="form-group left">
+            <select name="currency" class="form-control" [(ngModel)]="currency">
+              <option value="" selected disabled>Select Currency</option>
+              <option [value]="cur.id" *ngFor="let cur of optionsCurrencies">{{ cur.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group right">
+            <select name="wallet" class="form-control" [(ngModel)]="wallet">
+              <option value="" selected disabled>Select Wallet</option>
+              <option [value]="wallet.id" *ngFor="let wallet of optionsAvailableWallets">{{ wallet.name }}</option>
+            </select>
+          </div>
+
+          <div class="remove-button" *ngIf="optionsAvailableWallets.length > 0 && optionsCurrencies.length > 0">
+            <span (click)="addCurWal()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</app-dynamic-form>

@@ -84,7 +84,7 @@ export class WalletsService {
 
   // CRUD for PartnerWallet entity
 
-  getPartnerWalletsList() {
+  getPartnerWalletsList(noArray: boolean = false) {
     return this.http.get(PARTNER_WALLETS)
       .map(resp => {
         const respData: any[] = resp.json();
@@ -94,14 +94,13 @@ export class WalletsService {
             partnerWallets.push(PartnerWallet.createFromJSON(partnerWallet));
           });
         }
-
         return partnerWallets;
       })
       .catch(this.errorService.showErrorHandler());
   }
 
-  getPartnerWalletDetail(id: string) {
-    return this.http.get(`${PARTNER_WALLETS}/${id}`)
+  getPartnerWalletDetail(id?: string) {
+    return this.http.get(id ? `${PARTNER_WALLETS}/${id}` : PARTNER_WALLETS)
       .map(resp => {
         const respData: any = resp.json();
         return PartnerWallet.createFromJSON(respData['partner_wallets']);
@@ -122,7 +121,7 @@ export class WalletsService {
   updatePartnerWalletDetail(partnerWallet: PartnerWallet) {
     const partnerWalletData = {...partnerWallet};
     delete partnerWalletData.id;
-    return this.http.put(`${PARTNER_WALLETS}/${partnerWallet.id}`, partnerWalletData)
+    return this.http.put(`${PARTNER_WALLETS}/${partnerWallet.partner_id}`, partnerWalletData)
       .map(resp => {
         return resp.json();
       })
@@ -130,7 +129,7 @@ export class WalletsService {
   }
 
   deletePartnerWallet(partnerWallet: PartnerWallet) {
-    return this.http.delete(`${PARTNER_WALLETS}/${partnerWallet.id}`)
+    return this.http.delete(`${PARTNER_WALLETS}/${partnerWallet.partner_id}`)
       .map(resp => resp.json())
       .catch(this.errorService.showErrorHandler());
   }

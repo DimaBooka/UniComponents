@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormField } from '../../shared/models/form-field.model';
 import { PartnerWallet } from '../../shared/models/partner-wallet.model';
+import { WalletsService } from '../../shared/services/wallets.service';
+import { Wallet } from '../../shared/models/wallet.model';
 
 @Component({
   selector: 'app-partner-wallet-interaction',
@@ -15,16 +17,65 @@ export class PartnerWalletInteractionComponent implements OnInit {
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public partnerWalletData: PartnerWallet;
   public customConfigs: any[] = [];
-  public optionsType: any[] = [
-    {id: 'super', name: 'super'},
-    {id: 'mega', name: 'mega'},
-  ];
-  public fieldsOptions: any = {};
 
-  constructor() {}
+  public wallet: any;
+  public currency: any;
+  public availableWallets: any[] = [];
+  public allWallets: any[] = [];
+  public allCurrencies: any[] = [
+    {id: 'USD', name:'USD'},
+    {id: 'EUR', name:'EUR'},
+    {id: 'UAH', name:'UAH'}
+  ];
+
+  public optionsWallets: any[] = [];
+  public optionsAvailableWallets: any[] = [];
+  public optionsCurrencies: any[] = [];
+  public fieldsOptions: any;
+  constructor(
+    private walletsService: WalletsService
+  ) {}
 
   ngOnInit() {
+    this.walletsService.getWalletsList().subscribe((wallets: Wallet[]) => {
+      wallets.forEach(wallet => {
+        this.allWallets.push({ id: wallet.id, name: wallet.id });
+        this.optionsWallets.push({ id: wallet.id, name: wallet.id });
+      });
+      this.init();
+    });
+  }
+
+  formatOptions(walletsObject?) {
+    if (!walletsObject) {
+      walletsObject = {};
+
+      this.customConfigs.forEach(config => {
+        walletsObject[config['key']] = config['value'];
+      });
+    }
+
+    let currenciesInUse = Object.keys(walletsObject);
+    let walletsInUse = Object.keys(walletsObject).map(cur => walletsObject[cur]);
+
+    this.optionsAvailableWallets = [];
+    this.allWallets.forEach(wallet => {
+      if (walletsInUse.indexOf(wallet.name) < 0
+        && this.availableWallets.indexOf(wallet.id) > -1)
+      this.optionsAvailableWallets.push(wallet);
+    });
+
+    this.optionsCurrencies = [];
+    this.allCurrencies.forEach(cur => {
+      if (currenciesInUse.indexOf(cur.name) < 0)
+        this.optionsCurrencies.push(cur);
+    });
+  }
+
+  init() {
     this.partnerWalletData = PartnerWallet.createFromJSON(this.partnerWallet);
+    this.availableWallets = this.partnerWallet.available_wallets;
+    this.formatOptions(this.partnerWallet.wallets);
 
     this.customConfigs = Object.keys(this.partnerWallet.wallets).map(configKey => {
       const config = {};
@@ -37,20 +88,48 @@ export class PartnerWalletInteractionComponent implements OnInit {
       FormField.createFromObject({
         fieldName: 'available_wallets',
         value: this.partnerWallet.available_wallets, validators: [],
-        select: true, label: 'Available Wallets',
+        select: true, multiple: true, options: this.optionsWallets, label: 'Available Wallets',
         placeholder: 'Select Available Wallets'
-      }),
-      FormField.createFromObject({
-        fieldName: 'Partner ID',
-        value: this.partnerWallet.partner_id, validators: [],
-        select: true, options: this.optionsType,
-        label: 'Partner ID', placeholder: 'Select wallet type'
-      }),
-      FormField.createFromObject({
-        fieldName: 'wallet_specials',
-        value: this.customConfigs, validators: [], label: 'Wallet Specials'
       })
     ];
+  }
+
+  onSelectAvailable(values) {
+    if (values['available_wallets']) {
+      this.availableWallets = values['available_wallets'];
+
+      let indexes: number[] = [];
+      this.customConfigs.forEach((item, index) => {
+        if (this.availableWallets.indexOf(item.value) < 0) {
+          indexes.push(index);
+        }
+      });
+
+      for (let i in indexes) {
+        this.customConfigs.splice(indexes[i], 1);
+      }
+      this.formatOptions();
+    }
+  }
+
+  addCurWal() {
+    if (this.wallet && this.currency) {
+      const objToAdd = {};
+      objToAdd['key'] = this.currency;
+      objToAdd['value'] = this.wallet;
+      this.customConfigs.push(objToAdd);
+
+      this.currency = '';
+      this.wallet = '';
+      this.formatOptions();
+    }
+  }
+
+  onRemoveConfig(index) {
+    if (this.customConfigs[index]) {
+      this.customConfigs.splice(index, 1);
+      this.formatOptions();
+    }
   }
 
   onCancelForm() {
@@ -65,8 +144,7 @@ export class PartnerWalletInteractionComponent implements OnInit {
       customConfig[config['key']] = config['value'];
     });
 
-    // this.partnerWalletData.wallet_url = value.wallet_url;
-    // this.partnerWalletData.wallet_type = value.wallet_type;
+    // this.partnerWalletData.available_wallets = value.available_wallets;
     // this.partnerWalletData.wallet_specials = customConfig;
 
     this.onSubmit.emit(this.partnerWalletData);

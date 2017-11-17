@@ -11,7 +11,7 @@
     <span class="form-control" [ngClass]="{'custom-label': isLabel}" *ngIf="!isInput" appTextEllipsis>{{ value }}</span>
   </div>
 
-  <div class="remove-button" *ngIf="isInput">
+  <div class="remove-button" *ngIf="isInput || showButton">
     <span (click)="removeData()"><i class="fa fa-times" aria-hidden="true"></i></span>
   </div>
 </div>
