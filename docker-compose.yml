@@ -1,0 +1,10 @@
+version: '2'
+services:
+  dashboard-front:
+    build:
+      context: .
+      dockerfile: ./compose/front/Dockerfile
+    expose:
+      - 80
+    ports:
+      - 80:80
