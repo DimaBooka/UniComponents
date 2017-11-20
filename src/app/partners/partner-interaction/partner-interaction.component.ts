@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Partner } from '../../shared/models/partner.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormField } from '../../shared/models/form-field.model';
+import {WalletsService} from "../../shared/services/wallets.service";
+import {ToasterService} from "angular2-toaster";
 
 @Component({
   selector: 'app-partner-interaction',
@@ -15,21 +17,31 @@ export class PartnerInteractionComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Partner> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public partnerData: Partner;
-  public optionsCurrencies: any[] = [
-    {id: 'USD', name:'USD'},
-    {id: 'EUR', name:'EUR'},
-    {id: 'UAH', name:'UAH'}
-  ];
+  public optionsCurrencies: any[] = [];
   public optionsSites: any[] = [
     {id: 'asasas.com', name: 'asasas.com'},
     {id: 'qwqwqw.com', name: 'qwqwqw.com'},
     {id: 'example.com', name: 'example.com'},
   ];
-  public fieldsOptions: any = {};
-
-  constructor() {}
+  public fieldsOptions: any;
+  public sites: string[] = [];
+  public site: string = '';
+  constructor(
+    private walletService: WalletsService,
+    private toastService: ToasterService
+  ) {}
 
   ngOnInit() {
+    this.walletService.getCurrencies().subscribe((currencies: any[]) => {
+      currencies.forEach(cur => {
+        this.optionsCurrencies.push({id: cur, name:cur},);
+      });
+
+      this.init();
+    });
+  }
+
+  init() {
     this.partnerData = Partner.createFromJSON(this.partner);
 
     this.fieldsOptions = [
@@ -56,13 +68,29 @@ export class PartnerInteractionComponent implements OnInit {
         select: true, options: this.optionsCurrencies, multiple: true,
         label: 'Available Currencies', placeholder: 'Enter available currencies'
       }),
-      FormField.createFromObject({
-        fieldName: 'sites',
-        value: [...this.partner.sites], validators: [],
-        select: true, options: this.optionsSites, multiple: true,
-        label: 'Sites', placeholder: 'Enter sites'
-      })
+      // FormField.createFromObject({
+      //   fieldName: 'sites',
+      //   value: [...this.partner.sites], validators: [],
+      //   input: true, label: 'Sites', placeholder: 'Enter sites'
+      // })
     ];
+
+    this.sites = [...this.partner.sites];
+  }
+
+  removeSite(index: number) {
+    this.sites.splice(index, 1);
+  }
+
+  addSite() {
+    if (this.site) {
+      if (this.site.indexOf('.') > -1) {
+        this.sites.push(this.site);
+        this.site = '';
+      } else {
+        this.toastService.pop('error', 'Site URL is incorrect.');
+      }
+    }
   }
 
   onCancelForm() {
@@ -75,7 +103,7 @@ export class PartnerInteractionComponent implements OnInit {
     this.partnerData.password = value.password;
     this.partnerData.token = value.token;
     this.partnerData.available_currencies = value.available_currencies;
-    this.partnerData.sites = value.sites;
+    this.partnerData.sites = this.sites;
 
     this.onSubmit.emit(this.partnerData);
   }

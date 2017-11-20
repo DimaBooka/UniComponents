@@ -9,7 +9,7 @@ import { ListPartnersComponent } from './list-partners/list-partners.component';
 import { DetailPartnersComponent } from './detail-partners/detail-partners.component';
 
 import { PARTNERS_ROUTES } from './partners.routes';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PartnerInteractionComponent } from './partner-interaction/partner-interaction.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToasterModule } from 'angular2-toaster';
@@ -19,6 +19,7 @@ import { ToasterModule } from 'angular2-toaster';
     CommonModule,
     RouterModule.forChild(PARTNERS_ROUTES),
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     NgbModule,
     ToasterModule

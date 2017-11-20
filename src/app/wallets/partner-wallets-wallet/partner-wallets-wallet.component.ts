@@ -41,7 +41,15 @@ export class PartnerWalletsWalletComponent implements OnInit {
   }
 
   onEdit(partnerWallet: PartnerWallet, closeModal: Function) {
-    this.walletsService.updatePartnerWalletDetail(partnerWallet).subscribe(respWalletId => {
+    let currentCurs = Object.keys(this.partnerWallet);
+    let newCurs = Object.keys(partnerWallet);
+    let create = true;
+    newCurs.forEach(cur => {
+      if (currentCurs.indexOf(cur) > -1) {
+        create = false;
+      }
+    });
+    this.walletsService.updatePartnerWalletDetail(partnerWallet, create).subscribe(respWalletId => {
       this.partnerWallet = partnerWallet;
       closeModal(false);
     });

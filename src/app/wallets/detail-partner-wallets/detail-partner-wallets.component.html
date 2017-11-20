@@ -8,7 +8,7 @@
 
         <app-display-value [label]="'Partner ID'" [value]="partnerWallet.partner_id"></app-display-value>
 
-        <app-display-value [label]="'Wallet Type'" [value]="partnerWallet.available_wallets" [multiple]="true"></app-display-value>
+        <app-display-value [label]="'Available wallets'" [value]="partnerWallet.available_wallets" [multiple]="true"></app-display-value>
 
         <span class="label" *ngIf="customConfigs.length > 0">Wallets</span>
         <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="customConfigs.length > 0">

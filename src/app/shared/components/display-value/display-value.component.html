@@ -6,5 +6,5 @@
 
 <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center" *ngIf="multiple">
   <span class="partner-text" appTextEllipsis *ngFor="let val of value">{{ val }}</span>
-  <span class="partner-text" *ngIf="value.length === 0" appTextEllipsis>No value</span>
+  <span class="partner-text" *ngIf="!value || value.length === 0" appTextEllipsis>No value</span>
 </div>

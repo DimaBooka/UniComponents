@@ -19,3 +19,7 @@ export const PERMISSION = `${API_URL}/permission`;
 export const WALLETS = `${API_URL}/wallet`;
 
 export const PARTNER_WALLETS = `${API_URL}/partner_wallets`;
+
+export const CURRENCIES = `${API_URL}/currencies`;
+
+export const WALLET_TYPES = `${API_URL}/wallet_types`;

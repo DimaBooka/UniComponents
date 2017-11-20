@@ -1,9 +1,8 @@
-.form-holder {
-  app-form-field {
-    width: 100%;
-  }
+@import "../../shared/styles/form-inputs";
 
-  app-form-button:first-of-type {
-    margin-right: 10px;
+
+.data-value {
+  .remove-button {
+    margin-left: 12px;
   }
 }

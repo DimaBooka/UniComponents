@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormField } from '../../shared/models/form-field.model';
 import { Wallet } from "../../shared/models/wallet.model";
+import {WalletsService} from "../../shared/services/wallets.service";
 
 @Component({
   selector: 'app-wallet-interaction',
@@ -15,15 +16,19 @@ export class WalletInteractionComponent implements OnInit {
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public walletData: Wallet;
   public customConfigs: any[] = [];
-  public optionsType: any[] = [
-    {id: 'super', name: 'super'},
-    {id: 'mega', name: 'mega'},
-  ];
-  public fieldsOptions: any = {};
+  public optionsType: any[] = [];
+  public fieldsOptions: any;
 
-  constructor() {}
+  constructor(private walletService: WalletsService) {}
 
   ngOnInit() {
+    this.walletService.getWalletTypes().subscribe((types: any[]) => {
+      types.forEach(type => this.optionsType.push({id: type, name: type}));
+      this.init();
+    });
+  }
+
+  init() {
     this.walletData = Wallet.createFromJSON(this.wallet);
 
     this.customConfigs = Object.keys(this.wallet.wallet_specials).map(configKey => {

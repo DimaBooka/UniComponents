@@ -22,11 +22,7 @@ export class PartnerWalletInteractionComponent implements OnInit {
   public currency: any;
   public availableWallets: any[] = [];
   public allWallets: any[] = [];
-  public allCurrencies: any[] = [
-    {id: 'USD', name:'USD'},
-    {id: 'EUR', name:'EUR'},
-    {id: 'UAH', name:'UAH'}
-  ];
+  public allCurrencies: any[] = [];
 
   public optionsWallets: any[] = [];
   public optionsAvailableWallets: any[] = [];
@@ -37,11 +33,17 @@ export class PartnerWalletInteractionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.walletsService.getWalletsList().subscribe((wallets: Wallet[]) => {
-      wallets.forEach(wallet => {
-        this.allWallets.push({ id: wallet.id, name: wallet.id });
-        this.optionsWallets.push({ id: wallet.id, name: wallet.id });
+
+    this.partnerWallet.available_wallets.forEach(id => {
+      this.allWallets.push({id: id, name: id});
+      this.optionsWallets.push({id: id, name: id});
+    });
+
+    this.walletsService.getCurrencies().subscribe((currencies: any[]) => {
+      currencies.forEach(cur => {
+        this.allCurrencies.push({id: cur, name: cur},);
       });
+
       this.init();
     });
   }
@@ -84,14 +86,7 @@ export class PartnerWalletInteractionComponent implements OnInit {
       return config;
     });
 
-    this.fieldsOptions = [
-      FormField.createFromObject({
-        fieldName: 'available_wallets',
-        value: this.partnerWallet.available_wallets, validators: [],
-        select: true, multiple: true, options: this.optionsWallets, label: 'Available Wallets',
-        placeholder: 'Select Available Wallets'
-      })
-    ];
+    this.fieldsOptions = [];
   }
 
   onSelectAvailable(values) {
@@ -139,13 +134,10 @@ export class PartnerWalletInteractionComponent implements OnInit {
   onSubmitForm(value: any) {
 
     const customConfig = {};
-
     this.customConfigs.forEach(config => {
       customConfig[config['key']] = config['value'];
     });
-
-    // this.partnerWalletData.available_wallets = value.available_wallets;
-    // this.partnerWalletData.wallet_specials = customConfig;
+    this.partnerWalletData.wallets = customConfig;
 
     this.onSubmit.emit(this.partnerWalletData);
   }

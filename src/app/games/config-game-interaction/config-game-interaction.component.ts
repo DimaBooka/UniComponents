@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormField } from '../../shared/models/form-field.model';
 import { GamesService } from '../../shared/services/games.service';
 import { PartnerGame } from '../../shared/models/partner-games.model';
+import {WalletsService} from "../../shared/services/wallets.service";
 
 @Component({
   selector: 'app-config-game-interaction',
@@ -19,15 +20,24 @@ export class ConfigGameInteractionComponent implements OnInit {
   public customConfigs: any[] = [];
   public fieldsOptions: any;
   public options: any[] = [];
+  public optionsCurrencies: any[] = [];
   public games: PartnerGame[];
   constructor(
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private walletService: WalletsService
   ) { }
 
   ngOnInit() {
     this.gamesService.getGamePartnersList().subscribe(games => {
       this.games = games;
-      this.initForm();
+
+      this.walletService.getCurrencies().subscribe((currencies: any[]) => {
+        currencies.forEach(cur => {
+          this.optionsCurrencies.push({id: cur, name:cur},);
+        });
+
+        this.initForm();
+      });
     });
   }
 
@@ -53,7 +63,8 @@ export class ConfigGameInteractionComponent implements OnInit {
       FormField.createFromObject({
         fieldName: 'currency',
         value: this.gameConfig.currency, validators: [],
-        input: true, label: 'Currency', placeholder: 'Enter currency'
+        select: true, options: this.optionsCurrencies,
+        label: 'Currency', placeholder: 'Enter currency'
       }),
       FormField.createFromObject({
         fieldName: 'lobby_url',
@@ -88,7 +99,6 @@ export class ConfigGameInteractionComponent implements OnInit {
       customConfig[config['key']] = config['value'];
     });
 
-    debugger;
     this.gameConfig.game  = value.game;
     this.gameConfig.currency  = value.currency;
     this.gameConfig.lobby_url  = value.lobby_url;

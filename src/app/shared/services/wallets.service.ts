@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Http } from '@angular/http';
-import { PARTNER_WALLETS, WALLETS } from '../constants';
+import {CURRENCIES, PARTNER_WALLETS, WALLET_TYPES, WALLETS} from '../constants';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -27,6 +27,13 @@ export class WalletsService {
     this.toasterService.pop('success', message);
   };
 
+  getCurrencies() {
+    return this.http.get(CURRENCIES).map(resp => resp.json()['currencies']);
+  }
+
+  getWalletTypes() {
+    return this.http.get(WALLET_TYPES).map(resp => resp.json()['wallet_types']);
+  }
 
   // CRUD for Wallet entity
 
@@ -118,14 +125,23 @@ export class WalletsService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  updatePartnerWalletDetail(partnerWallet: PartnerWallet) {
+  updatePartnerWalletDetail(partnerWallet: PartnerWallet, create: boolean) {
     const partnerWalletData = {...partnerWallet};
     delete partnerWalletData.id;
-    return this.http.put(`${PARTNER_WALLETS}/${partnerWallet.partner_id}`, partnerWalletData)
-      .map(resp => {
-        return resp.json();
-      })
-      .catch(this.errorService.showErrorHandler());
+
+    if (create) {
+      return this.http.post(`${PARTNER_WALLETS}/${partnerWallet.partner_id}`, partnerWalletData)
+        .map(resp => {
+          return resp.json();
+        })
+        .catch(this.errorService.showErrorHandler());
+    } else {
+      return this.http.post(`${PARTNER_WALLETS}/${partnerWallet.partner_id}`, partnerWalletData)
+        .map(resp => {
+          return resp.json();
+        })
+        .catch(this.errorService.showErrorHandler());
+    }
   }
 
   deletePartnerWallet(partnerWallet: PartnerWallet) {

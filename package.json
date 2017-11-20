@@ -25,6 +25,7 @@
     "angular-2-dropdown-multiselect": "^1.6.1",
     "angular2-toaster": "^4.0.1",
     "core-js": "^2.4.1",
+    "ngx-webstorage": "^1.8.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
