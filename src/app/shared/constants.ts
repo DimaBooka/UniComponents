@@ -1,6 +1,6 @@
 // export const API_URL = '/assets/json/';
 
-export const API_URL = process.env.DASHBOARD_URL || 'http://0.0.0.0:8080/dashboard';
+export const API_URL = `/dashboard`;
 export const LOGIN_ENDPOINT = `${API_URL}/login`;
 
 export const USER_INFO = `${API_URL}/user-data`;
