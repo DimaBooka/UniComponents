@@ -14,7 +14,9 @@ export function HandleError (error, userService) {
 
       let body = error.json() || '';
       err['error'] = body.error || body.error_message || '';
-
+      if (body.error_message && body.error_message == 'No user by session.') {
+        userService.logout();
+      }
       if (body.details && Object.keys(body.details).length > 0) {
         const details = [];
         Object.keys(body.details).forEach(errorDetail => {

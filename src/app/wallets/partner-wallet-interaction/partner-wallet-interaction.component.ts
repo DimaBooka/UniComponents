@@ -62,9 +62,8 @@ export class PartnerWalletInteractionComponent implements OnInit {
 
     this.optionsAvailableWallets = [];
     this.allWallets.forEach(wallet => {
-      if (walletsInUse.indexOf(wallet.name) < 0
-        && this.availableWallets.indexOf(wallet.id) > -1)
-      this.optionsAvailableWallets.push(wallet);
+      if (this.availableWallets.indexOf(wallet.id) > -1)
+        this.optionsAvailableWallets.push(wallet);
     });
 
     this.optionsCurrencies = [];
