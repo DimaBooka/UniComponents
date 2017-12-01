@@ -46,8 +46,8 @@ export class UsersService {
   logout() {
     this.isLogged.next(false);
     this.authService.clearToken();
-    this.router.navigate(['login']);
     this.permission.next(null);
+    this.router.navigate(['login']);
   }
 
   checkUserAndToken() {

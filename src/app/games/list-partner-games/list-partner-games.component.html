@@ -1,4 +1,7 @@
 <app-head title="Partner Games">
+
+  <app-form-button *ngIf="permissions && permissions !== 'Admin'" [value]="'Add Game Config'" (onClick)="openCreateGameConfig(createGameConfig)"></app-form-button>
+
 </app-head>
 
 <div class="list-entities-holder row">
@@ -12,7 +15,19 @@
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let game of partnersGame">
     <app-card [routerLink]="['game', game.game_id]">
-      <span appTextEllipsis>{{ game.title }}</span>
+      <span appTextEllipsis *ngIf="game.config && game.config.config_id">{{ game.title }} - {{ game.config.config_id }}</span>
+      <span appTextEllipsis *ngIf="!game.config || game.config && !game.config.config_id">{{ game.title }}</span>
     </app-card>
   </div>
 </div>
+
+<ng-template #createGameConfig let-c="close" let-d="dismiss">
+  <div class="create-modal modal-header">
+    <h4 class="modal-title">Create Game Config</h4>
+  </div>
+  <div class="create-modal modal-body">
+
+    <app-config-game-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-config-game-interaction>
+
+  </div>
+</ng-template>

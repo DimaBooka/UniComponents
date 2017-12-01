@@ -170,7 +170,7 @@ export class GamesService {
     const gameConfigData = {config: {...gameConfig}};
     delete gameConfigData['config'].id;
     gameConfigData['game_id'] = gameConfig['game'];
-    return this.http.put(GAMES_CONFIGS, gameConfigData)
+    return this.http.post(GAMES_CONFIGS, gameConfigData)
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);

@@ -29,10 +29,10 @@
         <a class="nav-link" routerLink="games/partners" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}">Partner Games</a>
       </li>
-      <li class="nav-item" *ngIf="permissions && permissions !== 'Admin'">
-        <a class="nav-link" routerLink="games/configs" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact:true}">Games Config</a>
-      </li>
+      <!--<li class="nav-item" *ngIf="permissions && permissions !== 'Admin'">-->
+        <!--<a class="nav-link" routerLink="games/configs" routerLinkActive="active"-->
+           <!--[routerLinkActiveOptions]="{exact:true}">Games Config</a>-->
+      <!--</li>-->
       <li class="nav-item" *ngIf="permissions && permissions === 'Admin'">
         <a class="nav-link" routerLink="partners" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}">Partners</a>

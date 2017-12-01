@@ -7,7 +7,7 @@ export class PartnerGame {
     partnerGame.description = json['description'] || "";
     partnerGame.picture_url = json['picture_url'] || "";
     partnerGame.game_url = json['game_url'] || "";
-    partnerGame.config = json['default_custom_config'] || {};
+    partnerGame.config = json['config'] || {};
     return partnerGame;
   }
 
