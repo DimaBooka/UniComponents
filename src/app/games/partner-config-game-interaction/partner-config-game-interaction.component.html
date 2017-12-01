@@ -1,8 +1,8 @@
 <!--<form class="form-holder d-flex flex-column align-items-center justify-content-center"-->
       <!--(submit)="onSubmitForm()" [formGroup]="gameConfigForm">-->
 
-  <!--<app-form-field [control]="gameConfigForm.get('game')" [input]="true"-->
-                  <!--[placeholder]="'Enter game'" [label]="'Game'"></app-form-field>-->
+  <app-form-field [control]="gameConfigForm.get('game')" [select]="true" [options]="options"
+                  [placeholder]="'Enter game'" [label]="'Game'"></app-form-field>
 
   <!--<app-form-field [control]="gameConfigForm.get('currency')" [input]="true"-->
                   <!--[placeholder]="'Enter currency'" [label]="'Currency'"></app-form-field>-->
@@ -43,5 +43,5 @@
   <!--</div>-->
 <!--</form>-->
 
-<app-dynamic-form [fieldsOptions]="fieldsOptions" *ngIf="fieldsOptions"
+<app-dynamic-form [fieldsOptions]="fieldsOptions" *ngIf="fieldsOptions && fieldsOptions.length > 0"
                   (changedForm)="onSubmitForm($event)" (cancelForm)="onCancelForm()"></app-dynamic-form>

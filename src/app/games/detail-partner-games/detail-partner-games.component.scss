@@ -1,3 +1,16 @@
 @import "../../shared/styles/variables";
 @import "../../shared/styles/modal-styles";
 @import "../../shared/styles/common";
+
+.detail-holder {
+  .buttons-holder {
+    app-form-button {
+      margin: 0 !important;
+      margin-left: 5px !important;
+    }
+  }
+
+  .buttons-next-holder {
+    margin-top: 10px;
+  }
+}

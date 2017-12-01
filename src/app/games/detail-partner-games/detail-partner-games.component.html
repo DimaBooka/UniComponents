@@ -1,5 +1,4 @@
 <app-head title="Partner Games" link="/games/partners" [subtitle]="id">
-  <app-form-button [value]="'Edit Game Configs'" (onClick)="openEditGameConfigs(gameConfigs)"></app-form-button>
 </app-head>
 
 <div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerGamesTitle">
@@ -14,6 +13,11 @@
 
       <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
         <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditPartnerGame(editPartnerGame)"></app-form-button>
+      </div>
+
+      <div class="buttons-next-holder d-flex align-items-center justify-content-around">
+        <app-form-button [value]="'Edit Configs'" (onClick)="openEditGameConfigs(gameConfigs)"></app-form-button>
+        <app-form-button [value]="'Add Config'" (onClick)="openEditGameConfigs(gameConfigs, true)"></app-form-button>
       </div>
 
     </app-card>
@@ -39,7 +43,7 @@
   </div>
   <div class="edit-modal modal-body">
 
-    <app-partner-game-interaction *ngIf="partnerGames" [partnerGames]="partnerGames" (onSubmit)="onEditGameConfig($event, c)" (onCancel)="d()"></app-partner-game-interaction>
+    <app-partner-config-game-interaction [creation]="creation" [games]="partnerGames" (onSubmit)="onEditGameConfig($event, c)" (onCancel)="d()"></app-partner-config-game-interaction>
 
   </div>
 </ng-template>

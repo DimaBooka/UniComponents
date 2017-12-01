@@ -4,6 +4,9 @@ import { GamesService } from '../../shared/services/games.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from '../../shared/models/game.model';
+import { GamesComponent } from '../games.component';
+import { GameConfig } from '../../shared/models/game-config.model';
+import { getOrSetAsInMap } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-detail-partner-games',
@@ -15,6 +18,7 @@ export class DetailPartnerGamesComponent implements OnInit {
   public id: string;
   public partnerGames: PartnerGame[];
   public partnerGamesTitle: string[];
+  public creation: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -57,5 +61,42 @@ export class DetailPartnerGamesComponent implements OnInit {
   }
 
   onCancel() {
+  }
+
+  public openEditGameConfigs(editOrDeleteModal, creation: boolean = false) {
+    this.creation = creation;
+    this.modalService.open(editOrDeleteModal).result.then(isDelete => {
+      if (!isDelete) {
+        this.gamesService.showSuccessMessage(`Game Config was successfully ${ this.creation ? 'added' : 'updated' }`);
+      } else {
+        this.gamesService.showSuccessMessage('Game Config was successfully deleted');
+      }
+    }, (reason) => {
+      this.onCancelGameConfig();
+    });
+  }
+
+  onEditGameConfig(gameConfig: GameConfig | any, closeModal: Function) {
+    const gameId = gameConfig.config.game;
+    delete gameConfig.config.game;
+    const config = {
+      partner_id: this.id,
+      game_id: gameId,
+      config: gameConfig.config
+    };
+    if (this.creation || !gameConfig.config.config_id) {
+      this.gamesService.createGameConfig(config, true).subscribe(respGameConfig => {
+        this.updatepartnerGamesList();
+        closeModal(false);
+      });
+    } else {
+      this.gamesService.updateGameConfigDetail(config, true).subscribe(respGameConfig => {
+        this.updatepartnerGamesList();
+        closeModal(false);
+      });
+    }
+  }
+
+  onCancelGameConfig() {
   }
 }

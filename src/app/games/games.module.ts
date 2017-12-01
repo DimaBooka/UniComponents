@@ -20,6 +20,7 @@ import { ConfigGameInteractionComponent } from './config-game-interaction/config
 import { ToasterModule } from 'angular2-toaster';
 import { PartnerGameInteractionComponent } from './partner-game-interaction/partner-game-interaction.component';
 import { DetailGamePartnerGamesComponent } from './detail-game-partner-games/detail-game-partner-games.component';
+import { PartnerConfigGameInteractionComponent } from './partner-config-game-interaction/partner-config-game-interaction.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { DetailGamePartnerGamesComponent } from './detail-game-partner-games/det
     GameInteractionComponent,
     ConfigGameInteractionComponent,
     PartnerGameInteractionComponent,
-    DetailGamePartnerGamesComponent
+    DetailGamePartnerGamesComponent,
+    PartnerConfigGameInteractionComponent
   ]
 })
 export class GamesModule { }

@@ -166,10 +166,17 @@ export class GamesService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  createGameConfig(gameConfig: GameConfig) {
-    const gameConfigData = {config: {...gameConfig}};
-    delete gameConfigData['config'].id;
-    gameConfigData['game_id'] = gameConfig['game'];
+  createGameConfig(gameConfig: GameConfig | any, fromAdmin: boolean = false) {
+    let gameConfigData;
+    delete gameConfig.id;
+    if (fromAdmin) {
+      delete gameConfig['config'].id;
+      delete gameConfig['config'].config_id;
+      gameConfigData = {...gameConfig};
+    } else {
+      gameConfigData = {config: {...gameConfig}};
+    }
+
     return this.http.post(GAMES_CONFIGS, gameConfigData)
       .map(resp => {
         const respData: any = resp.json();
@@ -178,10 +185,20 @@ export class GamesService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  updateGameConfigDetail(gameConfig: GameConfig) {
-    const gameConfigData = {config: {...gameConfig}};
+  updateGameConfigDetail(gameConfig: GameConfig | any, fromAdmin: boolean = false) {
+    let gameConfigData;
+    let configId = gameConfig.id;
+    if (fromAdmin) {
+      configId = gameConfig.config.config_id;
+      gameConfig['config'].id = configId;
 
-    return this.http.put(`${GAMES_CONFIGS}/${gameConfig.id}`, gameConfigData)
+      delete gameConfig.id;
+      delete gameConfig['config'].config_id;
+      gameConfigData = {...gameConfig};
+    } else {
+      gameConfigData = {config: {...gameConfig}};
+    }
+    return this.http.put(`${GAMES_CONFIGS}/${configId}`, gameConfigData)
       .map(resp => {
         const respData: any = resp.json();
         return GameConfig.createFromJSON(respData);
