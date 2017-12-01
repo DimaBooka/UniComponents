@@ -62,7 +62,7 @@ export class DetailConfigGamesComponent implements OnInit {
   onDelete(closeModal: Function) {
     this.gamesService.deleteGameConfig(this.gameConfig).subscribe(respDelete => {
       closeModal(true);
-      this.router.navigate(['/games/config']);
+      this.router.navigate(['/games/configs']);
     });
   }
 

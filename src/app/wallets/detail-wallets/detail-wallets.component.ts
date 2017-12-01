@@ -51,7 +51,6 @@ export class DetailWalletsComponent implements OnInit {
   }
 
   onEdit(wallet: Wallet, closeModal: Function) {
-    debugger;
     this.walletsService.updateWalletDetail(wallet).subscribe(respWalletId => {
       this.wallet = wallet;
       this.checkConfigs();

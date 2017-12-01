@@ -25,12 +25,12 @@ export const GAMES_ROUTES: Routes = [
         detail: DetailGamePartnerGamesResolver
       }
     },
-    // { path: 'configs', component: ListCongifGamesComponent },
-    // { path: 'configs/:id', component: DetailConfigGamesComponent,
-    //   resolve: {
-    //     detail: DetailGameConfigResolver
-    //   }
-    // },
+    { path: 'configs', component: ListCongifGamesComponent },
+    { path: 'configs/:id', component: DetailConfigGamesComponent,
+      resolve: {
+        detail: DetailGameConfigResolver
+      }
+    },
     { path: 'game/:id', component: DetailGamesComponent,
       resolve: {
         detail: DetailGameResolver

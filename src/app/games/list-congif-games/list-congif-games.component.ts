@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GamesService } from '../../shared/services/games.service';
 import { ToasterService } from 'angular2-toaster';
+import { PartnerGame } from '../../shared/models/partner-games.model';
 
 @Component({
   selector: 'app-list-congif-games',
@@ -12,7 +13,8 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class ListCongifGamesComponent implements OnInit {
 
-  public gameConfigs: GameConfig[] = [];
+  // public gameConfigs: GameConfig[] = [];
+  public partnersGame: PartnerGame[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -22,14 +24,22 @@ export class ListCongifGamesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.updateListGameConfigs();
+    // this.updateListGameConfigs();
+    this.updateGamePartners();
   }
 
-  private updateListGameConfigs() {
-    this.gameConfigsService.getGameConfigsList().subscribe((gameConfigs: GameConfig[]) => {
-      this.gameConfigs = gameConfigs;
+  private updateGamePartners() {
+    this.gameConfigsService.getGamePartnersList().subscribe(resp => {
+      this.partnersGame = resp;
     });
   }
+
+
+  // private updateListGameConfigs() {
+  //   this.gameConfigsService.getGameConfigsList().subscribe((gameConfigs: GameConfig[]) => {
+  //     this.gameConfigs = gameConfigs;
+  //   });
+  // }
 
   public openCreateGameConfig(createModal) {
     this.modalService.open(createModal).result.then(result => {
@@ -41,7 +51,7 @@ export class ListCongifGamesComponent implements OnInit {
 
   public onCreate(newGameConfig: GameConfig, closeModal: Function) {
     this.gameConfigsService.createGameConfig(newGameConfig).subscribe(respGameConfig => {
-      this.updateListGameConfigs();
+      this.updateGamePartners();
       closeModal();
     });
   }
