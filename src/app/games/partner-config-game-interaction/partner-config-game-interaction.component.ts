@@ -37,7 +37,7 @@ export class PartnerConfigGameInteractionComponent implements OnInit {
     });
 
     this.games.forEach((game, index) => {
-      this.options.push({id: index, name: game.title});
+      this.options.push({id: index, name: `${game.title}${game.config && game.config['config_id'] ? ' - ' + game.config['config_id'] : ''}`});
     });
 
     this.gameConfigForm = this.fb.group({
@@ -83,10 +83,10 @@ export class PartnerConfigGameInteractionComponent implements OnInit {
           value: this.gameConfig.max_bet, validators: [],
           input: true, type: 'number', label: 'Max Bet', placeholder: 'Enter max bet'
         }),
-        // FormField.createFromObject({
-        //   fieldName: 'custom_config',
-        //   value: this.customConfigs, validators: [], label: 'Custom Config'
-        // })
+        FormField.createFromObject({
+          fieldName: 'custom_config',
+          value: this.customConfigs, validators: [], label: 'Custom Config'
+        })
     ], 0);
   }
 

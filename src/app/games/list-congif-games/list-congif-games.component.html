@@ -4,13 +4,38 @@
 
 </app-head>
 
-<div class="list-entities-holder row">
-  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let partnersGame of partnersGame">
-    <app-card [routerLink]="[partnersGame.config.config_id]">
-      <span appTextEllipsis>{{ partnersGame.game_id }}</span>
-    </app-card>
-  </div>
+<!--<div class="list-entities-holder row">-->
+  <!--<div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"-->
+       <!--*ngFor="let partnerGame of partnersGame">-->
+    <!--<app-card [routerLink]="[partnerGame.config['config_id']]" *ngIf="partnerGame.config && partnerGame.config['config_id']">-->
+      <!--<span appTextEllipsis>{{ partnerGame.game_id }}</span>-->
+    <!--</app-card>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+<div class="list-entities-holder d-flex flex-column align-items-center row table-view">
+  <app-card>
+    <div class="list-entity no-pointer d-flex col-xs-12">
+      <span class="col-xs-2" appTextEllipsis>ID</span>
+      <span class="col-xs-1" appTextEllipsis>Currency</span>
+      <span class="col-xs-1" appTextEllipsis>Min bet</span>
+      <span class="col-xs-1" appTextEllipsis>Max bet</span>
+      <span class="col-xs-4" appTextEllipsis>Actions</span>
+    </div>
+
+    <div class="list-entity d-flex align-items-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         *ngFor="let partnerGame of partnersGame">
+      <span class="col-xs-2" appTextEllipsis>{{ partnerGame.config['config_id'] }}</span>
+      <span class="col-xs-1" appTextEllipsis>{{ partnerGame.config['currency'] }}</span>
+      <span class="col-xs-1" appTextEllipsis>{{ partnerGame.config['min_bet'] }}</span>
+      <span class="col-xs-1" appTextEllipsis>{{ partnerGame.config['max_bet'] }}</span>
+      <span class="col-xs-4" appTextEllipsis>
+        <app-form-button [value]="'Edit'" [primary]="true" (onClick)="openEditGameConfig(editGameConfig, partnerGame)"></app-form-button>
+        <app-form-button [value]="'Delete'" (onClick)="openEditGameConfig(deleteGameConfig, partnerGame)"></app-form-button>
+      </span>
+    </div>
+  </app-card>
 </div>
 
 
@@ -22,5 +47,38 @@
 
     <app-config-game-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-config-game-interaction>
 
+  </div>
+</ng-template>
+
+<ng-template #editGameConfig let-c="close" let-d="dismiss">
+  <div class="edit-modal modal-header">
+    <h4 class="modal-title">Edit</h4>
+  </div>
+  <div class="edit-modal modal-body">
+
+    <app-config-game-interaction *ngIf="selectedGameConfig" [gameConfig]="selectedGameConfig" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-config-game-interaction>
+
+  </div>
+</ng-template>
+
+<ng-template #deleteGameConfig let-c="close" let-d="dismiss">
+  <div class="delete-modal modal-header">
+    <h4 class="modal-title">Delete Confirmation</h4>
+  </div>
+  <div class="delete-modal modal-body d-flex flex-column align-items-start justify-content center">
+    <span class="game-config-text">Are you sure you want to delete config of this game?</span>
+
+    <div class="w-100 d-flex align-items-center justify-content-center">
+      <span class="game-config-text" *ngIf="selectedGameConfig">{{ selectedGameConfig.game }}</span>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <span style="font-weight: bold">Warning!</span> This cannot be undone.
+    </div>
+
+    <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+      <app-form-button [value]="'Yes'" (onClick)="onDelete(c)"></app-form-button>
+      <app-form-button [primary]="true" [value]="'No'" (onClick)="d('Cross click')"></app-form-button>
+    </div>
   </div>
 </ng-template>

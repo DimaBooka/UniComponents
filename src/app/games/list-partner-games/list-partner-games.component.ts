@@ -57,6 +57,7 @@ export class ListPartnerGamesComponent implements OnInit {
   private updateGamePartners() {
     this.gamesService.getGamePartnersList().subscribe(resp => {
       this.partnersGame = resp;
+      console.log(this.partnersGame);
     });
   }
 
@@ -69,7 +70,15 @@ export class ListPartnerGamesComponent implements OnInit {
   }
 
   public onCreate(newGameConfig: GameConfig, closeModal: Function) {
-    this.gameConfigsService.createGameConfig(newGameConfig).subscribe(respGameConfig => {
+    const gameId = newGameConfig.game;
+    delete newGameConfig.game;
+
+    const config = {
+      game_id: gameId,
+      config: newGameConfig
+    };
+
+    this.gameConfigsService.createGameConfig(config).subscribe(respGameConfig => {
       this.init();
       closeModal();
     });

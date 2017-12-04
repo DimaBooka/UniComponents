@@ -174,7 +174,7 @@ export class GamesService {
       delete gameConfig['config'].config_id;
       gameConfigData = {...gameConfig};
     } else {
-      gameConfigData = {config: {...gameConfig}};
+      gameConfigData = {...gameConfig};
     }
 
     return this.http.post(GAMES_CONFIGS, gameConfigData)
