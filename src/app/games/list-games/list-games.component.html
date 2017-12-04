@@ -4,14 +4,24 @@
 
 </app-head>
 
-<div class="list-entities-holder row">
-  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let game of games">
-    <app-card [routerLink]="['game', game.id]">
-      <!--<span class="label">Email:</span>-->
-      <span appTextEllipsis>{{ game.title }}</span>
-    </app-card>
-  </div>
+<div class="list-entities-holder d-flex flex-column align-items-center row table-view">
+  <app-card>
+    <div class="list-entity no-pointer d-flex col-xs-12">
+      <span class="col-xs-3 col-sm-4 col-md-4 col-lg-4 col-xl-4" appTextEllipsis>ID</span>
+      <span class="col-xs-3 col-sm-4 col-md-4 col-lg-4 col-xl-4" appTextEllipsis>Title</span>
+      <span class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3" appTextEllipsis>Actions</span>
+    </div>
+
+    <div class="list-entity d-flex align-items-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         *ngFor="let game of games">
+      <span class="col-xs-3 col-sm-4 col-md-4 col-lg-4 col-xl-4" appTextEllipsis>{{ game.id }}</span>
+      <span class="col-xs-3 col-sm-4 col-md-4 col-lg-4 col-xl-4" appTextEllipsis>{{ game.title }}</span>
+      <span class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3" appTextEllipsis>
+        <app-form-button [value]="'Edit'" [primary]="true" (onClick)="openEditGame(editGame, game)"></app-form-button>
+        <app-form-button [value]="'Delete'" (onClick)="openEditGame(deleteGame, game)"></app-form-button>
+      </span>
+    </div>
+  </app-card>
 </div>
 
 
@@ -23,5 +33,39 @@
 
     <app-game-interaction [creation]="true" (onSubmit)="onCreate($event, c)" (onCancel)="d()"></app-game-interaction>
 
+  </div>
+</ng-template>
+
+
+<ng-template #editGame let-c="close" let-d="dismiss">
+  <div class="edit-modal modal-header">
+    <h4 class="modal-title">Edit</h4>
+  </div>
+  <div class="edit-modal modal-body">
+
+    <app-game-interaction *ngIf="selectedGame" [game]="selectedGame" (onSubmit)="onEdit($event, c)" (onCancel)="d()"></app-game-interaction>
+
+  </div>
+</ng-template>
+
+<ng-template #deleteGame let-c="close" let-d="dismiss">
+  <div class="delete-modal modal-header">
+    <h4 class="modal-title">Delete Confirmation</h4>
+  </div>
+  <div class="delete-modal modal-body d-flex flex-column align-items-start justify-content center">
+    <span class="game-text">Are you sure you want to delete this game?</span>
+
+    <div class="w-100 d-flex align-items-center justify-content-center">
+      <span class="game-text" *ngIf="selectedGame">{{ selectedGame.title }}</span>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <span style="font-weight: bold">Warning!</span> This cannot be undone.
+    </div>
+
+    <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+      <app-form-button [value]="'Yes'" (onClick)="onDelete(c)"></app-form-button>
+      <app-form-button [primary]="true" [value]="'No'" (onClick)="d('Cross click')"></app-form-button>
+    </div>
   </div>
 </ng-template>

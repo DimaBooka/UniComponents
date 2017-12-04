@@ -4,14 +4,24 @@
 
 </app-head>
 
-<div class="list-entities-holder row">
-  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let partner of partners">
-    <app-card [routerLink]="[partner.id]">
-      <span appTextEllipsis>{{ partner.email }}</span>
-    </app-card>
-  </div>
 
+<div class="list-entities-holder d-flex flex-column align-items-center row table-view" *ngIf="partners.length > 0">
+  <app-card>
+    <div class="list-entity no-pointer d-flex col-xs-12">
+      <span class="col-xs-5" appTextEllipsis>Email</span>
+      <span class="col-xs-5" appTextEllipsis>Sites</span>
+    </div>
+
+    <div class="list-entity d-flex col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         *ngFor="let partner of partners" [routerLink]="[partner.id]">
+      <span class="col-xs-5" appTextEllipsis>{{ partner.email }}</span>
+      <span class="col-xs-5" appTextEllipsis>{{ partner.sites.join(', ') }}</span>
+    </div>
+  </app-card>
+</div>
+
+
+<div class="list-entities-holder row" *ngIf="partnersGame.length > 0">
   <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
        *ngFor="let game of partnersGame">
     <app-card [routerLink]="['game', game.game_id]">
@@ -20,6 +30,15 @@
     </app-card>
   </div>
 </div>
+
+<!--<div class="list-entities-holder row" *ngIf="partners.length > 0">-->
+  <!--<div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"-->
+       <!--*ngFor="let partner of partners">-->
+    <!--<app-card [routerLink]="[partner.id]">-->
+      <!--<span appTextEllipsis>{{ partner.email }}</span>-->
+    <!--</app-card>-->
+  <!--</div>-->
+<!--</div>-->
 
 <ng-template #createGameConfig let-c="close" let-d="dismiss">
   <div class="create-modal modal-header">

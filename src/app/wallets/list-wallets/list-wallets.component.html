@@ -4,14 +4,25 @@
 
 </app-head>
 
-<div class="list-entities-holder row">
-  <div class="list-entity col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-       *ngFor="let wallet of wallets">
-    <app-card [routerLink]="['wallet', wallet.id]">
+<div class="list-entities-holder d-flex flex-column align-items-center row table-view">
+  <app-card>
+    <div class="list-entity no-pointer d-flex col-xs-12">
+
       <!--<span class="label">Email:</span>-->
-      <span appTextEllipsis>{{ wallet.id }}</span>
-    </app-card>
-  </div>
+      <span class="col-xs-3" appTextEllipsis>ID</span>
+      <span class="col-xs-3" appTextEllipsis>Type</span>
+      <span class="col-xs-3" appTextEllipsis>URL</span>
+    </div>
+
+    <div class="list-entity d-flex col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         *ngFor="let wallet of wallets" [routerLink]="['wallet', wallet.id]">
+
+      <!--<span class="label">Email:</span>-->
+      <span class="col-xs-3" appTextEllipsis>{{ wallet.id }}</span>
+      <span class="col-xs-3" appTextEllipsis>{{ wallet.wallet_type }}</span>
+      <span class="col-xs-3" appTextEllipsis>{{ wallet.wallet_url }}</span>
+    </div>
+  </app-card>
 </div>
 
 
