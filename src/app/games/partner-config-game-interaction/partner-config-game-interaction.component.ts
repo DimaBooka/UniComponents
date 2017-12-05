@@ -36,8 +36,16 @@ export class PartnerConfigGameInteractionComponent implements OnInit {
       });
     });
 
+    let ids = [];
     this.games.forEach((game, index) => {
-      this.options.push({id: index, name: `${game.title}${game.config && game.config['config_id'] ? ' - ' + game.config['config_id'] : ''}`});
+      if (!this.creation) {
+        this.options.push({id: index, name: `${game.title}${game.config && game.config['config_id'] ? ' - ' + game.config['config_id'] : ''}`});
+      } else {
+        if (ids.indexOf(game.game_id) < 0) {
+          ids.push(game.game_id);
+          this.options.push({id: index, name: game.title});
+        }
+      }
     });
 
     this.gameConfigForm = this.fb.group({

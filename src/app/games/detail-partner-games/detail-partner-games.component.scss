@@ -14,3 +14,34 @@
     margin-top: 10px;
   }
 }
+
+.list-entities-holder.row.table-view {
+  margin: 0;
+
+  app-card {
+    outline: none;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .list-entity {
+    cursor: pointer;
+    padding: 20px;
+
+    &.dispointer {
+      cursor: auto;
+      border: none !important;
+    }
+
+    &.no-pointer {
+      border: none !important;
+      padding: 0 20px 10px 20px !important;
+      cursor: auto;
+    }
+
+    //&:hover {
+    //  padding: 19px;
+    //  border: 1px solid $light-white;
+    //}
+  }
+}

@@ -2,20 +2,36 @@
 </app-head>
 
 <div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerGamesTitle">
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <app-card>
 
       <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
 
-        <app-display-value [label]="'Games'" [value]="partnerGamesTitle" [multiple]="true"></app-display-value>
+        <!--<app-display-value [label]="'Games'" [value]="partnerGamesTitle" [multiple]="true"></app-display-value>-->
+
+        <span class="label">Games</span>
+        <div class="list-entities-holder w-100 d-flex flex-column align-items-center row table-view">
+            <div class="list-entity no-pointer w-100 d-flex col-xs-12">
+              <span class="col-xs-3" appTextEllipsis>Title</span>
+              <span class="col-xs-3" appTextEllipsis>Currency</span>
+              <span class="col-xs-3" appTextEllipsis>Min Bet</span>
+              <span class="col-xs-3" appTextEllipsis>Max Bet</span>
+            </div>
+
+            <div class="list-entity dispointer d-flex align-items-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                 *ngFor="let game of partnerGames" style="cursor: auto;">
+              <span class="col-xs-3" appTextEllipsis>{{ game.title }}</span>
+              <span class="col-xs-3" appTextEllipsis>{{ game.config?.currency }}</span>
+              <span class="col-xs-3" appTextEllipsis>{{ game.config?.min_bet }}</span>
+              <span class="col-xs-3" appTextEllipsis>{{ game.config?.max_bet }}</span>
+            </div>
+        </div>
 
       </div>
 
       <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
         <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditPartnerGame(editPartnerGame)"></app-form-button>
-      </div>
 
-      <div class="buttons-next-holder d-flex align-items-center justify-content-around">
         <app-form-button [value]="'Edit Configs'" (onClick)="openEditGameConfigs(gameConfigs)"></app-form-button>
         <app-form-button [value]="'Add Config'" (onClick)="openEditGameConfigs(gameConfigs, true)"></app-form-button>
       </div>
@@ -39,7 +55,7 @@
 
 <ng-template #gameConfigs let-c="close" let-d="dismiss">
   <div class="edit-modal modal-header">
-    <h4 class="modal-title">Edit Game Configs</h4>
+    <h4 class="modal-title">{{ creation ? 'Add Game Configs' : 'Edit Game Configs' }}</h4>
   </div>
   <div class="edit-modal modal-body">
 
