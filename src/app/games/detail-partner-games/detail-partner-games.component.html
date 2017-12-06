@@ -1,4 +1,5 @@
 <app-head title="Partner Games" link="/games/partners" [subtitle]="id">
+  <app-form-button [value]="'Add Config'" (onClick)="openEditGameConfigs(gameConfigs, true)"></app-form-button>
 </app-head>
 
 <div class="detail-holder row d-flex align-items-center justify-content-center" *ngIf="partnerGamesTitle">
@@ -12,18 +13,25 @@
         <span class="label">Games</span>
         <div class="list-entities-holder w-100 d-flex flex-column align-items-center row table-view">
             <div class="list-entity no-pointer w-100 d-flex col-xs-12">
+              <span class="col-xs-2" appTextEllipsis>ID</span>
               <span class="col-xs-3" appTextEllipsis>Title</span>
               <span class="col-xs-3" appTextEllipsis>Currency</span>
-              <span class="col-xs-3" appTextEllipsis>Min Bet</span>
-              <span class="col-xs-3" appTextEllipsis>Max Bet</span>
+              <span class="col-xs-2" appTextEllipsis>Min Bet</span>
+              <span class="col-xs-2" appTextEllipsis>Max Bet</span>
+              <span class="col-xs-3" appTextEllipsis>Actions</span>
             </div>
 
             <div class="list-entity dispointer d-flex align-items-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
                  *ngFor="let game of partnerGames" style="cursor: auto;">
+              <span class="col-xs-2" appTextEllipsis>{{ game.config?.config_id }}</span>
               <span class="col-xs-3" appTextEllipsis>{{ game.title }}</span>
               <span class="col-xs-3" appTextEllipsis>{{ game.config?.currency }}</span>
-              <span class="col-xs-3" appTextEllipsis>{{ game.config?.min_bet }}</span>
-              <span class="col-xs-3" appTextEllipsis>{{ game.config?.max_bet }}</span>
+              <span class="col-xs-2" appTextEllipsis>{{ game.config?.min_bet }}</span>
+              <span class="col-xs-2" appTextEllipsis>{{ game.config?.max_bet }}</span>
+              <span class="col-xs-2" appTextEllipsis>
+                <app-form-button [value]="'Edit'" (onClick)="openEditGameConfigs(gameConfigs, false, game)" *ngIf="game.config?.config_id"></app-form-button>
+                <app-form-button [value]="'Delete'" (onClick)="openEditGameConfigs(deleteGameConfig, false, game, true)" *ngIf="game.config?.config_id"></app-form-button>
+              </span>
             </div>
         </div>
 
@@ -31,9 +39,6 @@
 
       <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
         <app-form-button [primary]="true" [value]="'Edit'" (onClick)="openEditPartnerGame(editPartnerGame)"></app-form-button>
-
-        <app-form-button [value]="'Edit Configs'" (onClick)="openEditGameConfigs(gameConfigs)"></app-form-button>
-        <app-form-button [value]="'Add Config'" (onClick)="openEditGameConfigs(gameConfigs, true)"></app-form-button>
       </div>
 
     </app-card>
@@ -59,7 +64,31 @@
   </div>
   <div class="edit-modal modal-body">
 
-    <app-partner-config-game-interaction [creation]="creation" [games]="partnerGames" (onSubmit)="onEditGameConfig($event, c)" (onCancel)="d()"></app-partner-config-game-interaction>
+    <app-partner-config-game-interaction [creation]="creation" [games]="partnerGames" [selectedGame]="selectedPartnerGame"
+                                         (onSubmit)="onEditGameConfig($event, c)" (onCancel)="d()">
+    </app-partner-config-game-interaction>
 
+  </div>
+</ng-template>
+
+<ng-template #deleteGameConfig let-c="close" let-d="dismiss">
+  <div class="delete-modal modal-header">
+    <h4 class="modal-title">Delete Confirmation</h4>
+  </div>
+  <div class="delete-modal modal-body d-flex flex-column align-items-start justify-content center">
+    <span class="game-config-text">Are you sure you want to delete config of this game?</span>
+
+    <div class="w-100 d-flex align-items-center justify-content-center">
+      <span class="game-config-text" *ngIf="selectedPartnerGame">{{ selectedPartnerGame.game_id }}</span>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <span style="font-weight: bold">Warning!</span> This cannot be undone.
+    </div>
+
+    <div class="buttons-holder w-100 d-flex align-items-center justify-content-center">
+      <app-form-button [value]="'Yes'" (onClick)="onDelete(c)"></app-form-button>
+      <app-form-button [primary]="true" [value]="'No'" (onClick)="d('Cross click')"></app-form-button>
+    </div>
   </div>
 </ng-template>

@@ -15,13 +15,14 @@ export class PartnerConfigGameInteractionComponent implements OnInit {
 
   @Input() games: PartnerGame[] = [];
   @Input() creation: boolean = false;
+  @Input() selectedGame: PartnerGame;
   @Output() onSubmit: EventEmitter<PartnerGame> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
   public customConfigs: any[] = [];
   public fieldsOptions: any;
   public options: any[] = [];
   public optionsCurrencies: any[] = [];
-  private selectedGame: PartnerGame;
+  // private selectedGame: PartnerGame;
   public gameConfig: GameConfig;
   public gameConfigForm: FormGroup;
   constructor(
@@ -51,14 +52,18 @@ export class PartnerConfigGameInteractionComponent implements OnInit {
     this.gameConfigForm = this.fb.group({
       game: ['', []]
     });
-
-    this.gameConfigForm.get('game').valueChanges.subscribe(value => {
-      if (this.games && this.games[+value]) {
-        this.selectedGame = this.games[+value];
-        this.gameConfig = this.creation ? new GameConfig() : this.games[+value].config;
-        this.initForm();
-      }
-    });
+    if (!this.selectedGame) {
+      this.gameConfigForm.get('game').valueChanges.subscribe(value => {
+        if (this.games && this.games[+value]) {
+          this.selectedGame = this.games[+value];
+          this.gameConfig = this.creation ? new GameConfig() : this.games[+value].config;
+          this.initForm();
+        }
+      });
+    } else {
+      this.gameConfig = !this.selectedGame.config || Object.keys(this.selectedGame.config).length == 0 ? new GameConfig() : this.selectedGame.config;
+      this.initForm();
+    }
   }
 
   initForm() {

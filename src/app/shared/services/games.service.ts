@@ -206,7 +206,7 @@ export class GamesService {
       .catch(this.errorService.showErrorHandler());
   }
 
-  deleteGameConfig(gameConfig: GameConfig) {
+  deleteGameConfig(gameConfig: GameConfig | any) {
     return this.http.delete(`${GAMES_CONFIGS}/${gameConfig.id}`)
       .map(resp => resp.json())
       .catch(this.errorService.showErrorHandler());

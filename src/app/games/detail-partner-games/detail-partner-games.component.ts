@@ -19,6 +19,7 @@ export class DetailPartnerGamesComponent implements OnInit {
   public partnerGames: PartnerGame[];
   public partnerGamesTitle: string[];
   public creation: boolean = false;
+  public selectedPartnerGame: PartnerGame = null;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -63,7 +64,8 @@ export class DetailPartnerGamesComponent implements OnInit {
   onCancel() {
   }
 
-  public openEditGameConfigs(editOrDeleteModal, creation: boolean = false) {
+  public openEditGameConfigs(editOrDeleteModal, creation: boolean = false, partnerGame: PartnerGame, toDelete: boolean = false) {
+    this.selectedPartnerGame = partnerGame;
     this.creation = creation;
     this.modalService.open(editOrDeleteModal).result.then(isDelete => {
       if (!isDelete) {
@@ -95,6 +97,13 @@ export class DetailPartnerGamesComponent implements OnInit {
         closeModal(false);
       });
     }
+  }
+
+  onDelete(closeModal: Function) {
+    this.gamesService.deleteGameConfig({id: this.selectedPartnerGame.config['config_id']}).subscribe(respDelete => {
+      closeModal(true);
+      this.updatepartnerGamesList();
+    });
   }
 
   onCancelGameConfig() {
