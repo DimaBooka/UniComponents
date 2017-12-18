@@ -34,7 +34,7 @@ export class RoundHistoryComponent implements OnInit {
     this.filterGroup = this.fb.group({
       from: ['', []],
       till: ['', []],
-      transaction_type: ['', []],
+      round_id: ['', []],
       user_id: ['', []],
       config_id: ['', []]
     });
