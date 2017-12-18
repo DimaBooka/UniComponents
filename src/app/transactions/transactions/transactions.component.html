@@ -1,0 +1,55 @@
+<app-head title="Transactions">
+
+</app-head>
+
+<div class="list-entities-holder d-flex flex-column align-items-center row table-view">
+
+  <div class="filters-holder d-flex align-items-center justify-content-center">
+    <app-card [noHidden]="true">
+      <form class="d-flex" [formGroup]="filterGroup" (keyup)="onEnterPress($event)">
+        <div class="block d-flex flex-column">
+          <app-form-field type="datepicker" [control]="filterGroup.get('from')" placeholder="From"></app-form-field>
+          <app-form-field type="datepicker" [control]="filterGroup.get('till')" placeholder="To"></app-form-field>
+        </div>
+
+        <div class="block d-flex flex-column">
+          <app-form-field [input]="true" [control]="filterGroup.get('user_id')" placeholder="User ID"></app-form-field>
+          <app-form-field [input]="true" [control]="filterGroup.get('config_id')" placeholder="Config ID"></app-form-field>
+        </div>
+
+        <app-form-field class="app-select" [control]="filterGroup.get('transaction_type')" [select]="true" [options]="options" placeholder="Status"></app-form-field>
+      </form>
+    </app-card>
+  </div>
+
+  <app-card>
+    <div class="list-entity no-pointer d-flex col-xs-12">
+      <span class="col-xs-2" appTextEllipsis>Time</span>
+      <span class="col-xs-2" appTextEllipsis>User</span>
+      <span class="col-xs-2" appTextEllipsis>Config</span>
+      <span class="col-xs-2" appTextEllipsis>Partner</span>
+      <span class="col-xs-2" appTextEllipsis>Amount</span>
+      <span class="col-xs-2" appTextEllipsis>Status</span>
+    </div>
+
+    <div class="list-entity d-flex col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         *ngFor="let transaction of transactions">
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.time | date }}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.user_id }}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.config_id }}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.partner_id}}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.amount }}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ transaction.transaction_type }}</span>
+    </div>
+  </app-card>
+
+  <div class="paginator-holder d-flex align-items-center justify-content-center">
+    <app-card>
+      <div class="pages">
+        <span class="page-label prev" [ngClass]="{inactive: page === 1}" (click)="page !== 1 ? setPage(page - 1) : ''">Prev</span>
+        <span class="page-label" *ngFor="let page of pages; let i = index" (click)="setPage(i + 1)">{{ i + 1 }}</span>
+        <span class="page-label next" [ngClass]="{inactive: pages.length === 1 || page >= pages.length}" (click)="pages.length !== 1 && page < pages.length ? setPage(page + 1) : ''">Next</span>
+      </div>
+    </app-card>
+  </div>
+</div>

@@ -24,3 +24,7 @@ export const PARTNER_WALLETS = `${API_URL}/partner_wallets`;
 export const CURRENCIES = `${API_URL}/currencies`;
 
 export const WALLET_TYPES = `${API_URL}/wallet_types`;
+
+export const ROUND_HISTORY = `${API_URL}/round_history`;
+
+export const TRANSACTIONS = `${API_URL}/transactions`;

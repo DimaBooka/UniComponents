@@ -11,6 +11,26 @@
 
     &:focus {
       border-color: $light-white;
+
+      & + .input-group-addon {
+        border: 1px solid $light-white !important;
+      }
+    }
+  }
+
+  .datepicker-holder {
+    display: flex;
+    position: relative;
+
+    .input-group-addon {
+      color: $light-white;
+      position: absolute;
+      right: 0;
+      border-radius: 0;
+      background-color: $middle-grey;
+      border: 1px solid $dark-grey;
+      height: 100%;
+      outline: none;
     }
   }
 }

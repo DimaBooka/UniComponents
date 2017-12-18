@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -8,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class CardComponent implements OnInit {
 
+  @Input() noHidden: boolean = false;
   constructor() { }
 
   ngOnInit() {

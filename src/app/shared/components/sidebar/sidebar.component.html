@@ -49,6 +49,16 @@
         <a class="nav-link" routerLink="wallets/partners" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}">Partner Wallets</a>
       </li>
+
+      <li class="nav-item" *ngIf="permissions && permissions === 'Admin'">
+        <a class="nav-link" routerLink="trans/round" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Round History</a>
+      </li>
+      <li class="nav-item" *ngIf="permissions && permissions === 'Admin'">
+        <a class="nav-link" routerLink="trans/transactions" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}">Transactions</a>
+      </li>
+
       <li class="nav-item" (click)="usersService.logout()">
         <a class="nav-link">Logout</a>
       </li>

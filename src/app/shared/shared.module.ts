@@ -42,6 +42,8 @@ import { DetailGamePartnerGamesResolver } from './resolvers/detail-game-partner-
 import { DetailPartnerWalletResolver } from './resolvers/partner-wallet.resolver';
 import { DetailWalletResolver } from './resolvers/wallet.resolver';
 import { WalletsService } from './services/wallets.service';
+import { TransService } from './services/transactions.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -51,6 +53,7 @@ import { WalletsService } from './services/wallets.service';
     ReactiveFormsModule,
     FormsModule,
     Ng2Webstorage,
+    NgbModule,
     ToasterModule,
     MultiselectDropdownModule
   ],
@@ -100,6 +103,7 @@ import { WalletsService } from './services/wallets.service';
     DetailGamePartnerGamesResolver,
     DetailWalletResolver,
     DetailPartnerWalletResolver,
+    TransService,
     AuthGuard,
     NoAuthGuard
   ]

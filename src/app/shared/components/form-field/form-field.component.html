@@ -15,5 +15,11 @@
 
   <ss-multiselect-dropdown [options]="options" [settings]="settings" *ngIf="select && multiple"
                            [formControl]="control"></ss-multiselect-dropdown>
-
+  <span class="datepicker-holder" *ngIf="type === 'datepicker'">
+    <input class="form-control" [placeholder]="placeholder"
+           name="dp" [formControl]="control" ngbDatepicker #d="ngbDatepicker">
+    <button class="input-group-addon" (click)="d.toggle()" type="button">
+      Date
+    </button>
+  </span>
 </div>
