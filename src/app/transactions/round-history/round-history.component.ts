@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TransService} from '../../shared/services/transactions.service';
-import {TransactionsModel} from '../../shared/models/transactions.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {RoundHistoryModel} from '../../shared/models/round-history.model';
 
 @Component({
   selector: 'app-round-history',
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./round-history.component.scss']
 })
 export class RoundHistoryComponent implements OnInit {
-  public roundHystory: TransactionsModel[] = [];
+  public roundHystory: RoundHistoryModel[] = [];
   public page: number = 1;
   public pages: number[] = [];
   public filters: any = {};
@@ -64,6 +64,12 @@ export class RoundHistoryComponent implements OnInit {
 
         this.filterGroup.valueChanges.subscribe(values => {
           this.filters = values;
+          if (typeof this.filters['from'] === 'object') {
+            this.filters['from'] = new Date(`${values.from.year}-${values.from.month}-${values.from.day}`).toISOString().replace('Z', '');
+          }
+          if (typeof this.filters['till'] === 'object') {
+            this.filters['till'] = new Date(`${values.till.year}-${values.till.month}-${values.till.day}`).toISOString().replace('Z', '');
+          }
           this.updateListTransactions();
         });
       }

@@ -27,7 +27,7 @@
       <span class="col-xs-2" appTextEllipsis>Time</span>
       <span class="col-xs-2" appTextEllipsis>User</span>
       <span class="col-xs-2" appTextEllipsis>Config</span>
-      <span class="col-xs-2" appTextEllipsis>Partner</span>
+      <span class="col-xs-2" appTextEllipsis>Round</span>
       <span class="col-xs-2" appTextEllipsis>Amount</span>
       <span class="col-xs-2" appTextEllipsis>Status</span>
     </div>
@@ -37,13 +37,13 @@
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.time | date }}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.user_id }}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.config_id }}</span>
-      <span class="col-xs-2" appTextEllipsis>{{ roundHistory.partner_id}}</span>
+      <span class="col-xs-2" appTextEllipsis>{{ roundHistory.round_id}}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.amount }}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.transaction_type }}</span>
     </div>
   </app-card>
 
-  <div class="paginator-holder d-flex align-items-center justify-content-center">
+  <div class="paginator-holder d-flex align-items-center justify-content-center" *ngIf="pages && pages.length > 1">
     <app-card>
       <div class="pages">
         <span class="page-label prev" [ngClass]="{inactive: page === 1}" (click)="page !== 1 ? setPage(page - 1) : ''">Prev</span>

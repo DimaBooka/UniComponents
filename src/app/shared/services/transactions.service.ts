@@ -27,10 +27,14 @@ export class TransService {
     const filtersFields = Object.keys(filters);
 
     if (filtersFields.length > 0) {
-      filtersFields.forEach(filter => search.set(filter, filters[filter]));
+      filtersFields.forEach(filter => {
+        if (filters[filter]) {
+          search.set(filter, filters[filter]);
+        }
+      });
     }
     search.set('page', '' + page);
-    // requestOptions.params = search;
+    requestOptions.params = search;
     return this.http.get(ROUND_HISTORY, requestOptions)
       .map(resp => {
         const respData: any[] = resp.json();
@@ -52,10 +56,14 @@ export class TransService {
     const filtersFields = Object.keys(filters);
 
     if (filtersFields.length > 0) {
-      filtersFields.forEach(filter => search.set(filter, filters[filter]));
+      filtersFields.forEach(filter => {
+        if (filters[filter]) {
+          search.set(filter, filters[filter]);
+        }
+      });
     }
     search.set('page', '' + page);
-    // requestOptions.params = search;
+    requestOptions.params = search;
     return this.http.get(TRANSACTIONS, requestOptions)
       .map(resp => {
         const respData: any[] = resp.json();

@@ -65,6 +65,12 @@ export class TransactionsComponent implements OnInit {
 
         this.filterGroup.valueChanges.subscribe(values => {
           this.filters = values;
+          if (typeof this.filters['from'] === 'object') {
+            this.filters['from'] = new Date(`${values.from.year}-${values.from.month}-${values.from.day}`).toISOString().replace('Z', '');
+          }
+          if (typeof this.filters['till'] === 'object') {
+            this.filters['till'] = new Date(`${values.till.year}-${values.till.month}-${values.till.day}`).toISOString().replace('Z', '');
+          }
           this.updateListTransactions();
         });
       }
