@@ -16,8 +16,9 @@ export class RoundHistoryComponent implements OnInit {
   public pages: number[] = [];
   public filters: any = {};
   public filterGroup: FormGroup;
+  public selectedRoundHistory: any[];
   public options: any[] = [
-    {name: 'Get Balance', id: 'get_balance'},
+    // {name: 'Get Balance', id: 'get_balance'},
     {name: 'Debit', id: 'debit'},
     {name: 'Credit', id: 'credit'},
     {name: 'Rollback', id: 'rollback'},
@@ -32,8 +33,10 @@ export class RoundHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.filterGroup = this.fb.group({
-      from: ['', []],
-      till: ['', []],
+      fromDate: ['', []],
+      fromTime: ['', []],
+      tillDate: ['', []],
+      tillTime: ['', []],
       round_id: ['', []],
       user_id: ['', []],
       config_id: ['', []]
@@ -64,17 +67,69 @@ export class RoundHistoryComponent implements OnInit {
 
         this.filterGroup.valueChanges.subscribe(values => {
           this.filters = values;
-          if (typeof this.filters['from'] === 'object') {
-            this.filters['from'] = new Date(`${values.from.year}-${values.from.month}-${values.from.day}`).toISOString().replace('Z', '');
+          if (values.fromDate || values.fromDate && values.fromTime) {
+            this.filters['from'] = this.getDate(values.fromDate, values.fromTime);
           }
-          if (typeof this.filters['till'] === 'object') {
-            this.filters['till'] = new Date(`${values.till.year}-${values.till.month}-${values.till.day}`).toISOString().replace('Z', '');
+
+          if (values.tillDate || values.tillDate && values.tillTime) {
+            this.filters['till'] = this.getDate(values.tillDate, values.tillTime);
           }
+
+          delete this.filters['fromDate'];
+          delete this.filters['fromTime'];
+          delete this.filters['tillDate'];
+          delete this.filters['tillTime'];
           this.updateListTransactions();
         });
       }
       this.roundHystory = roundHystoryInfo['results'];
     });
+  }
+
+  getDate(date: any, time: any) {
+    let dateTime: any = new Date();
+    if (date && date.year) {
+      dateTime = new Date(dateTime.setFullYear(date.year));
+    }
+    if (date && date.month) {
+      dateTime = new Date(dateTime.setMonth(date.month - 1));
+    }
+    if (date && date.day) {
+      dateTime = new Date(dateTime.setDate(date.day));
+    }
+    if (time && time.hour) {
+      dateTime = new Date(dateTime.setHours(time.hour));
+    } else { dateTime = new Date(dateTime.setHours(0)); }
+    if (time && time.minute) {
+      dateTime = new Date(dateTime.setMinutes(time.minute));
+    } else { dateTime = new Date(dateTime.setMinutes(0)); }
+    if (time && time.second) {
+      dateTime = new Date(dateTime.setSeconds(time.second));
+    } else { dateTime = new Date(dateTime.setSeconds(0)); }
+
+    try {
+      return new Date(dateTime).toISOString().replace('Z', '');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  public openHistory(modal, roundHistory: RoundHistoryModel) {
+    this.selectedRoundHistory = [];
+
+    const keys = Object.keys(roundHistory.round_history);
+    if (keys && keys.length > 0) {
+      keys.forEach(key => {
+        const config = {};
+        config['key'] = key;
+        config['value'] = roundHistory.round_history[key];
+        this.selectedRoundHistory.push(config);
+      });
+    }
+
+    this.modalService.open(modal).result.then(
+      result => {},
+      reason => {});
   }
 
   public onEnterPress(event) {

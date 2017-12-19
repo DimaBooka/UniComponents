@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TransService} from '../../shared/services/transactions.service';
 import {TransactionsModel} from '../../shared/models/transactions.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {debug} from 'util';
 
 @Component({
   selector: 'app-transactions',
@@ -18,7 +19,7 @@ export class TransactionsComponent implements OnInit {
   public filters: any = {};
   public filterGroup: FormGroup;
   public options: any[] = [
-    {name: 'Get Balance', id: 'get_balance'},
+    // {name: 'Get Balance', id: 'get_balance'},
     {name: 'Debit', id: 'debit'},
     {name: 'Credit', id: 'credit'},
     {name: 'Rollback', id: 'rollback'},
@@ -33,8 +34,10 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit() {
     this.filterGroup = this.fb.group({
-      from: ['', []],
-      till: ['', []],
+      fromDate: ['', []],
+      fromTime: ['', []],
+      tillDate: ['', []],
+      tillTime: ['', []],
       transaction_type: ['', []],
       user_id: ['', []],
       config_id: ['', []]
@@ -65,17 +68,51 @@ export class TransactionsComponent implements OnInit {
 
         this.filterGroup.valueChanges.subscribe(values => {
           this.filters = values;
-          if (typeof this.filters['from'] === 'object') {
-            this.filters['from'] = new Date(`${values.from.year}-${values.from.month}-${values.from.day}`).toISOString().replace('Z', '');
+          if (values.fromDate || values.fromDate && values.fromTime) {
+            this.filters['from'] = this.getDate(values.fromDate, values.fromTime);
           }
-          if (typeof this.filters['till'] === 'object') {
-            this.filters['till'] = new Date(`${values.till.year}-${values.till.month}-${values.till.day}`).toISOString().replace('Z', '');
+
+          if (values.tillDate || values.tillDate && values.tillTime) {
+            this.filters['till'] = this.getDate(values.tillDate, values.tillTime);
           }
+
+          delete this.filters['fromDate'];
+          delete this.filters['fromTime'];
+          delete this.filters['tillDate'];
+          delete this.filters['tillTime'];
           this.updateListTransactions();
         });
       }
       this.transactions = transactionsInfo['results'];
     });
+  }
+
+  getDate(date: any, time: any) {
+    let dateTime: any = new Date();
+    if (date && date.year) {
+      dateTime = new Date(dateTime.setFullYear(date.year));
+    }
+    if (date && date.month) {
+      dateTime = new Date(dateTime.setMonth(date.month - 1));
+    }
+    if (date && date.day) {
+      dateTime = new Date(dateTime.setDate(date.day));
+    }
+    if (time && time.hour) {
+      dateTime = new Date(dateTime.setHours(time.hour));
+    } else { dateTime = new Date(dateTime.setHours(0)); }
+    if (time && time.minute) {
+      dateTime = new Date(dateTime.setMinutes(time.minute));
+    } else { dateTime = new Date(dateTime.setMinutes(0)); }
+    if (time && time.second) {
+      dateTime = new Date(dateTime.setSeconds(time.second));
+    } else { dateTime = new Date(dateTime.setSeconds(0)); }
+
+    try {
+      return new Date(dateTime).toISOString().replace('Z', '');
+    } catch (e) {
+      return '';
+    }
   }
 
   public onEnterPress(event) {

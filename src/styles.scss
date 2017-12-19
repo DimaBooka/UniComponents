@@ -46,3 +46,18 @@
     background-color: $extra-dark-grey;
   }
 }
+
+.ngb-tp {
+  input {
+    color: $light-white;
+    background-color: $dark-grey;
+    border: 1px solid $dark-grey;
+    border-radius: 0;
+
+    &:focus {
+      color: $light-white;
+      background-color: $dark-grey;
+      border-color: $light-white;
+    }
+  }
+}

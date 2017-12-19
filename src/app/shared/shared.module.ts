@@ -44,6 +44,8 @@ import { DetailWalletResolver } from './resolvers/wallet.resolver';
 import { WalletsService } from './services/wallets.service';
 import { TransService } from './services/transactions.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DateTimePickerModule } from 'ng-pick-datetime';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -55,7 +57,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     Ng2Webstorage,
     NgbModule,
     ToasterModule,
-    MultiselectDropdownModule
+    MultiselectDropdownModule,
+    DateTimePickerModule
   ],
   declarations: [
     LoginComponent,

@@ -22,4 +22,9 @@
       Date
     </button>
   </span>
+
+  <span class="datepicker-holder" *ngIf="type === 'timepicker'">
+    <ngb-timepicker [formControl]="control"></ngb-timepicker>
+  </span>
+
 </div>

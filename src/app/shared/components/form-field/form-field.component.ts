@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-form-field',
   templateUrl: './form-field.component.html',
-  styleUrls: ['./form-field.component.scss']
+  styleUrls: ['./form-field.component.scss'],
+  providers: [ NgbTimepickerConfig ]
 })
 export class FormFieldComponent implements OnInit {
 
@@ -21,7 +23,10 @@ export class FormFieldComponent implements OnInit {
     buttonClasses: 'form-control form-control-multiselect',
     containerClasses: 'form-group form-group-multiselect w-100'
   };
-  constructor() { }
+  constructor(config: NgbTimepickerConfig) {
+    config.seconds = true;
+    config.spinners = false;
+  }
 
   ngOnInit() {
   }

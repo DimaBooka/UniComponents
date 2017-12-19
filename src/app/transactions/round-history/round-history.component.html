@@ -8,16 +8,18 @@
     <app-card [noHidden]="true">
       <form class="d-flex" [formGroup]="filterGroup" (keyup)="onEnterPress($event)">
         <div class="block d-flex flex-column">
-          <app-form-field type="datepicker" [control]="filterGroup.get('from')" placeholder="From"></app-form-field>
-          <app-form-field type="datepicker" [control]="filterGroup.get('till')" placeholder="To"></app-form-field>
+          <app-form-field type="datepicker" [control]="filterGroup.get('fromDate')" placeholder="From"></app-form-field>
+          <app-form-field type="timepicker" [control]="filterGroup.get('fromTime')" placeholder="To"></app-form-field>
+          <app-form-field type="datepicker" [control]="filterGroup.get('tillDate')" placeholder="From"></app-form-field>
+          <app-form-field type="timepicker" [control]="filterGroup.get('tillTime')" placeholder="To"></app-form-field>
         </div>
 
         <div class="block d-flex flex-column">
           <app-form-field [input]="true" [control]="filterGroup.get('user_id')" placeholder="User ID"></app-form-field>
           <app-form-field [input]="true" [control]="filterGroup.get('round_id')" placeholder="Round ID"></app-form-field>
+          <app-form-field [input]="true" [control]="filterGroup.get('config_id')" placeholder="Config ID"></app-form-field>
         </div>
 
-        <app-form-field class="app-select" [input]="true" [control]="filterGroup.get('config_id')" placeholder="Config ID"></app-form-field>
       </form>
     </app-card>
   </div>
@@ -25,21 +27,21 @@
   <app-card>
     <div class="list-entity no-pointer d-flex col-xs-12">
       <span class="col-xs-2" appTextEllipsis>Time</span>
-      <span class="col-xs-2" appTextEllipsis>User</span>
+      <span class="col-xs-3" appTextEllipsis>User</span>
       <span class="col-xs-2" appTextEllipsis>Config</span>
       <span class="col-xs-2" appTextEllipsis>Round</span>
-      <span class="col-xs-2" appTextEllipsis>Amount</span>
-      <span class="col-xs-2" appTextEllipsis>Status</span>
+      <span class="col-xs-3" appTextEllipsis>History</span>
     </div>
 
     <div class="list-entity d-flex col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
          *ngFor="let roundHistory of roundHystory">
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.time | date }}</span>
-      <span class="col-xs-2" appTextEllipsis>{{ roundHistory.user_id }}</span>
+      <span class="col-xs-3" appTextEllipsis>{{ roundHistory.user_id }}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.config_id }}</span>
       <span class="col-xs-2" appTextEllipsis>{{ roundHistory.round_id}}</span>
-      <span class="col-xs-2" appTextEllipsis>{{ roundHistory.amount }}</span>
-      <span class="col-xs-2" appTextEllipsis>{{ roundHistory.transaction_type }}</span>
+      <span class="col-xs-3" appTextEllipsis>
+        <app-form-button [value]="'Open'" (onClick)="openHistory(history, roundHistory)"></app-form-button>
+      </span>
     </div>
   </app-card>
 
@@ -53,3 +55,24 @@
     </app-card>
   </div>
 </div>
+
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="create-modal modal-header">
+    <h4 class="modal-title">History</h4>
+  </div>
+  <div class="create-modal modal-body" *ngIf="selectedRoundHistory.length > 0">
+    <div class="data-holder w-100 d-flex flex-column align-items-start justify-content-start">
+      <div class="data-value w-100 d-flex flex-column align-items-center justify-content-center">
+
+        <div class="w-100 d-flex align-items-center justify-content-center">
+          <app-custom-config [key]="'key'" [value]="'value'" [isLabel]="true"></app-custom-config>
+        </div>
+
+        <div class="w-100 d-flex align-items-center justify-content-center" *ngFor="let config of selectedRoundHistory; let i = index">
+          <app-custom-config [index]="i" [key]="config['key']" [value]="config['value']"></app-custom-config>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>

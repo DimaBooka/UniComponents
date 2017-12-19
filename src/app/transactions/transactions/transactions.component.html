@@ -8,16 +8,17 @@
     <app-card [noHidden]="true">
       <form class="d-flex" [formGroup]="filterGroup" (keyup)="onEnterPress($event)">
         <div class="block d-flex flex-column">
-          <app-form-field type="datepicker" [control]="filterGroup.get('from')" placeholder="From"></app-form-field>
-          <app-form-field type="datepicker" [control]="filterGroup.get('till')" placeholder="To"></app-form-field>
+          <app-form-field type="datepicker" [control]="filterGroup.get('fromDate')" placeholder="From"></app-form-field>
+          <app-form-field type="timepicker" [control]="filterGroup.get('fromTime')" placeholder="To"></app-form-field>
+          <app-form-field type="datepicker" [control]="filterGroup.get('tillDate')" placeholder="From"></app-form-field>
+          <app-form-field type="timepicker" [control]="filterGroup.get('tillTime')" placeholder="To"></app-form-field>
         </div>
 
         <div class="block d-flex flex-column">
           <app-form-field [input]="true" [control]="filterGroup.get('user_id')" placeholder="User ID"></app-form-field>
           <app-form-field [input]="true" [control]="filterGroup.get('config_id')" placeholder="Config ID"></app-form-field>
+          <app-form-field [control]="filterGroup.get('transaction_type')" [select]="true" [options]="options" placeholder="Status"></app-form-field>
         </div>
-
-        <app-form-field class="app-select" [control]="filterGroup.get('transaction_type')" [select]="true" [options]="options" placeholder="Status"></app-form-field>
       </form>
     </app-card>
   </div>
